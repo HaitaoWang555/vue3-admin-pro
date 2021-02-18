@@ -1,8 +1,8 @@
 {
-  "name": "vue-admin-template",
+  "name": "vue3-admin-pro",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://HaitaoWang555.github.io/vue3-admin-template",
+  "homepage": "https://HaitaoWang555.github.io/vue3-admin-pro",
   "scripts": {
     "dev": "vue-cli-service serve",
     "build:prod": "vue-cli-service build",
