@@ -6,18 +6,23 @@
       @click="handleClickOutside"
     />
     <Sidebar class="sidebar-container" />
-    <div class="main-container">
+    <div :class="{ hasTagsView: needTagsView }" class="main-container">
       <div :class="{ 'fixed-header': fixedHeader }">
         <navbar />
+        <tags-view v-if="needTagsView" />
       </div>
       <app-main />
+      <right-panel v-if="showSettings">
+        <Settings />
+      </right-panel>
     </div>
   </div>
 </template>
 
 <script>
 import { computed } from 'vue'
-import { Navbar, Sidebar, AppMain } from './components'
+import { Navbar, Sidebar, AppMain, Settings, TagsView } from './components'
+import RightPanel from '@/components/RightPanel'
 import { useResizeHandler } from './mixin/ResizeHandler'
 import { useStore } from 'vuex'
 
@@ -27,6 +32,9 @@ export default {
     Navbar,
     Sidebar,
     AppMain,
+    RightPanel,
+    Settings,
+    TagsView,
   },
   setup() {
     useResizeHandler()
@@ -35,7 +43,8 @@ export default {
     const sidebar = computed(() => store.state.app.sidebar)
     const device = computed(() => store.state.app.device)
     const fixedHeader = computed(() => store.state.settings.fixedHeader)
-
+    const showSettings = computed(() => store.state.settings.showSettings)
+    const needTagsView = computed(() => store.state.settings.tagsView)
     const classObj = computed(() => {
       return {
         hideSidebar: !sidebar.value.opened,
@@ -55,6 +64,8 @@ export default {
       fixedHeader,
       classObj,
       handleClickOutside,
+      showSettings,
+      needTagsView,
     }
   },
 }

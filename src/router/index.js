@@ -1,8 +1,22 @@
 import { createRouter, createWebHashHistory } from 'vue-router'
 
 import Layout from '@/layout'
+/* Router Modules */
+import nestedRouter from './modules/nested'
 
-const constantRoutes = [
+export const constantRoutes = [
+  {
+    path: '/redirect',
+    component: Layout,
+    hidden: true,
+    children: [
+      {
+        path: '/redirect/:path(.*)',
+        component: () => import('@/views/redirect/index'),
+      },
+    ],
+  },
+
   {
     path: '/',
     component: Layout,
@@ -56,81 +70,7 @@ const constantRoutes = [
     ],
   },
 
-  {
-    path: '/nested',
-    component: Layout,
-    redirect: '/nested/menu1',
-    name: 'Nested',
-    meta: {
-      title: 'Nested',
-      icon: 'nested',
-    },
-    children: [
-      {
-        path: 'menu1',
-        component: () =>
-          import(/* webpackChunkName: "nested" */ '@/views/nested/menu1/index'), // Parent router-view
-        name: 'Menu1',
-        meta: { title: 'Menu1' },
-        children: [
-          {
-            path: 'menu1-1',
-            component: () =>
-              import(
-                /* webpackChunkName: "nested" */ '@/views/nested/menu1/menu1-1'
-              ),
-            name: 'Menu1-1',
-            meta: { title: 'Menu1-1' },
-          },
-          {
-            path: 'menu1-2',
-            component: () =>
-              import(
-                /* webpackChunkName: "nested" */ '@/views/nested/menu1/menu1-2'
-              ),
-            name: 'Menu1-2',
-            meta: { title: 'Menu1-2' },
-            children: [
-              {
-                path: 'menu1-2-1',
-                component: () =>
-                  import(
-                    /* webpackChunkName: "nested" */ '@/views/nested/menu1/menu1-2/menu1-2-1'
-                  ),
-                name: 'Menu1-2-1',
-                meta: { title: 'Menu1-2-1' },
-              },
-              {
-                path: 'menu1-2-2',
-                component: () =>
-                  import(
-                    /* webpackChunkName: "nested" */ '@/views/nested/menu1/menu1-2/menu1-2-2'
-                  ),
-                name: 'Menu1-2-2',
-                meta: { title: 'Menu1-2-2' },
-              },
-            ],
-          },
-          {
-            path: 'menu1-3',
-            component: () =>
-              import(
-                /* webpackChunkName: "nested" */ '@/views/nested/menu1/menu1-3'
-              ),
-            name: 'Menu1-3',
-            meta: { title: 'Menu1-3' },
-          },
-        ],
-      },
-      {
-        path: 'menu2',
-        component: () =>
-          import(/* webpackChunkName: "nested" */ '@/views/nested/menu2/index'),
-        name: 'Menu2',
-        meta: { title: 'menu2' },
-      },
-    ],
-  },
+  nestedRouter,
 
   {
     path: '/external-link',
@@ -155,6 +95,12 @@ const constantRoutes = [
   },
   { path: '/*', redirect: '/404', hidden: true },
 ]
+
+/**
+ * asyncRoutes
+ * the routes that need to be dynamically loaded based on user roles
+ */
+export const asyncRoutes = []
 
 const history = createWebHashHistory()
 const router = createRouter({
