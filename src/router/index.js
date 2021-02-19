@@ -48,6 +48,13 @@ export const constantRoutes = [
         meta: { title: 'Table', icon: 'table' },
       },
       {
+        path: 'test',
+        name: 'Tabletest',
+        component: () =>
+          import(/* webpackChunkName: "example" */ '@/views/table/test'),
+        meta: { title: 'Table', icon: 'table' },
+      },
+      {
         path: 'tree',
         name: 'Tree',
         component: () =>

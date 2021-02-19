@@ -41,7 +41,7 @@ module.exports = [
         type,
         title,
         page = 1,
-        limit = 20,
+        pageSize = 20,
         sort,
       } = config.query
 
@@ -57,7 +57,8 @@ module.exports = [
       }
 
       const pageList = mockList.filter(
-        (item, index) => index < limit * page && index >= limit * (page - 1)
+        (item, index) =>
+          index < pageSize * page && index >= pageSize * (page - 1)
       )
 
       return {

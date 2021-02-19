@@ -47,3 +47,14 @@
 .el-range-separator {
   box-sizing: content-box;
 }
+
+.fixed-width {
+  .el-button--mini {
+    padding: 7px 10px;
+    min-width: 60px;
+  }
+}
+
+.el-pagination {
+  text-align: center;
+}
