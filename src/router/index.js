@@ -3,6 +3,7 @@ import { createRouter, createWebHashHistory } from 'vue-router'
 import Layout from '@/layout'
 /* Router Modules */
 import nestedRouter from './modules/nested'
+import errorRouter from './modules/error-page'
 
 export const constantRoutes = [
   {
@@ -71,6 +72,7 @@ export const constantRoutes = [
   },
 
   nestedRouter,
+  errorRouter,
 
   {
     path: '/icon',
@@ -78,7 +80,8 @@ export const constantRoutes = [
     children: [
       {
         path: 'index',
-        component: () => import('@/views/icons/index'),
+        component: () =>
+          import(/* webpackChunkName: "icon" */ '@/views/icons/index'),
         name: 'Icons',
         meta: { title: 'Icons', icon: 'icon', noCache: true },
       },
