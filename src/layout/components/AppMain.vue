@@ -34,6 +34,9 @@ export default {
 .fixed-header + .app-main {
   padding-top: 50px;
 }
+.hasTagsView .fixed-header + .app-main {
+  padding-top: 84px;
+}
 </style>
 
 <style lang="scss">

@@ -216,8 +216,6 @@ export default {
     onMounted(() => {
       initTags()
       addTags()
-      // console.log(toRaw(visitedViews.value))
-      // console.log(itemRefs)
     })
     onBeforeUpdate(() => {
       itemRefs = []
