@@ -39,3 +39,9 @@ export function updateArticle(data) {
     data,
   })
 }
+export function getStatus() {
+  return request({
+    url: '/vue3-admin-pro/article/getStatus',
+    method: 'get',
+  })
+}

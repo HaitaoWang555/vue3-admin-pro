@@ -1,5 +1,10 @@
 <template>
   <div class="pro-table">
+    <SearchForm
+      :searchList="columns.filter((i) => i.isSearch)"
+      :queryParam="queryParam"
+      :search="refresh"
+    />
     <el-table
       v-loading="listLoading"
       :data="list"
@@ -39,7 +44,7 @@
       :load="load"
     >
       <el-table-column
-        v-for="item in columns"
+        v-for="item in columns.filter((i) => !i.noTable)"
         :key="item.dataIndex"
         :label="item.title"
         :min-width="item.minWidth"
@@ -73,10 +78,17 @@
 <script>
 import { reactive, ref } from 'vue'
 import Pagination from '@/components/Pagination' // secondary package based on el-pagination
+import SearchForm from '@/components/SearchForm' // SearchForm
 export default {
   name: 'ProTable',
-  components: { Pagination },
+  components: { Pagination, SearchForm },
   props: {
+    queryParam: {
+      type: Object,
+      default: () => {
+        return {}
+      },
+    },
     showPagination: {
       type: Boolean,
       default: true,
@@ -195,6 +207,12 @@ export default {
         })
       }
     }
+    function refresh(bool = false) {
+      if (bool) {
+        localPagination.page = 1
+      }
+      loadData()
+    }
 
     loadData()
 
@@ -203,6 +221,7 @@ export default {
       listLoading,
       loadData,
       localPagination,
+      refresh,
     }
   },
 }

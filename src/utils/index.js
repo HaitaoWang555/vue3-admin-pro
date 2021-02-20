@@ -216,26 +216,6 @@ export function objectMerge(target, source) {
 }
 
 /**
- * @param {HTMLElement} element
- * @param {string} className
- */
-export function toggleClass(element, className) {
-  if (!element || !className) {
-    return
-  }
-  let classString = element.className
-  const nameIndex = classString.indexOf(className)
-  if (nameIndex === -1) {
-    classString += '' + className
-  } else {
-    classString =
-      classString.substr(0, nameIndex) +
-      classString.substr(nameIndex + className.length)
-  }
-  element.className = classString
-}
-
-/**
  * @param {string} type
  * @returns {Date}
  */
@@ -327,33 +307,50 @@ export function createUniqueString() {
   return (+(randomNum + timestamp)).toString(32)
 }
 
-/**
- * Check if an element has a class
- * @param {HTMLElement} elm
- * @param {string} cls
- * @returns {boolean}
- */
-export function hasClass(ele, cls) {
-  return !!ele.className.match(new RegExp('(\\s|^)' + cls + '(\\s|$)'))
+export const hasClass = function (obj, cls) {
+  return obj.className.match(new RegExp('(\\s|^)' + cls + '(\\s|$)'))
 }
 
-/**
- * Add class to element
- * @param {HTMLElement} elm
- * @param {string} cls
- */
-export function addClass(ele, cls) {
-  if (!hasClass(ele, cls)) ele.className += ' ' + cls
+export const addClass = function (obj, cls) {
+  if (!hasClass(obj, cls)) obj.className += ' ' + cls
 }
 
-/**
- * Remove class from element
- * @param {HTMLElement} elm
- * @param {string} cls
- */
-export function removeClass(ele, cls) {
-  if (hasClass(ele, cls)) {
+export const removeClass = function (obj, cls) {
+  if (hasClass(obj, cls)) {
     const reg = new RegExp('(\\s|^)' + cls + '(\\s|$)')
-    ele.className = ele.className.replace(reg, ' ')
+    obj.className = obj.className.replace(reg, '')
   }
+}
+
+export const toggleClass = function (obj, cls) {
+  if (hasClass(obj, cls)) {
+    removeClass(obj, cls)
+  } else {
+    addClass(obj, cls)
+  }
+}
+
+export function getScrollBarWidth() {
+  let scrollBarWidth
+
+  const outer = document.createElement('div')
+  outer.className = 'el-scrollbar__wrap'
+  outer.style.visibility = 'hidden'
+  outer.style.width = '100px'
+  outer.style.position = 'absolute'
+  outer.style.top = '-9999px'
+  document.body.appendChild(outer)
+
+  const widthNoScroll = outer.offsetWidth
+  outer.style.overflow = 'scroll'
+
+  const inner = document.createElement('div')
+  inner.style.width = '100%'
+  outer.appendChild(inner)
+
+  const widthWithScroll = inner.offsetWidth
+  outer.parentNode.removeChild(outer)
+  scrollBarWidth = widthNoScroll - widthWithScroll
+
+  return scrollBarWidth
 }
