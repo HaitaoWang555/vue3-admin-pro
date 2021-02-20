@@ -126,4 +126,19 @@ module.exports = [
       }
     },
   },
+  {
+    url: '/vue3-admin-pro/article/getStatus',
+    type: 'get',
+    response: () => {
+      return {
+        code: 20000,
+        data: [
+          { key: 'CN', display_name: 'China' },
+          { key: 'US', display_name: 'USA' },
+          { key: 'JP', display_name: 'Japan' },
+          { key: 'EU', display_name: 'Eurozone' },
+        ],
+      }
+    },
+  },
 ]
