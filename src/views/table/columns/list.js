@@ -5,6 +5,7 @@ const columnList = [
     dataIndex: 'id',
     width: 80,
     title: 'ID',
+    sortable: 'custom',
   },
   {
     dataIndex: 'timestamp',
@@ -18,7 +19,8 @@ const columnList = [
   },
   {
     dataIndex: 'title',
-    width: 450,
+    width: null,
+    minWidth: 450,
     align: 'left',
     title: 'Title',
     scopedSlots: { customRender: 'title' },

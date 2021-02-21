@@ -4,6 +4,7 @@ import Layout from '@/layout'
 /* Router Modules */
 import nestedRouter from './modules/nested'
 import errorRouter from './modules/error-page'
+import tableRouter from './modules/table'
 
 export const constantRoutes = [
   {
@@ -33,36 +34,7 @@ export const constantRoutes = [
     ],
   },
 
-  {
-    path: '/example',
-    component: Layout,
-    redirect: '/example/table',
-    name: 'Example',
-    meta: { title: 'Example', icon: 'el-icon-s-help' },
-    children: [
-      {
-        path: 'table',
-        name: 'Table',
-        component: () =>
-          import(/* webpackChunkName: "example" */ '@/views/table/index'),
-        meta: { title: 'Table', icon: 'table' },
-      },
-      {
-        path: 'test',
-        name: 'Tabletest',
-        component: () =>
-          import(/* webpackChunkName: "example" */ '@/views/table/test'),
-        meta: { title: 'Table', icon: 'table' },
-      },
-      {
-        path: 'tree',
-        name: 'Tree',
-        component: () =>
-          import(/* webpackChunkName: "example" */ '@/views/tree/index'),
-        meta: { title: 'Tree', icon: 'tree' },
-      },
-    ],
-  },
+  tableRouter,
 
   {
     path: '/form',
