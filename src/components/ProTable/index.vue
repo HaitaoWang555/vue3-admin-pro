@@ -42,7 +42,13 @@
       :treeProps="treeProps"
       :lazy="lazy"
       :load="load"
+      @selection-change="handleSelectionChange"
+      @sort-change="sortChange"
+      @current-change="handleCurrentChange"
+      @expand-change="handlExpandChange"
     >
+      <el-table-column v-if="showSelection" type="selection" width="55" />
+      <el-table-column v-if="showIndex" label="#" align="center" type="index" />
       <el-table-column
         v-for="item in columns.filter((i) => !i.noTable)"
         :key="item.dataIndex"
@@ -51,6 +57,8 @@
         :width="item.width"
         :fixed="device === 'mobile' ? false : item.fixed"
         :align="item.align ? item.align : 'center'"
+        :sortable="item.sortable || null"
+        :prop="item.sortable ? item.dataIndex : null"
       >
         <template v-slot="scope">
           <span v-if="!item.scopedSlots">{{ scope.row[item.dataIndex] }}</span>
@@ -90,6 +98,14 @@ export default {
       default: () => {
         return {}
       },
+    },
+    showIndex: {
+      type: Boolean,
+      default: false,
+    },
+    showSelection: {
+      type: Boolean,
+      default: false,
     },
     showPagination: {
       type: Boolean,
@@ -165,7 +181,7 @@ export default {
   emits: [
     'select',
     'select-all',
-    'selection-change',
+    'selection-change', // complete
     'cell-mouse-enter',
     'cell-mouse-leave',
     'cell-click',
@@ -175,13 +191,13 @@ export default {
     'row-dblclick',
     'header-click',
     'header-contextmenu',
-    'sort-change',
+    'sort-change', // complete
     'filter-change',
-    'current-change',
+    'current-change', // complete
     'header-dragend',
-    'expand-change',
+    'expand-change', // complete
   ],
-  setup(prop) {
+  setup(prop, { emit }) {
     const list = ref(null)
     const listLoading = ref(false)
     const localPagination = reactive({
@@ -219,6 +235,18 @@ export default {
       }
       loadData()
     }
+    function handleSelectionChange(data) {
+      emit('selection-change', data)
+    }
+    function sortChange(data) {
+      emit('sort-change', data)
+    }
+    function handleCurrentChange(data) {
+      emit('current-change', data)
+    }
+    function handlExpandChange(data, expandedRows) {
+      emit('expand-change', data, expandedRows)
+    }
 
     loadData()
 
@@ -229,6 +257,10 @@ export default {
       localPagination,
       refresh,
       device,
+      handleSelectionChange,
+      sortChange,
+      handleCurrentChange,
+      handlExpandChange,
     }
   },
 }

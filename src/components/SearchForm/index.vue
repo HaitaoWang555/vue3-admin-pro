@@ -167,6 +167,7 @@ export default {
 .table-page-search-wrapper {
   position: relative;
   .search-form {
+    padding-right: 40px;
     display: flex;
     flex-wrap: wrap;
     align-items: center;

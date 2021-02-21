@@ -1,10 +1,13 @@
 <template>
   <div class="app-container">
     <ProTable
+      ref="proTable"
       border
       :columns="columns"
       :data="loadData"
       :queryParam="queryParam"
+      @sort-change="sortChange"
+      :default-sort="{ prop: 'id', order: 'ascending' }"
     >
       <template #title="slotProps">
         <span style="padding-right: 15px" class="link-type">{{
@@ -70,15 +73,18 @@ import ProTable from '@/components/ProTable'
 import { reactive, ref, toRaw } from 'vue'
 import { fetchList } from '@/api/article'
 import { columnList } from './columns/list'
+import Message from 'element-plus/lib/el-message'
 
 export default {
-  name: 'Page',
+  name: 'ComplexTable',
   components: {
     ProTable,
   },
   setup() {
+    const proTable = ref(null)
     const columns = ref(columnList)
     const queryParam = reactive({
+      sort: '+id',
       importance: '',
       title: '',
       type: '',
@@ -120,16 +126,35 @@ export default {
     function handleUpdate(row) {
       console.log(toRaw(row))
     }
-    function handleModifyStatus(row, type) {
-      console.log(row.content)
-      console.log(type)
+    function handleModifyStatus(row, status) {
+      Message({
+        message: 'Success',
+        type: 'success',
+      })
+      row.status = status
     }
     function handleDelete(row, index) {
       console.log(toRaw(row))
       console.log(index)
     }
+    function sortChange(data) {
+      console.log(data)
+      const { prop, order } = data
+      if (prop === 'id') {
+        sortByID(order)
+      }
+    }
+    function sortByID(order) {
+      if (order === 'ascending') {
+        queryParam.sort = '+id'
+      } else {
+        queryParam.sort = '-id'
+      }
+      proTable.value.refresh(true)
+    }
 
     return {
+      proTable,
       queryParam,
       columns,
       typeFilter,
@@ -138,6 +163,7 @@ export default {
       handleUpdate,
       handleModifyStatus,
       handleDelete,
+      sortChange,
     }
   },
 }
