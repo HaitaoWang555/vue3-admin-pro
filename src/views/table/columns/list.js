@@ -8,7 +8,7 @@ const columnList = [
   },
   {
     dataIndex: 'timestamp',
-    width: 150,
+    width: 180,
     title: 'Date',
     scopedSlots: { customRender: 'date' },
     valueType: 'date-picker',
@@ -18,8 +18,7 @@ const columnList = [
   },
   {
     dataIndex: 'title',
-    width: null,
-    minWidth: 150,
+    width: 450,
     align: 'left',
     title: 'Title',
     scopedSlots: { customRender: 'title' },
@@ -28,17 +27,17 @@ const columnList = [
   },
   {
     dataIndex: 'author',
-    width: 110,
+    width: 120,
     title: 'Author',
   },
   {
     dataIndex: 'reviewer',
-    width: 110,
+    width: 120,
     title: 'Reviewer',
   },
   {
     dataIndex: 'importance',
-    width: 80,
+    width: 100,
     title: 'Imp',
     scopedSlots: { customRender: 'importance' },
     valueType: 'select',
@@ -60,18 +59,19 @@ const columnList = [
   },
   {
     dataIndex: 'pageviews',
-    width: 95,
+    width: 100,
     title: 'Readings',
   },
   {
     dataIndex: 'status',
-    width: 100,
+    width: 110,
     title: 'Status',
+    fixed: 'right',
     scopedSlots: { customRender: 'status' },
   },
   {
     dataIndex: 'type',
-    width: 100,
+    width: 110,
     title: 'Type',
     valueType: 'select',
     option: [],
@@ -85,6 +85,7 @@ const columnList = [
   },
   {
     dataIndex: 'actions',
+    fixed: 'right',
     width: 230,
     title: 'Actions',
     scopedSlots: { customRender: 'actions' },

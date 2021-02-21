@@ -167,7 +167,6 @@ export default {
 .table-page-search-wrapper {
   position: relative;
   .search-form {
-    padding-right: 40px;
     display: flex;
     flex-wrap: wrap;
     align-items: center;
@@ -180,8 +179,8 @@ export default {
     }
   }
   .fullscreen {
-    line-height: 51px;
-    height: 100%;
+    line-height: 56px;
+    height: 52px;
     position: absolute;
     right: 0;
     top: 0;

@@ -49,6 +49,7 @@
         :label="item.title"
         :min-width="item.minWidth"
         :width="item.width"
+        :fixed="device === 'mobile' ? false : item.fixed"
         :align="item.align ? item.align : 'center'"
       >
         <template v-slot="scope">
@@ -76,9 +77,10 @@
 </template>
 
 <script>
-import { reactive, ref } from 'vue'
+import { computed, reactive, ref } from 'vue'
 import Pagination from '@/components/Pagination' // secondary package based on el-pagination
 import SearchForm from '@/components/SearchForm' // SearchForm
+import { useStore } from 'vuex'
 export default {
   name: 'ProTable',
   components: { Pagination, SearchForm },
@@ -188,6 +190,10 @@ export default {
       pageSize: 20,
     })
 
+    const store = useStore()
+
+    const device = computed(() => store.state.app.device)
+
     function loadData() {
       listLoading.value = true
       const result = prop.data(localPagination)
@@ -222,6 +228,7 @@ export default {
       loadData,
       localPagination,
       refresh,
+      device,
     }
   },
 }
