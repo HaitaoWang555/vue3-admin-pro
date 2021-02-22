@@ -22,6 +22,7 @@ module.exports = {
   rules: {
     'vue/no-v-html': 'off',
     'no-console': 'off',
+    'vue/no-mutating-props': 'off',
     'no-var': 2,
   },
 }
