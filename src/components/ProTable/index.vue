@@ -5,6 +5,7 @@
       :queryParam="queryParam"
       :search="refresh"
     />
+    <slot name="btn"></slot>
     <el-table
       v-loading="listLoading"
       :data="list"
@@ -47,7 +48,12 @@
       @current-change="handleCurrentChange"
       @expand-change="handlExpandChange"
     >
-      <el-table-column v-if="showSelection" type="selection" width="55" />
+      <el-table-column
+        v-if="showSelection"
+        type="selection"
+        align="center"
+        width="55"
+      />
       <el-table-column v-if="showIndex" label="#" align="center" type="index" />
       <el-table-column
         v-for="item in columns.filter((i) => !i.noTable)"

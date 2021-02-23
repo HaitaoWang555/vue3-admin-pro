@@ -3,12 +3,35 @@
     <ProTable
       ref="proTable"
       border
+      showSelection
       :columns="columns"
       :data="loadData"
       :queryParam="queryParam"
       @sort-change="sortChange"
+      @selection-change="handleSelectionChange"
       :default-sort="{ prop: 'id', order: 'ascending' }"
     >
+      <template #btn>
+        <div class="table-operator">
+          <el-button type="primary" icon="el-icon-plus" @click="handleCreate">
+            Add
+          </el-button>
+          <el-button
+            type="success"
+            :disabled="multipleSelection.length === 0"
+            @click="handleBatchModifyStatus('published')"
+          >
+            Publish
+          </el-button>
+          <el-button
+            :disabled="multipleSelection.length === 0"
+            @click="handleBatchModifyStatus('draft')"
+          >
+            Draft
+          </el-button>
+        </div>
+      </template>
+
       <template #title="slotProps">
         <span style="padding-right: 15px" class="link-type">{{
           slotProps.row.title
@@ -32,11 +55,7 @@
       </template>
       <template #actions="slotProps">
         <span class="fixed-width">
-          <el-button
-            type="primary"
-            size="mini"
-            @click="handleUpdate(slotProps.row)"
-          >
+          <el-button type="primary" @click="handleUpdate(slotProps.row)">
             Edit
           </el-button>
           <el-button
@@ -65,22 +84,46 @@
         </span>
       </template>
     </ProTable>
+    <el-dialog v-model="dialogVisible" :title="dialogTitle" @close="resetForm">
+      <ProForm
+        :formParam="form"
+        :formList="columns"
+        :isEdit="isEdit"
+        :layout="{ formWidth: '560px', labelWidth: '100px' }"
+      >
+        <template #footer>
+          <el-form-item label="Imp : ">
+            <el-rate
+              v-model="form.importance"
+              :colors="['#99A9BF', '#F7BA2A', '#FF9900']"
+              :max="3"
+              style="margin-top: 8px"
+            />
+          </el-form-item>
+        </template>
+      </ProForm>
+    </el-dialog>
   </div>
 </template>
 
 <script>
 import ProTable from '@/components/ProTable'
+import ProForm from '@/components/ProForm'
 import { reactive, ref, toRaw } from 'vue'
-import { fetchList } from '@/api/article'
+import { fetchList, createArticle, updateArticle } from '@/api/article'
 import { columnList } from './columns/list'
 import Message from 'element-plus/lib/el-message'
+import { useFilter } from '@/composition/table'
+import { parseTime, resetObj } from '@/utils'
 
 export default {
   name: 'ComplexTable',
   components: {
     ProTable,
+    ProForm,
   },
   setup() {
+    // Table
     const proTable = ref(null)
     const columns = ref(columnList)
     const queryParam = reactive({
@@ -90,24 +133,24 @@ export default {
       type: '',
       timestamp: '',
     })
-
-    const calendarTypeOptions = [
-      { key: 'CN', display_name: 'China' },
-      { key: 'US', display_name: 'USA' },
-      { key: 'JP', display_name: 'Japan' },
-      { key: 'EU', display_name: 'Eurozone' },
-    ]
-
-    // arr to obj, such as { CN : "China", US : "USA" }
-    const calendarTypeKeyValue = calendarTypeOptions.reduce((acc, cur) => {
-      acc[cur.key] = cur.display_name
-      return acc
-    }, {})
-
-    function typeFilter(type) {
-      return calendarTypeKeyValue[type]
-    }
-
+    const multipleSelection = ref([])
+    // Form
+    const dialogTitle = ref('')
+    const dialogVisible = ref(false)
+    const form = reactive({
+      id: undefined,
+      importance: 1,
+      remark: '',
+      timestamp: new Date(),
+      title: '',
+      type: '',
+      status: 'published',
+    })
+    const isEdit = ref(false)
+    let formData = null
+    // Filter
+    const { typeFilter, statusFilter } = useFilter()
+    // loadData
     function loadData(parameter) {
       const requestParameters = Object.assign({}, parameter, queryParam)
       return fetchList(requestParameters).then((res) => {
@@ -115,28 +158,13 @@ export default {
         return res
       })
     }
-    function statusFilter(status) {
-      const statusMap = {
-        published: 'success',
-        draft: 'info',
-        deleted: 'danger',
-      }
-      return statusMap[status]
-    }
-    function handleUpdate(row) {
-      console.log(toRaw(row))
-    }
-    function handleModifyStatus(row, status) {
-      Message({
-        message: 'Success',
-        type: 'success',
-      })
-      row.status = status
-    }
+    // Delete
     function handleDelete(row, index) {
       console.log(toRaw(row))
-      console.log(index)
+      Message({ message: 'Success', type: 'success' })
+      proTable.value.list.splice(index, 1)
     }
+    // Sort
     function sortChange(data) {
       console.log(data)
       const { prop, order } = data
@@ -153,10 +181,84 @@ export default {
       proTable.value.refresh(true)
     }
 
+    // Modify Status
+    function handleSelectionChange(data) {
+      multipleSelection.value = data
+    }
+    function handleBatchModifyStatus(status) {
+      multipleSelection.value.forEach((i) => {
+        i.status = status
+      })
+    }
+    function handleModifyStatus(row, status) {
+      Message({
+        message: 'Success',
+        type: 'success',
+      })
+      row.status = status
+    }
+    // Create
+    function handleCreate() {
+      dialogTitle.value = 'Create'
+      form.subMet = create
+      form.formCB = createSuccess
+      isEdit.value = false
+      dialogVisible.value = true
+    }
+    function create() {
+      form.id = parseInt(Math.random() * 100) + 1024 // mock a id
+      form.timestamp = parseTime(form.timestamp)
+      formData = JSON.parse(JSON.stringify(toRaw(form)))
+      return createArticle(form)
+    }
+    function createSuccess() {
+      formData.author = 'vue3'
+      formData.reviewer = 'element-plus'
+      formData.pageviews = 0
+      proTable.value.list.unshift(formData)
+      dialogVisible.value = false
+    }
+    // Update
+    function handleUpdate(row) {
+      dialogTitle.value = 'Update'
+      form.subMet = update
+      form.formCB = updateSuccess
+      resetObj(form, toRaw(row))
+      form.timestamp = parseTime(form.timestamp)
+      isEdit.value = true
+      dialogVisible.value = true
+    }
+    function update() {
+      formData = JSON.parse(JSON.stringify(toRaw(form)))
+      return updateArticle(form)
+    }
+    function updateSuccess() {
+      const index = proTable.value.list.findIndex((v) => v.id === formData.id)
+      proTable.value.list.splice(index, 1, formData)
+      dialogVisible.value = false
+    }
+
+    // utils
+    function resetForm() {
+      resetObj(form, {
+        id: undefined,
+        importance: 1,
+        remark: '',
+        timestamp: new Date(),
+        title: '',
+        type: '',
+        status: 'published',
+      })
+    }
     return {
       proTable,
       queryParam,
       columns,
+      dialogVisible,
+      dialogTitle,
+      isEdit,
+      form,
+      multipleSelection,
       typeFilter,
       loadData,
       statusFilter,
@@ -164,6 +266,10 @@ export default {
       handleModifyStatus,
       handleDelete,
       sortChange,
+      handleCreate,
+      handleSelectionChange,
+      handleBatchModifyStatus,
+      resetForm,
     }
   },
 }

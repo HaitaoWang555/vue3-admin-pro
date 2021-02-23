@@ -111,6 +111,7 @@ module.exports = [
     response: () => {
       return {
         code: 20000,
+        msg: 'success',
         data: 'success',
       }
     },
@@ -122,6 +123,7 @@ module.exports = [
     response: () => {
       return {
         code: 20000,
+        msg: 'success',
         data: 'success',
       }
     },

@@ -14,8 +14,17 @@ const columnList = [
     scopedSlots: { customRender: 'date' },
     valueType: 'date-picker',
     pickerType: 'date',
-    pickerFormat: 'YYYY-MM-DD',
+    pickerFormat: 'YYYY-MM-DD HH-mm-ss',
     isSearch: true,
+    isForm: true,
+    prop: [
+      {
+        type: 'date',
+        required: true,
+        message: 'timestamp is required',
+        trigger: 'change',
+      },
+    ],
   },
   {
     dataIndex: 'title',
@@ -26,6 +35,8 @@ const columnList = [
     scopedSlots: { customRender: 'title' },
     valueType: 'input',
     isSearch: true,
+    isForm: true,
+    prop: [{ required: true, message: 'title is required', trigger: 'blur' }],
   },
   {
     dataIndex: 'author',
@@ -70,6 +81,22 @@ const columnList = [
     title: 'Status',
     fixed: 'right',
     scopedSlots: { customRender: 'status' },
+    valueType: 'select',
+    option: [
+      {
+        label: 'published',
+        value: 'published',
+      },
+      {
+        label: 'draft',
+        value: 'draft',
+      },
+      {
+        label: 'deleted',
+        value: 'deleted',
+      },
+    ],
+    isForm: true,
   },
   {
     dataIndex: 'type',
@@ -84,6 +111,16 @@ const columnList = [
     },
     isSearch: true,
     noTable: true,
+    isForm: true,
+    prop: [{ required: true, message: 'type is required', trigger: 'change' }],
+  },
+  {
+    dataIndex: 'remark',
+    title: 'Remark',
+    valueType: 'input',
+    inpuType: 'textarea',
+    noTable: true,
+    isForm: true,
   },
   {
     dataIndex: 'actions',
