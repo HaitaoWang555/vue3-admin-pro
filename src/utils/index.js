@@ -354,3 +354,21 @@ export function getScrollBarWidth() {
 
   return scrollBarWidth
 }
+
+export function resetObj(oldObj, newObj) {
+  if (newObj) {
+    for (const key in newObj) {
+      oldObj[key] = newObj[key]
+    }
+  } else {
+    for (const key in oldObj) {
+      if (oldObj[key] instanceof Array) {
+        oldObj[key] = []
+      } else {
+        oldObj[key] = ''
+      }
+    }
+  }
+
+  return oldObj
+}

@@ -7,6 +7,7 @@
     :label-width="layout.labelWidth"
     :rules="rules"
     :style="{ width: layout.formWidth }"
+    style="margin: 0 auto"
   >
     <slot name="header"></slot>
     <el-form-item
@@ -36,7 +37,7 @@
         v-model="formParam[item.dataIndex]"
       />
       <el-date-picker
-        v-else-if="item.valueType === 'date'"
+        v-else-if="item.valueType === 'date-picker'"
         v-model="formParam[item.dataIndex]"
         :type="item.pickerType"
         :format="item.pickerFormat"
@@ -87,6 +88,7 @@
         @click="handleSubmit"
         >{{ isEdit ? '修改' : '确定' }}</el-button
       >
+      <slot name="btn"></slot>
     </el-form-item>
   </el-form>
 </template>
@@ -153,7 +155,7 @@ export default {
     function initOption(element) {
       element.optionMth().then((res) => {
         if (!res) return
-        const arr = res.map((i) => {
+        const arr = res.data.map((i) => {
           const obj = {}
           obj.label = i[element.optionskey.label]
           obj.value = i[element.optionskey.value]
@@ -185,7 +187,7 @@ export default {
           prop.formParam['subMet']()
             .then((res) => {
               Message({ message: res.msg, type: 'success' })
-              prop.formParam['formCB']()
+              if (prop.formParam['formCB']) prop.formParam['formCB']()
               resetFormParam()
             })
             .finally(() => {
