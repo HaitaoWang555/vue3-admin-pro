@@ -3,7 +3,7 @@
     <SearchForm
       :searchList="columns.filter((i) => i.isSearch)"
       :queryParam="queryParam"
-      :search="refresh"
+      @search="refresh"
     />
     <slot name="btn"></slot>
     <el-table

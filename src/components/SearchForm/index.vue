@@ -49,7 +49,9 @@
 
       <div class="form-item">
         <div class="table-page-search-submitButtons">
-          <el-button type="primary" @click="search(true)">查询</el-button>
+          <el-button type="primary" @click="$emit('search', true)"
+            >查询</el-button
+          >
           <el-button style="margin-left: 8px" @click="resetQueryParam"
             >重置</el-button
           >
@@ -88,11 +90,8 @@ export default {
       type: Array,
       default: () => {},
     },
-    search: {
-      type: Function,
-      default: () => {},
-    },
   },
+  emits: ['search'],
   setup(prop) {
     // 高级搜索 展开/关闭
     const advanced = ref(false)
@@ -144,9 +143,11 @@ export default {
     }
     function resetQueryParam() {
       for (const key in prop.queryParam) {
-        if (key !== 'searchMet') {
-          // eslint-disable-next-line vue/no-mutating-props
-          prop.queryParam[key] = ''
+        let value = prop.queryParam[key]
+        if (value instanceof Array) {
+          value = []
+        } else {
+          value = ''
         }
       }
     }

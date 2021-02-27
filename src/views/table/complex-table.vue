@@ -89,6 +89,8 @@
         :formParam="form"
         :formList="columns"
         :isEdit="isEdit"
+        :subMet="subMet"
+        :formCB="formCB"
         :layout="{ formWidth: '560px', labelWidth: '100px' }"
       >
         <template #footer>
@@ -200,8 +202,6 @@ export default {
     // Create
     function handleCreate() {
       dialogTitle.value = 'Create'
-      form.subMet = create
-      form.formCB = createSuccess
       isEdit.value = false
       dialogVisible.value = true
     }
@@ -221,8 +221,6 @@ export default {
     // Update
     function handleUpdate(row) {
       dialogTitle.value = 'Update'
-      form.subMet = update
-      form.formCB = updateSuccess
       resetObj(form, toRaw(row))
       form.timestamp = parseTime(form.timestamp)
       isEdit.value = true
@@ -236,6 +234,13 @@ export default {
       const index = proTable.value.list.findIndex((v) => v.id === formData.id)
       proTable.value.list.splice(index, 1, formData)
       dialogVisible.value = false
+    }
+
+    function subMet() {
+      return isEdit.value ? update() : create()
+    }
+    function formCB() {
+      return isEdit.value ? updateSuccess() : createSuccess()
     }
 
     // utils
@@ -270,6 +275,8 @@ export default {
       handleSelectionChange,
       handleBatchModifyStatus,
       resetForm,
+      subMet,
+      formCB,
     }
   },
 }
