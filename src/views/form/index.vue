@@ -1,6 +1,6 @@
 <template>
   <div class="app-container">
-    <ProForm :formParam="form" :formList="formList" />
+    <ProForm :formParam="form" :formList="formList" :subMet="onSubmit" />
   </div>
 </template>
 
@@ -22,7 +22,6 @@ export default {
       type: [],
       resource: '',
       desc: '',
-      subMet: null,
     })
     const formList = list
     const onSubmit = () => {
@@ -31,11 +30,11 @@ export default {
       console.log(toRaw(form))
       return submit(form)
     }
-    form.subMet = onSubmit
 
     return {
       form,
       formList,
+      onSubmit,
     }
   },
 }

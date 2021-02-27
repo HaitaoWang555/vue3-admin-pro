@@ -38,7 +38,7 @@ const list = [
   {
     dataIndex: 'date',
     title: 'Activity time',
-    valueType: 'date',
+    valueType: 'date-picker',
     pickerType: 'daterange',
     pickerFormat: 'YYYY-MM-DD',
     isForm: true,

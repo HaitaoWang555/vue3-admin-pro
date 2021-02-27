@@ -129,6 +129,14 @@ export default {
       type: Boolean,
       default: false,
     },
+    subMet: {
+      type: Function,
+      default: () => {},
+    },
+    formCB: {
+      type: Function,
+      default: () => {},
+    },
   },
   setup(prop) {
     const loading = ref(false)
@@ -180,14 +188,14 @@ export default {
       ProForm.value.resetFields()
     }
     function handleSubmit() {
-      if (!prop.formParam['subMet']) return
       ProForm.value.validate((valid) => {
         if (valid) {
           loading.value = true
-          prop.formParam['subMet']()
+          prop
+            .subMet()
             .then((res) => {
               Message({ message: res.msg, type: 'success' })
-              if (prop.formParam['formCB']) prop.formParam['formCB']()
+              prop.formCB()
               resetFormParam()
             })
             .finally(() => {
@@ -202,7 +210,6 @@ export default {
       loading,
       showForm,
       rules,
-      resetFormParam,
       handleSubmit,
     }
   },
