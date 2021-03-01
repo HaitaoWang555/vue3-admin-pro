@@ -58,3 +58,6 @@
 .el-pagination {
   text-align: center;
 }
+.el-table__body-wrapper {
+  min-height: calc(100vh - 300px);
+}
