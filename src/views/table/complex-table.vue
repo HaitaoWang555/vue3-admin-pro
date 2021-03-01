@@ -3,13 +3,13 @@
     <ProTable
       ref="proTable"
       border
-      showSelection
+      show-selection
       :columns="columns"
       :data="loadData"
-      :queryParam="queryParam"
+      :query-param="queryParam"
+      :default-sort="{ prop: 'id', order: 'ascending' }"
       @sort-change="sortChange"
       @selection-change="handleSelectionChange"
-      :default-sort="{ prop: 'id', order: 'ascending' }"
     >
       <template #btn>
         <div class="table-operator">
@@ -86,11 +86,11 @@
     </ProTable>
     <el-dialog v-model="dialogVisible" :title="dialogTitle" @close="resetForm">
       <ProForm
-        :formParam="form"
-        :formList="columns"
-        :isEdit="isEdit"
-        :subMet="subMet"
-        :formCB="formCB"
+        :form-param="form"
+        :form-list="columns"
+        :is-edit="isEdit"
+        :sub-met="subMet"
+        :form-c-b="formCB"
         :layout="{ formWidth: '560px', labelWidth: '100px' }"
       >
         <template #footer>

@@ -1,8 +1,8 @@
 <template>
   <div class="pro-table">
     <SearchForm
-      :searchList="columns.filter((i) => i.isSearch)"
-      :queryParam="queryParam"
+      :search-list="columns.filter((i) => i.isSearch)"
+      :query-param="queryParam"
       @search="refresh"
     />
     <slot name="btn"></slot>
@@ -15,32 +15,32 @@
       :size="size"
       :width="width"
       :height="height"
-      :maxHeight="maxHeight"
+      :max-height="maxHeight"
       :stripe="stripe"
-      :rowKey="rowKey"
-      :showHeader="showHeader"
-      :showSummary="showSummary"
-      :sumText="sumText"
-      :summaryMethod="summaryMethod"
-      :rowClassName="rowClassName"
-      :rowStyle="rowStyle"
-      :cellClassName="cellClassName"
-      :cellStyle="cellStyle"
-      :headerRowClassName="headerRowClassName"
-      :headerRowStyle="headerRowStyle"
-      :headerCellClassName="headerCellClassName"
-      :headerCellStyle="headerCellStyle"
-      :highlightCurrentRow="highlightCurrentRow"
-      :currentRowKey="currentRowKey"
-      :emptyText="emptyText"
-      :expandRowKeys="expandRowKeys"
-      :defaultExpandAll="defaultExpandAll"
-      :defaultSort="defaultSort"
-      :tooltipEffect="tooltipEffect"
-      :spanMethod="spanMethod"
-      :selectOnIndeterminate="selectOnIndeterminate"
+      :row-key="rowKey"
+      :show-header="showHeader"
+      :show-summary="showSummary"
+      :sum-text="sumText"
+      :summary-method="summaryMethod"
+      :row-class-name="rowClassName"
+      :row-style="rowStyle"
+      :cell-class-name="cellClassName"
+      :cell-style="cellStyle"
+      :header-row-class-name="headerRowClassName"
+      :header-row-style="headerRowStyle"
+      :header-cell-class-name="headerCellClassName"
+      :header-cell-style="headerCellStyle"
+      :highlight-current-row="highlightCurrentRow"
+      :current-row-key="currentRowKey"
+      :empty-text="emptyText"
+      :expand-row-keys="expandRowKeys"
+      :default-expand-all="defaultExpandAll"
+      :default-sort="defaultSort"
+      :tooltip-effect="tooltipEffect"
+      :span-method="spanMethod"
+      :select-on-indeterminate="selectOnIndeterminate"
       :indent="indent"
-      :treeProps="treeProps"
+      :tree-props="treeProps"
       :lazy="lazy"
       :load="load"
       @selection-change="handleSelectionChange"
@@ -66,7 +66,7 @@
         :sortable="item.sortable || null"
         :prop="item.sortable ? item.dataIndex : null"
       >
-        <template v-slot="scope">
+        <template #default="scope">
           <span v-if="!item.scopedSlots">{{ scope.row[item.dataIndex] }}</span>
           <span v-else-if="item.scopedSlots.customRender === 'date'">
             {{ $filters.parseTime(scope.row[item.dataIndex]) }}
@@ -82,9 +82,9 @@
     </el-table>
     <pagination
       v-show="showPagination && localPagination.total"
-      :total="localPagination.total"
       v-model:page="localPagination.page"
       v-model:pageSize="localPagination.pageSize"
+      :total="localPagination.total"
       @pagination="loadData"
     />
   </div>
@@ -99,6 +99,7 @@ export default {
   name: 'ProTable',
   components: { Pagination, SearchForm },
   props: {
+    /* eslint-disable vue/require-default-prop */
     queryParam: {
       type: Object,
       default: () => {
