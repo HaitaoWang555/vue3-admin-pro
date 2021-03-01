@@ -28,7 +28,7 @@
       :index="resolvePath(item.path)"
       popper-append-to-body
     >
-      <template v-slot:title>
+      <template #title>
         <item
           v-if="item.meta"
           :icon="item.meta && item.meta.icon"

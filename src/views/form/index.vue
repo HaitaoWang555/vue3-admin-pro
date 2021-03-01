@@ -1,6 +1,6 @@
 <template>
   <div class="app-container">
-    <ProForm :formParam="form" :formList="formList" :subMet="onSubmit" />
+    <ProForm :form-param="form" :form-list="formList" :sub-met="onSubmit" />
   </div>
 </template>
 

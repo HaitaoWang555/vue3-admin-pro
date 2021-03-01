@@ -1,5 +1,5 @@
 <template>
-  <div ref="tagsView" id="tags-view-container" class="tags-view-container">
+  <div id="tags-view-container" ref="tagsView" class="tags-view-container">
     <scroll-pane
       ref="refScrollPane"
       class="tags-view-wrapper"
