@@ -102,4 +102,20 @@ div:focus {
 // pro table btn
 .table-operator {
   margin-bottom: 18px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  .table-setting {
+    font-size: 22px;
+    i {
+      padding: 0 6px;
+      cursor: pointer;
+    }
+    i:last-child {
+      padding-right: 0;
+    }
+    i:hover {
+      color: #409EFF;
+    }
+  }
 }

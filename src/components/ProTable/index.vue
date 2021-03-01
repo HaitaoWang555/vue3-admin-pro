@@ -5,7 +5,10 @@
       :query-param="queryParam"
       @search="refresh"
     />
-    <slot name="btn"></slot>
+    <div class="table-operator">
+      <div class="solt"><slot name="btn"></slot></div>
+      <TableSetting :refresh="refresh" />
+    </div>
     <el-table
       v-loading="listLoading"
       :data="list"
@@ -94,10 +97,11 @@
 import { computed, reactive, ref } from 'vue'
 import Pagination from '@/components/Pagination' // secondary package based on el-pagination
 import SearchForm from '@/components/SearchForm' // SearchForm
+import TableSetting from '@/components/ProTable/table-setting' // TableSetting
 import { useStore } from 'vuex'
 export default {
   name: 'ProTable',
-  components: { Pagination, SearchForm },
+  components: { Pagination, SearchForm, TableSetting },
   props: {
     /* eslint-disable vue/require-default-prop */
     queryParam: {
