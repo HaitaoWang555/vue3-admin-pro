@@ -12,24 +12,22 @@
       @selection-change="handleSelectionChange"
     >
       <template #btn>
-        <div class="table-operator">
-          <el-button type="primary" icon="el-icon-plus" @click="handleCreate">
-            Add
-          </el-button>
-          <el-button
-            type="success"
-            :disabled="multipleSelection.length === 0"
-            @click="handleBatchModifyStatus('published')"
-          >
-            Publish
-          </el-button>
-          <el-button
-            :disabled="multipleSelection.length === 0"
-            @click="handleBatchModifyStatus('draft')"
-          >
-            Draft
-          </el-button>
-        </div>
+        <el-button type="primary" icon="el-icon-plus" @click="handleCreate">
+          Add
+        </el-button>
+        <el-button
+          type="success"
+          :disabled="multipleSelection.length === 0"
+          @click="handleBatchModifyStatus('published')"
+        >
+          Publish
+        </el-button>
+        <el-button
+          :disabled="multipleSelection.length === 0"
+          @click="handleBatchModifyStatus('draft')"
+        >
+          Draft
+        </el-button>
       </template>
 
       <template #title="slotProps">

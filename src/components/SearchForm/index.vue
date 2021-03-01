@@ -11,7 +11,7 @@
       <slot name="header"> </slot>
       <div
         v-for="(item, index) in searchList"
-        v-show="index < 2 || advanced"
+        v-show="index < 3 || advanced"
         :key="index"
         class="form-item"
       >
@@ -56,7 +56,7 @@
             >重置</el-button
           >
           <a
-            v-if="searchList.filter((i) => i.isSearch).length > 2"
+            v-if="searchList.filter((i) => i.isSearch).length > 3"
             style="margin-left: 8px; font-size: 14px"
             @click="toggleAdvanced"
           >
@@ -66,17 +66,11 @@
         </div>
       </div>
     </el-form>
-    <span class="fullscreen" @click="fullscreen">
-      <i class="el-icon-full-screen" style="font-size: 22px" />
-    </span>
   </div>
 </template>
 
 <script>
-import { getScrollBarWidth } from '@/utils'
-import { toggleClass, hasClass } from '@/utils'
 import { ref } from 'vue'
-const scrollBarWidth = getScrollBarWidth()
 export default {
   name: 'SearchForm',
   props: {
@@ -129,18 +123,7 @@ export default {
     function toggleAdvanced() {
       advanced.value = !advanced.value
     }
-    function fullscreen() {
-      const el = document.querySelector('#app .app-container')
-      toggleClass(el, 'content-screenfull')
-      if (hasClass(el, 'content-screenfull')) {
-        document.documentElement.style.overflow = 'hidden'
-        document.body.style.borderRight =
-          scrollBarWidth + 'px solid transparent'
-      } else {
-        document.documentElement.style.overflow = ''
-        document.body.style.borderRight = ''
-      }
-    }
+
     function resetQueryParam() {
       for (const key in prop.queryParam) {
         let value = prop.queryParam[key]
@@ -157,7 +140,6 @@ export default {
     return {
       advanced,
       toggleAdvanced,
-      fullscreen,
       resetQueryParam,
     }
   },
@@ -179,18 +161,6 @@ export default {
         margin-bottom: 18px;
       }
     }
-  }
-  .fullscreen {
-    line-height: 56px;
-    height: 52px;
-    position: absolute;
-    right: 0;
-    top: 0;
-    padding: 0 15px;
-    cursor: pointer;
-  }
-  .fullscreen:hover {
-    background: rgba(0, 0, 0, 0.025);
   }
 }
 </style>
