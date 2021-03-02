@@ -49,7 +49,10 @@
 
       <div class="form-item">
         <div class="table-page-search-submitButtons">
-          <el-button type="primary" @click="$emit('search', true)"
+          <el-button
+            type="primary"
+            :loading="loading"
+            @click="$emit('search', true)"
             >查询</el-button
           >
           <el-button style="margin-left: 8px" @click="resetQueryParam"
@@ -83,6 +86,10 @@ export default {
     searchList: {
       type: Array,
       default: () => {},
+    },
+    loading: {
+      type: Boolean,
+      default: false,
     },
   },
   emits: ['search'],
