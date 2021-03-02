@@ -22,6 +22,7 @@
     "store": "^2.0.12",
     "vue": "^3.0.5",
     "vue-router": "^4.0.2",
+    "vuedraggable": "^4.0.1",
     "vuex": "^4.0.0-rc.2"
   },
   "devDependencies": {

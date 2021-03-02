@@ -3,11 +3,15 @@
     <SearchForm
       :search-list="columns.filter((i) => i.isSearch)"
       :query-param="queryParam"
+      :loading="listLoading"
       @search="refresh"
     />
     <div class="table-operator">
       <div class="solt"><slot name="btn"></slot></div>
-      <TableSetting :refresh="refresh" />
+      <TableSetting
+        :refresh="refresh"
+        :columns="columns.filter((i) => !i.noTable)"
+      />
     </div>
     <el-table
       v-loading="listLoading"
