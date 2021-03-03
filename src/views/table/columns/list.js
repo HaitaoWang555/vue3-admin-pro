@@ -71,15 +71,9 @@ const columnList = [
     isSearch: true,
   },
   {
-    dataIndex: 'pageviews',
-    width: 100,
-    title: 'Readings',
-  },
-  {
     dataIndex: 'status',
     width: 110,
     title: 'Status',
-    fixed: 'right',
     scopedSlots: { customRender: 'status' },
     valueType: 'select',
     option: [
@@ -97,6 +91,11 @@ const columnList = [
       },
     ],
     isForm: true,
+  },
+  {
+    dataIndex: 'pageviews',
+    width: 100,
+    title: 'Readings',
   },
   {
     dataIndex: 'type',
