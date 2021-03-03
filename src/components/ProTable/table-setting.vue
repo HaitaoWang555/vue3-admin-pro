@@ -10,7 +10,7 @@
       @close="dialogVisible = false"
     >
       <draggable
-        v-model="columns"
+        v-model="draggableList"
         class="list-group"
         item-key="dataIndex"
         tag="transition-group"
@@ -21,14 +21,13 @@
       >
         <template #item="{ element }">
           <div class="list-group-item">
-            <span>{{ element.title }}</span>
             <div class="btnWrap">
-              <el-switch
+              <el-checkbox
                 v-model="element.fieldVisible"
-                @change="element.fieldVisible = !element.fieldVisible"
-              />
-              <span v-if="element.fieldVisible">显示</span>
-              <span v-else>隐藏</span>
+                @change="$emit('reRender')"
+              >
+                <span>{{ element.title }}</span>
+              </el-checkbox>
             </div>
           </div>
         </template>
@@ -59,7 +58,8 @@ export default {
       },
     },
   },
-  setup() {
+  emits: ['reRender'],
+  setup(prop, { emit }) {
     const dialogVisible = ref(false)
 
     const dragOptions = computed(() => {
@@ -69,6 +69,14 @@ export default {
         disabled: false,
         ghostClass: 'ghost',
       }
+    })
+
+    const draggableList = computed({
+      get: () => prop.columns,
+      set: (val) => {
+        emit('update:columns', val)
+        emit('reRender')
+      },
     })
 
     function fullscreen() {
@@ -87,6 +95,7 @@ export default {
     return {
       dialogVisible,
       dragOptions,
+      draggableList,
       fullscreen,
     }
   },

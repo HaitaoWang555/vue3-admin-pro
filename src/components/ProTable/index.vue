@@ -9,11 +9,13 @@
     <div class="table-operator">
       <div class="solt"><slot name="btn"></slot></div>
       <TableSetting
+        v-model:columns="tableColumns"
         :refresh="refresh"
-        :columns="columns.filter((i) => !i.noTable)"
+        @reRender="updateTable"
       />
     </div>
     <el-table
+      :key="key"
       v-loading="listLoading"
       :data="list"
       element-loading-text="Loading"
@@ -63,7 +65,7 @@
       />
       <el-table-column v-if="showIndex" label="#" align="center" type="index" />
       <el-table-column
-        v-for="item in columns.filter((i) => !i.noTable)"
+        v-for="item in tableColumns.filter((i) => i.fieldVisible)"
         :key="item.dataIndex"
         :label="item.title"
         :min-width="item.minWidth"
@@ -213,6 +215,7 @@ export default {
     'expand-change', // complete
   ],
   setup(prop, { emit }) {
+    const key = ref(0)
     const list = ref(null)
     const listLoading = ref(false)
     const localPagination = reactive({
@@ -220,6 +223,14 @@ export default {
       page: 1,
       pageSize: 20,
     })
+    const tableColumns = ref(
+      prop.columns
+        .filter((i) => !i.noTable)
+        .map((i) => {
+          i.fieldVisible = true
+          return i
+        })
+    )
 
     const store = useStore()
 
@@ -263,9 +274,15 @@ export default {
       emit('expand-change', data, expandedRows)
     }
 
+    function updateTable() {
+      key.value = key.value += 1
+    }
+
     loadData()
 
     return {
+      key,
+      tableColumns,
       list,
       listLoading,
       loadData,
@@ -276,6 +293,7 @@ export default {
       sortChange,
       handleCurrentChange,
       handlExpandChange,
+      updateTable,
     }
   },
 }
