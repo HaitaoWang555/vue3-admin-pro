@@ -28,6 +28,13 @@
               >
                 <span>{{ element.title }}</span>
               </el-checkbox>
+              <el-input
+                v-model.number="element.width"
+                type="number"
+                style="width: 150px; margin-left: 20px"
+              >
+                <template #append>px</template>
+              </el-input>
             </div>
           </div>
         </template>
@@ -113,6 +120,10 @@ export default {
   justify-content: space-between;
   span {
     vertical-align: middle;
+  }
+  .btnWrap {
+    display: flex;
+    align-items: center;
   }
 }
 </style>
