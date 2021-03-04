@@ -3,7 +3,7 @@
 <template>
   <div id="search-form-wrap" class="table-page-search-wrapper">
     <el-form
-      v-if="searchList"
+      v-if="searchList && searchList.length > 0"
       :model="queryParam"
       class="search-form"
       :inline="true"

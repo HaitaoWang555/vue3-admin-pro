@@ -37,14 +37,7 @@
         <el-tag>{{ typeFilter(slotProps.row.type) }}</el-tag>
       </template>
       <template #importance="slotProps">
-        <span v-if="slotProps.row.importance">
-          <svg-icon
-            v-for="n in Number(slotProps.row.importance)"
-            :key="n"
-            icon-class="star"
-            class="meta-item__icon"
-          />
-        </span>
+        <el-rate :model-value="slotProps.row.importance" disabled></el-rate>
       </template>
       <template #status="slotProps">
         <el-tag :type="statusFilter(slotProps.row.status)">
