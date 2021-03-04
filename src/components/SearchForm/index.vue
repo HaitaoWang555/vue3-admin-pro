@@ -8,7 +8,8 @@
       class="search-form"
       :inline="true"
     >
-      <slot name="header"> </slot>
+      <div class="form-item"><slot name="header"> </slot></div>
+
       <div
         v-for="(item, index) in searchList"
         v-show="index < 3 || advanced"
@@ -45,6 +46,9 @@
             >
           </el-select>
         </el-form-item>
+      </div>
+      <div class="form-item">
+        <slot name="footer"> </slot>
       </div>
 
       <div class="form-item">
