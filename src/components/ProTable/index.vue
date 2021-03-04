@@ -5,7 +5,14 @@
       :query-param="queryParam"
       :loading="listLoading"
       @search="refresh"
-    />
+    >
+      <template #header>
+        <slot name="searchHeader"></slot>
+      </template>
+      <template #footer>
+        <slot name="searchFooter"></slot>
+      </template>
+    </SearchForm>
     <div class="table-operator">
       <div class="solt"><slot name="btn"></slot></div>
       <TableSetting
@@ -244,15 +251,17 @@ export default {
         (typeof result === 'object' || typeof result === 'function') &&
         typeof result.then === 'function'
       ) {
-        result.then((r) => {
-          if (!r || r.length === 0 || r.data.length === 0) {
+        result
+          .then((r) => {
+            if (!r || r.length === 0 || r.data.length === 0) {
+              return null
+            }
+            list.value = r.data.items // Table Data
+            localPagination.total = r.data.total
+          })
+          .finally(() => {
             listLoading.value = false
-            return null
-          }
-          list.value = r.data.items // Table Data
-          localPagination.total = r.data.total
-          listLoading.value = false
-        })
+          })
       }
     }
     function refresh(bool = false) {
