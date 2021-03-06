@@ -16,7 +16,7 @@ import { fetchList } from '@/api/article'
 
 import { columnList } from './columns/inline'
 import { ref } from 'vue'
-import { useFilter } from '@/composition/table'
+import { useFilter } from '@/hooks/table'
 import Important from './components/editable-cell/Important'
 import EditStatus from './components/editable-cell/Status'
 export default {

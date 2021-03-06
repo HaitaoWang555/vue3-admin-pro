@@ -106,7 +106,7 @@ import { reactive, ref, toRaw } from 'vue'
 import { fetchList, createArticle, updateArticle } from '@/api/article'
 import { columnList } from './columns/list'
 import Message from 'element-plus/lib/el-message'
-import { useFilter } from '@/composition/table'
+import { useFilter } from '@/hooks/table'
 import { parseTime, resetObj } from '@/utils'
 
 export default {
