@@ -35,7 +35,7 @@
 import Message from 'element-plus/lib/el-message'
 import { ref } from 'vue'
 import { submit } from '@/api/public'
-import { useFilter } from '@/composition/table'
+import { useFilter } from '@/hooks/table'
 
 export default {
   name: 'EditStatus',
