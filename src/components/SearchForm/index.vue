@@ -137,11 +137,10 @@ export default {
 
     function resetQueryParam() {
       for (const key in prop.queryParam) {
-        let value = prop.queryParam[key]
-        if (value instanceof Array) {
-          value = []
+        if (prop.queryParam[key] instanceof Array) {
+          prop.queryParam[key] = []
         } else {
-          value = ''
+          prop.queryParam[key] = ''
         }
       }
     }
