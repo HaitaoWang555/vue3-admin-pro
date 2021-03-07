@@ -34,6 +34,13 @@ export default {
 .fixed-header + .app-main {
   padding-top: 50px;
 }
+.hasTagsView .app-main {
+  /*50 = navbar  */
+  min-height: calc(100vh - 84px);
+}
+.hasTagsView .fixed-header + .app-main {
+  padding-top: 84px;
+}
 </style>
 
 <style lang="scss">

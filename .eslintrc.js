@@ -10,7 +10,7 @@ module.exports = {
     es6: true,
   },
   extends: [
-    'plugin:vue/vue3-essential',
+    'plugin:vue/recommended',
     'eslint:recommended',
     'prettier',
     'prettier/vue',
@@ -21,7 +21,9 @@ module.exports = {
   // it is base on https://github.com/vuejs/eslint-config-vue
   rules: {
     'vue/no-v-html': 'off',
+    'vue/no-v-model-argument': 'off',
     'no-console': 'off',
+    'vue/no-mutating-props': 'off',
     'no-var': 2,
   },
 }
