@@ -14,7 +14,7 @@ export const constantRoutes = [
     children: [
       {
         path: '/redirect/:path(.*)',
-        component: () => import('@/views/redirect/index'),
+        component: import('@/views/redirect/index'),
       },
     ],
   },
@@ -72,7 +72,7 @@ export const constantRoutes = [
     component: Layout,
     children: [
       {
-        path: 'https://github.com/HaitaoWang555/vue3-admin-template',
+        path: 'https://github.com/HaitaoWang555/vue3-admin-pro',
         meta: { title: 'External Link', icon: 'link' },
       },
     ],
@@ -83,12 +83,7 @@ export const constantRoutes = [
       import(/* webpackChunkName: "login" */ '@/views/login/index'),
     hidden: true,
   },
-  {
-    path: '/404',
-    component: () => import('@/views/404'),
-    hidden: true,
-  },
-  { path: '/*', redirect: '/404', hidden: true },
+  { path: '/:pathMatch(.*)*', redirect: '/error/404', hidden: true },
 ]
 
 /**
