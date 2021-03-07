@@ -1,8 +1,8 @@
 {
-  "name": "vue-admin-template",
+  "name": "vue3-admin-pro",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://HaitaoWang555.github.io/vue3-admin-template",
+  "homepage": "https://HaitaoWang555.github.io/vue3-admin-pro",
   "scripts": {
     "dev": "vue-cli-service serve",
     "build:prod": "vue-cli-service build",
@@ -13,14 +13,16 @@
   },
   "dependencies": {
     "axios": "^0.21.1",
+    "clipboard": "^2.0.6",
     "core-js": "^3.6.5",
-    "element-plus": "^1.0.1-beta.17",
+    "element-plus": "^1.0.2-beta.32",
     "normalize.css": "^8.0.1",
     "nprogress": "^0.2.0",
     "path-to-regexp": "^6.2.0",
     "store": "^2.0.12",
     "vue": "^3.0.5",
     "vue-router": "^4.0.2",
+    "vuedraggable": "^4.0.1",
     "vuex": "^4.0.0-rc.2"
   },
   "devDependencies": {

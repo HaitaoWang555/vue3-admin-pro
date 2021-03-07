@@ -1,17 +1,18 @@
-# vue-admin-template
+# vue3-admin-pro
 
 > 这是一个极简的 vue admin 管理后台。它只包含了 Element UI & axios & iconfont & permission control & lint，这些搭建后台必要的东西。
 
-[线上地址](https://HaitaoWang555.github.io/vue3-admin-template)
+[线上地址](https://HaitaoWang555.github.io/vue3-admin-pro)
+[线上地址](http://wanghaitao555.gitee.io/vue3-admin-pro)
 
 ## Build Setup
 
 ```bash
 # 克隆项目
-git clone https://github.com/HaitaoWang555/vue3-admin-template.git
+git clone https://github.com/HaitaoWang555/vue3-admin-pro.git
 
 # 进入项目目录
-cd vue3-admin-template
+cd vue3-admin-pro
 
 # 安装依赖
 npm install
@@ -53,6 +54,6 @@ npm run lint -- --fix
 
 ## License
 
-[MIT](https://github.com/HaitaoWang555/vue3-admin-template/blob/master/LICENSE) license.
+[MIT](https://github.com/HaitaoWang555/vue3-admin-pro/blob/master/LICENSE) license.
 
 Copyright (c) 2017-present HaitaoWang555
