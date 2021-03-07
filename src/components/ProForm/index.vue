@@ -144,6 +144,7 @@ export default {
     const rules = {}
 
     const ProForm = ref()
+    const originalFormParams = JSON.parse(JSON.stringify(prop.formParam))
 
     function init() {
       for (let index = 0; index < prop.formList.length; index++) {
@@ -185,6 +186,7 @@ export default {
     init()
 
     function resetFormParam() {
+      Object.assign(prop.formParam, originalFormParams)
       ProForm.value.resetFields()
     }
     function handleSubmit() {
