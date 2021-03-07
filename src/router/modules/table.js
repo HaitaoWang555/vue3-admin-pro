@@ -14,13 +14,17 @@ const tableRouter = {
   children: [
     {
       path: 'inline-edit-table',
-      component: () => import('@/views/table/inline-edit-table'),
+      component: () =>
+        import(
+          /* webpackChunkName: "table" */ '@/views/table/inline-edit-table'
+        ),
       name: 'InlineEditTable',
       meta: { title: 'Inline Edit' },
     },
     {
       path: 'complex-table',
-      component: () => import('@/views/table/complex-table'),
+      component: () =>
+        import(/* webpackChunkName: "table" */ '@/views/table/complex-table'),
       name: 'ComplexTable',
       meta: { title: 'Complex Table' },
     },

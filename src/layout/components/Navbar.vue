@@ -21,13 +21,13 @@
             </router-link>
             <a
               target="_blank"
-              href="https://github.com/HaitaoWang555/vue3-admin-template"
+              href="https://github.com/HaitaoWang555/vue3-admin-pro"
             >
               <el-dropdown-item>Github</el-dropdown-item>
             </a>
             <a
               target="_blank"
-              href="https://github.com/HaitaoWang555/vue3-admin-template"
+              href="https://github.com/HaitaoWang555/vue3-admin-pro"
             >
               <el-dropdown-item>Docs</el-dropdown-item>
             </a>
