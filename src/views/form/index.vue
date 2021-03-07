@@ -1,6 +1,11 @@
 <template>
   <div class="app-container">
-    <ProForm :form-param="form" :form-list="formList" :sub-met="onSubmit" />
+    <ProForm
+      :form-param="form"
+      :form-list="formList"
+      :sub-met="onSubmit"
+      :layout="{ formWidth: '560px', labelWidth: '150px' }"
+    />
   </div>
 </template>
 

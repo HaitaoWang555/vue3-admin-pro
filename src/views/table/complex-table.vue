@@ -75,7 +75,7 @@
         </span>
       </template>
     </ProTable>
-    <el-dialog v-model="dialogVisible" :title="dialogTitle" @close="resetForm">
+    <el-dialog v-model="dialogVisible" :title="dialogTitle">
       <ProForm
         :form-param="form"
         :form-list="columns"
@@ -107,7 +107,7 @@ import { fetchList, createArticle, updateArticle } from '@/api/article'
 import { columnList } from './columns/list'
 import Message from 'element-plus/lib/el-message'
 import { useFilter } from '@/hooks/table'
-import { parseTime, resetObj } from '@/utils'
+import { parseTime, copyValue } from '@/utils'
 
 export default {
   name: 'ComplexTable',
@@ -212,16 +212,17 @@ export default {
     // Update
     function handleUpdate(row) {
       dialogTitle.value = 'Update'
-      resetObj(form, toRaw(row))
+      copyValue(form, row)
+      formData = JSON.parse(JSON.stringify(toRaw(row)))
       form.timestamp = parseTime(form.timestamp)
       isEdit.value = true
       dialogVisible.value = true
     }
     function update() {
-      formData = JSON.parse(JSON.stringify(toRaw(form)))
       return updateArticle(form)
     }
     function updateSuccess() {
+      Object.assign(formData, form)
       const index = proTable.value.list.findIndex((v) => v.id === formData.id)
       proTable.value.list.splice(index, 1, formData)
       dialogVisible.value = false
@@ -234,18 +235,6 @@ export default {
       return isEdit.value ? updateSuccess() : createSuccess()
     }
 
-    // utils
-    function resetForm() {
-      resetObj(form, {
-        id: undefined,
-        importance: 1,
-        remark: '',
-        timestamp: new Date(),
-        title: '',
-        type: '',
-        status: 'published',
-      })
-    }
     return {
       proTable,
       queryParam,
@@ -265,7 +254,6 @@ export default {
       handleCreate,
       handleSelectionChange,
       handleBatchModifyStatus,
-      resetForm,
       subMet,
       formCB,
     }
