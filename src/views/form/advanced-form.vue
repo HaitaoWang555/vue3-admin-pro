@@ -1,11 +1,16 @@
+<!--  -->
 <template>
   <div class="app-container">
     <ProForm
       :form-param="form"
       :form-list="formList"
       :sub-met="onSubmit"
-      :layout="{ formWidth: '560px', labelWidth: '150px' }"
-    />
+      label-position="top"
+      :layout="{ formWidth: '100%', labelWidth: '150px' }"
+    >
+      <template #title0> 仓库管理 </template>
+      <template #title1> 任务管理 </template>
+    </ProForm>
   </div>
 </template>
 
@@ -13,20 +18,24 @@
 import { submit } from '@/api/public'
 import ProForm from '@/components/ProForm'
 import { reactive, toRaw } from 'vue'
-import { list } from './columns/list'
-
+import { list } from './columns/advance'
 export default {
-  name: 'Form',
+  name: 'AdvancedForm',
   components: { ProForm },
   setup() {
     const form = reactive({
       name: '',
-      region: '',
-      date: '',
-      delivery: false,
-      type: [],
-      resource: '',
-      desc: '',
+      url: '',
+      owner: '',
+      approver: '',
+      dateRange: '',
+      type: '',
+      name2: '',
+      url2: '',
+      owner2: '',
+      approver2: '',
+      dateRange2: '',
+      type2: '',
     })
     const formList = list
     const onSubmit = () => {
