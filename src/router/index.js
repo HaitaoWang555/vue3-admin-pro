@@ -39,13 +39,26 @@ export const constantRoutes = [
   {
     path: '/form',
     component: Layout,
+    name: 'Form',
+    redirect: '/form/index',
+    meta: {
+      title: 'Form',
+      icon: 'form',
+    },
     children: [
       {
         path: 'index',
-        name: 'Form',
+        name: 'BasicForm',
         component: () =>
           import(/* webpackChunkName: "form" */ '@/views/form/index'),
-        meta: { title: 'Form', icon: 'form' },
+        meta: { title: 'Basic Form' },
+      },
+      {
+        path: 'advanced-form',
+        name: 'AdvancedForm',
+        component: () =>
+          import(/* webpackChunkName: "form" */ '@/views/form/advanced-form'),
+        meta: { title: 'Advanced Form' },
       },
     ],
   },

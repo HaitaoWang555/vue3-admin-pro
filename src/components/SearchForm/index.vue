@@ -6,9 +6,10 @@
       v-if="searchList && searchList.length > 0"
       :model="queryParam"
       class="search-form"
+      label-position="left"
       :inline="true"
     >
-      <div class="form-item"><slot name="header"> </slot></div>
+      <slot name="header"> </slot>
 
       <div
         v-for="(item, index) in searchList"
@@ -47,9 +48,7 @@
           </el-select>
         </el-form-item>
       </div>
-      <div class="form-item">
-        <slot name="footer"> </slot>
-      </div>
+      <slot name="footer"> </slot>
 
       <div class="form-item">
         <div class="table-page-search-submitButtons">
@@ -166,10 +165,12 @@ export default {
     align-items: center;
     justify-content: flex-start;
     .form-item {
-      margin-right: 20px;
       .table-page-search-submitButtons {
         margin-bottom: 18px;
       }
+    }
+    .form-item + .form-item {
+      margin-left: 20px;
     }
   }
 }
