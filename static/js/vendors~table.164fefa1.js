@@ -1,4 +1,4 @@
-(window["webpackJsonp"]=window["webpackJsonp"]||[]).push([["chunk-2e780c92"],{"857a":function(t,e,n){var r=n("1d80"),o=/"/g;t.exports=function(t,e,n,i){var a=String(r(t)),c="<"+e;return""!==n&&(c+=" "+n+'="'+String(i).replace(o,"&quot;")+'"'),c+">"+a+"</"+e+">"}},aa47:function(t,e,n){"use strict";
+(window["webpackJsonp"]=window["webpackJsonp"]||[]).push([["vendors~table"],{"857a":function(t,e,n){var r=n("1d80"),o=/"/g;t.exports=function(t,e,n,i){var a=String(r(t)),c="<"+e;return""!==n&&(c+=" "+n+'="'+String(i).replace(o,"&quot;")+'"'),c+">"+a+"</"+e+">"}},aa47:function(t,e,n){"use strict";
 /**!
  * Sortable 1.10.2
  * @author	RubaXa   <trash@rubaxa.org>
