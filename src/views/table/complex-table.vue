@@ -75,8 +75,13 @@
         </span>
       </template>
     </ProTable>
-    <el-dialog v-model="dialogVisible" :title="dialogTitle">
+    <el-dialog
+      v-model="dialogVisible"
+      :title="dialogTitle"
+      :close-on-click-modal="false"
+    >
       <ProForm
+        :dialog-val="dialogVisible"
         :form-param="form"
         :form-list="columns"
         :is-edit="isEdit"
@@ -130,7 +135,7 @@ export default {
     // Form
     const dialogTitle = ref('')
     const dialogVisible = ref(false)
-    const form = reactive({
+    const defaultFormParams = {
       id: undefined,
       importance: 1,
       remark: '',
@@ -138,7 +143,8 @@ export default {
       title: '',
       type: '',
       status: 'published',
-    })
+    }
+    const form = reactive(Object.assign({}, defaultFormParams))
     const isEdit = ref(false)
     let formData = null
     // Filter
@@ -192,6 +198,8 @@ export default {
     }
     // Create
     function handleCreate() {
+      // reset FormParams
+      Object.assign(form, defaultFormParams)
       dialogTitle.value = 'Create'
       isEdit.value = false
       dialogVisible.value = true

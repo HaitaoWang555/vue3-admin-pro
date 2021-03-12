@@ -107,6 +107,7 @@
 
     <el-form-item label-width="0" style="margin-top: 24px; text-align: center">
       <el-button
+        :key="isEdit"
         size="large"
         type="primary"
         :disabled="btnDisabled"
@@ -121,13 +122,17 @@
 
 <script>
 import SendCode from '@/components/sendCode'
-import { ref } from 'vue'
+import { nextTick, ref, watch } from 'vue'
 import Message from 'element-plus/lib/el-message'
 
 export default {
   name: 'ProForm',
   components: { SendCode },
   props: {
+    dialogVal: {
+      type: Boolean,
+      default: false,
+    },
     formParam: {
       type: Object,
       default: () => {
@@ -244,6 +249,17 @@ export default {
         }
       })
     }
+
+    watch(
+      () => prop.dialogVal,
+      (val) => {
+        if (val) {
+          nextTick().then(() => {
+            ProForm.value.clearValidate()
+          })
+        }
+      }
+    )
 
     return {
       ProForm,
