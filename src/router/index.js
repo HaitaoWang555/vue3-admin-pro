@@ -14,7 +14,7 @@ export const constantRoutes = [
     children: [
       {
         path: '/redirect/:path(.*)',
-        component: () => import('@/views/redirect/index'),
+        component: import('@/views/redirect/index'),
       },
     ],
   },
@@ -39,13 +39,26 @@ export const constantRoutes = [
   {
     path: '/form',
     component: Layout,
+    name: 'Form',
+    redirect: '/form/index',
+    meta: {
+      title: 'Form',
+      icon: 'form',
+    },
     children: [
       {
         path: 'index',
-        name: 'Form',
+        name: 'BasicForm',
         component: () =>
           import(/* webpackChunkName: "form" */ '@/views/form/index'),
-        meta: { title: 'Form', icon: 'form' },
+        meta: { title: 'Basic Form' },
+      },
+      {
+        path: 'advanced-form',
+        name: 'AdvancedForm',
+        component: () =>
+          import(/* webpackChunkName: "form" */ '@/views/form/advanced-form'),
+        meta: { title: 'Advanced Form' },
       },
     ],
   },
@@ -72,7 +85,7 @@ export const constantRoutes = [
     component: Layout,
     children: [
       {
-        path: 'https://github.com/HaitaoWang555/vue3-admin-template',
+        path: 'https://github.com/HaitaoWang555/vue3-admin-pro',
         meta: { title: 'External Link', icon: 'link' },
       },
     ],
@@ -83,12 +96,7 @@ export const constantRoutes = [
       import(/* webpackChunkName: "login" */ '@/views/login/index'),
     hidden: true,
   },
-  {
-    path: '/404',
-    component: () => import('@/views/404'),
-    hidden: true,
-  },
-  { path: '/*', redirect: '/404', hidden: true },
+  { path: '/:pathMatch(.*)*', redirect: '/error/404', hidden: true },
 ]
 
 /**
