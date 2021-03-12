@@ -24,13 +24,13 @@ export default {
   components: { ProForm },
   setup() {
     const form = reactive({
-      name: '',
+      name: 'sssssss',
       url: '',
       owner: '',
       approver: '',
       dateRange: '',
       type: '',
-      name2: '',
+      name2: 'ssssssssss',
       url2: '',
       owner2: '',
       approver2: '',
