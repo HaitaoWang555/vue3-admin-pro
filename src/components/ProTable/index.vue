@@ -1,5 +1,5 @@
 <template>
-  <div class="pro-table">
+  <div class="pro-table" :class="sticky ? 'sticky' : ''">
     <SearchForm
       :search-list="columns.filter((i) => i.isSearch)"
       :query-param="queryParam"
@@ -127,6 +127,10 @@ export default {
       type: Boolean,
       default: false,
     },
+    sticky: {
+      type: Boolean,
+      default: false,
+    },
     showSelection: {
       type: Boolean,
       default: false,
@@ -222,6 +226,7 @@ export default {
     'expand-change', // complete
   ],
   setup(prop, { emit }) {
+    console.log(prop.sticky)
     const key = ref(0)
     const list = ref(null)
     const listLoading = ref(false)

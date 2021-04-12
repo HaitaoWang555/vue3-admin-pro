@@ -1,6 +1,6 @@
 <template>
   <div class="app-container">
-    <ProTable border :columns="columns" :data="loadData">
+    <ProTable border :columns="columns" :data="loadData" sticky>
       <template #importance="slotProps">
         <Important :record="slotProps.row" />
       </template>

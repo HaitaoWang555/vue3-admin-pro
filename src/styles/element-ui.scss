@@ -61,3 +61,15 @@
 .el-table__body-wrapper {
   min-height: calc(100vh - 300px);
 }
+
+// pro-table sticky
+.pro-table.sticky {
+  .el-table {
+    overflow: inherit;
+  }
+  .el-table__header-wrapper {
+    position: sticky;
+    top: 0;
+    z-index: 3;
+  }
+}
