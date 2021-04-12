@@ -17,11 +17,11 @@
           v-show="index < 3 || advanced"
           :key="index"
           :span="item.span || 8"
-          :xs="item.xs || 8"
-          :sm="item.sm || 8"
-          :md="item.md || 8"
-          :lg="item.lg || 8"
-          :xl="item.xl || 8"
+          :xs="item.xs || item.span"
+          :sm="item.sm || item.span"
+          :md="item.md || item.span"
+          :lg="item.lg || item.span"
+          :xl="item.xl || item.span"
         >
           <el-form-item :label="item.title + ' : '">
             <el-input
