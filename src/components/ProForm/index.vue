@@ -26,6 +26,11 @@
           v-for="(item, index) in row"
           :key="index"
           :span="item.span || 24"
+          :xs="item.xs || 24"
+          :sm="item.sm || 24"
+          :md="item.md || 24"
+          :lg="item.lg || 24"
+          :xl="item.xl || 24"
         >
           <el-form-item
             :prop="item.prop ? item.dataIndex : ''"

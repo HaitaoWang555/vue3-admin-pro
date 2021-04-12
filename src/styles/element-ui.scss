@@ -70,6 +70,17 @@
   .el-table__header-wrapper {
     position: sticky;
     top: 0;
-    z-index: 3;
+    z-index: 1;
+  }
+}
+
+// search-form
+#search-form-wrap .search-form .el-form-item {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  .el-form-item__content {
+    flex-grow: 1;
   }
 }
