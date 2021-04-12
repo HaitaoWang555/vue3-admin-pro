@@ -226,7 +226,6 @@ export default {
     'expand-change', // complete
   ],
   setup(prop, { emit }) {
-    console.log(prop.sticky)
     const key = ref(0)
     const list = ref(null)
     const listLoading = ref(false)
