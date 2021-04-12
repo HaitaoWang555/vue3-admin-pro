@@ -1,5 +1,5 @@
 <template>
-  <div class="pro-table">
+  <div class="pro-table" :class="sticky ? 'sticky' : ''">
     <SearchForm
       :search-list="columns.filter((i) => i.isSearch)"
       :query-param="queryParam"
@@ -124,6 +124,10 @@ export default {
       },
     },
     showIndex: {
+      type: Boolean,
+      default: false,
+    },
+    sticky: {
       type: Boolean,
       default: false,
     },
