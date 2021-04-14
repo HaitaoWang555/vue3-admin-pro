@@ -23,7 +23,7 @@ export default {
     const LineCharts = ref()
     const LineStackDataCharts = ref()
     const width = '100%'
-    const height = window.innerHeight - 84 + 'px'
+    const height = window.innerHeight - 220 + 'px'
 
     const { setOptions: LineChartSetOptions } = useEcharts(LineCharts)
     const { setOptions: LineStackDataChartSetOptions } = useEcharts(

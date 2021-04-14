@@ -23,7 +23,7 @@ export default {
     const BarCharts = ref()
     const BarStackDataCharts = ref()
     const width = '100%'
-    const height = window.innerHeight - 84 + 'px'
+    const height = window.innerHeight - 220 + 'px'
 
     const { setOptions: BarChartSetOptions } = useEcharts(BarCharts)
     const { setOptions: BarStackDataChartSetOptions } = useEcharts(

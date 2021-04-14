@@ -13,7 +13,7 @@ export default {
   setup() {
     const MapCharts = ref()
     const width = '100%'
-    const height = window.innerHeight + 'px'
+    const height = window.innerHeight - 84 + 'px'
 
     const { setOptions: MapChartSetOptions, echarts } = useEcharts(MapCharts)
     echarts.registerMap('HK', HK)

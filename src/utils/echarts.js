@@ -132,7 +132,7 @@ function MapCommonOptions() {
       {
         name: '香港18区人口密度',
         type: 'map',
-        mapType: 'HK', // 自定义扩展图表类型
+        map: 'HK', // 自定义扩展图表类型
         label: {
           show: true,
         },
