@@ -14,8 +14,7 @@ import loadComponents from '@/core/use'
 // globalProperties
 import globalProperties from '@/core/globalProperties'
 // icon
-import '@/icons'
-
+import(/* webpackChunkName: "icon" */ '@/icons')
 // vue router
 import router from '@/router'
 // vue vuex
