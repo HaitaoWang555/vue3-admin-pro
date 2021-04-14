@@ -23,6 +23,7 @@
 
 body {
   height: 100%;
+  overflow-x: hidden;
   -moz-osx-font-smoothing: grayscale;
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
@@ -87,7 +88,6 @@ div:focus {
 // main-container global css
 .app-container {
   padding: 20px;
-  padding-bottom: 0;
 }
 .content-screenfull {
   position: fixed;

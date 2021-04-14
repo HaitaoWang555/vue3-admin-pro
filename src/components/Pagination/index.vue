@@ -96,7 +96,10 @@ export default {
 <style scoped>
 .pagination-container {
   background: #fff;
-  padding: 32px 16px;
+  padding: 20px 16px;
+}
+.app-container .pagination-container:last-child {
+  padding-bottom: 0;
 }
 .pagination-container.hidden {
   display: none;
