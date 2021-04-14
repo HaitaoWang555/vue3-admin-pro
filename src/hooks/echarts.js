@@ -48,9 +48,9 @@ export function useEcharts(elRef) {
   }
 
   onMounted(() => {
-    initListener()
     nextTick(() => {
       init()
+      initListener()
     })
   })
 
@@ -63,5 +63,6 @@ export function useEcharts(elRef) {
   return {
     setOptions,
     resize,
+    echarts,
   }
 }

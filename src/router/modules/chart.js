@@ -33,6 +33,13 @@ const chartsRouter = {
       name: 'PieCharts',
       meta: { title: 'pie' },
     },
+    {
+      path: 'map-charts',
+      component: () =>
+        import(/* webpackChunkName: "charts" */ '@/views/charts/Map'),
+      name: 'MapCharts',
+      meta: { title: 'map' },
+    },
   ],
 }
 export default chartsRouter
