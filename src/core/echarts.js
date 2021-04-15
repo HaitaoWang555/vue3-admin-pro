@@ -1,3 +1,5 @@
+// Minimal Bundle 按需引入
+
 import * as echarts from 'echarts/core'
 
 import {
@@ -18,6 +20,8 @@ import {
   ParallelComponent,
   LegendComponent,
   RadarComponent,
+  VisualMapComponent,
+  GeoComponent,
 } from 'echarts/components'
 
 import { CanvasRenderer } from 'echarts/renderers'
@@ -38,6 +42,8 @@ echarts.use([
   CanvasRenderer,
   PictorialBarChart,
   RadarComponent,
+  VisualMapComponent,
+  GeoComponent,
 ])
 
 export default echarts

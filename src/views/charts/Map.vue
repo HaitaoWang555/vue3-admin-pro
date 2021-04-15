@@ -1,5 +1,10 @@
 <template>
-  <div ref="MapCharts" :style="{ height, width }"></div>
+  <div class="app-container">
+    <el-card>
+      <template #header> 香港18区人口密度 （2011） </template>
+      <div ref="MapCharts" :style="{ height, width }"></div>
+    </el-card>
+  </div>
 </template>
 
 <script>
@@ -13,7 +18,7 @@ export default {
   setup() {
     const MapCharts = ref()
     const width = '100%'
-    const height = window.innerHeight - 84 + 'px'
+    const height = window.innerHeight - 225 + 'px'
 
     const { setOptions: MapChartSetOptions, echarts } = useEcharts(MapCharts)
     echarts.registerMap('HK', HK)
