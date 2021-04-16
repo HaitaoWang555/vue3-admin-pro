@@ -6,6 +6,7 @@ import nestedRouter from './modules/nested'
 import errorRouter from './modules/error-page'
 import tableRouter from './modules/table'
 import chartRouter from './modules/chart'
+import componentsPage from './modules/components-page'
 
 export const constantRoutes = [
   {
@@ -68,6 +69,7 @@ export const constantRoutes = [
     ],
   },
 
+  componentsPage,
   nestedRouter,
   errorRouter,
 
