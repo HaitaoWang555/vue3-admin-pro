@@ -1,38 +1,34 @@
 <template>
   <div class="app-container">
-    <el-card>
-      <template #header> 基础平滑折线图 </template>
-      <div ref="LineCharts" :style="{ height, width }"></div>
-    </el-card>
-    <el-card style="margin-top: 20px">
-      <template #header> 折线图堆叠 </template>
-      <div ref="LineStackDataCharts" :style="{ height, width }"></div>
-    </el-card>
+    <CardChart title="基础平滑折线图" :options="LineChartOptions" />
+    <CardChart
+      style="margin-top: 20px"
+      title="折线图堆叠"
+      :options="LineStackDataChartOptions"
+    />
   </div>
 </template>
 
 <script>
 import { ref } from 'vue'
 import { getLineList, getLineStackList } from '@/api/charts'
-import { useEcharts } from '@/hooks/echarts'
 import { lineCommonOptions } from '@/utils/echarts'
+
+import CardChart from './components/CardChart'
 
 export default {
   name: 'EchartsLine',
+  components: {
+    CardChart,
+  },
   setup() {
-    const LineCharts = ref()
-    const LineStackDataCharts = ref()
-    const width = '100%'
-    const height = window.innerHeight - 220 + 'px'
-
-    const { setOptions: LineChartSetOptions } = useEcharts(LineCharts)
-    const { setOptions: LineStackDataChartSetOptions } = useEcharts(
-      LineStackDataCharts
-    )
+    let LineChartOptions = ref()
+    let LineStackDataChartOptions = ref()
 
     function initLineChart(res) {
-      const options = lineCommonOptions(res.data.xData, [res.data.yData])
-      LineChartSetOptions(options)
+      LineChartOptions.value = lineCommonOptions(res.data.xData, [
+        res.data.yData,
+      ])
     }
     function initLineStackChart(res) {
       const legend = [
@@ -49,8 +45,11 @@ export default {
         res.data.yData.data4,
         res.data.yData.data5,
       ]
-      const options = lineCommonOptions(res.data.xData, data, legend)
-      LineStackDataChartSetOptions(options)
+      LineStackDataChartOptions.value = lineCommonOptions(
+        res.data.xData,
+        data,
+        legend
+      )
     }
 
     function getList() {
@@ -65,10 +64,8 @@ export default {
     getList()
 
     return {
-      width,
-      height,
-      LineCharts,
-      LineStackDataCharts,
+      LineChartOptions,
+      LineStackDataChartOptions,
     }
   },
 }

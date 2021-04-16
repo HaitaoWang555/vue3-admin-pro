@@ -77,6 +77,7 @@ function BarCommonOptions(xData, yData, legend, seriesCon) {
       padding: [5, 10],
     },
     legend: {
+      top: 20,
       data: legend || [],
     },
     xAxis: {
@@ -102,11 +103,10 @@ function PieCommonOptions(data) {
       padding: [5, 10],
     },
     legend: {
-      top: 'bottom',
+      bottom: 10,
     },
     series: {
       type: 'pie',
-      radius: [50, 250],
       data,
     },
   }
@@ -182,9 +182,47 @@ function MapCommonOptions() {
   }
 }
 
+function MapChinaCommonOptions(data) {
+  return {
+    legend: {
+      orient: 'vertical',
+      y: 'bottom',
+      x: 'right',
+      textStyle: {
+        color: '#fff',
+      },
+    },
+    geo: {
+      map: 'CN',
+      roam: true,
+      center: [104.114129, 35.950339],
+      label: {
+        show: true,
+      },
+      zoom: 1.2,
+      itemStyle: {
+        color: '#B1D0EC',
+        shadowBlur: 5,
+        shadowColor: '#333',
+        borderColor: '#6dbee0',
+      },
+    },
+    series: [
+      {
+        type: 'scatter',
+        coordinateSystem: 'geo',
+        data: data || [],
+        silent: true,
+        large: true,
+      },
+    ],
+  }
+}
+
 export {
   lineCommonOptions,
   BarCommonOptions,
   PieCommonOptions,
   MapCommonOptions,
+  MapChinaCommonOptions,
 }

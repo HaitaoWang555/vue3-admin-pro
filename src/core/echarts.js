@@ -9,6 +9,7 @@ import {
   MapChart,
   PictorialBarChart,
   RadarChart,
+  ScatterChart,
 } from 'echarts/charts'
 
 import {
@@ -41,6 +42,7 @@ echarts.use([
   RadarChart,
   CanvasRenderer,
   PictorialBarChart,
+  ScatterChart,
   RadarComponent,
   VisualMapComponent,
   GeoComponent,

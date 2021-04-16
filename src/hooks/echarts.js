@@ -4,6 +4,7 @@ import { debounce } from '@/utils'
 
 export function useEcharts(elRef) {
   let mychart
+  let voptions
 
   function init() {
     if (!elRef) return
@@ -13,11 +14,17 @@ export function useEcharts(elRef) {
 
   function setOptions(options) {
     if (!mychart) return
+    voptions = options
     mychart.setOption(options)
   }
 
-  function resize() {
-    mychart && mychart.resize()
+  function resize(obj) {
+    mychart && mychart.resize(obj)
+    if (voptions.geo && voptions.geo.roam) {
+      voptions.geo.zoom = 1.2
+      voptions.geo.center = [104.114129, 35.950339]
+      mychart.setOption(voptions)
+    }
   }
 
   // sidebar resize

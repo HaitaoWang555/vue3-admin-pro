@@ -1,34 +1,28 @@
 <template>
   <div class="app-container">
-    <el-card>
-      <template #header> 某站点用户访问来源 </template>
-      <div ref="PieCharts" :style="{ height, width }"></div>
-    </el-card>
-    <el-card style="margin-top: 20px">
-      <template #header> 基础南丁格尔玫瑰图 </template>
-      <div ref="PieRoseTypeCharts" :style="{ height, width }"></div>
-    </el-card>
+    <CardChart title="某站点用户访问来源" :options="PieChartOptions" />
+    <CardChart
+      style="margin-top: 20px"
+      title="基础南丁格尔玫瑰图"
+      :options="PieRoseTypeChartOptions"
+    />
   </div>
 </template>
 
 <script>
 import { ref } from 'vue'
 import { getPieList } from '@/api/charts'
-import { useEcharts } from '@/hooks/echarts'
 import { PieCommonOptions } from '@/utils/echarts'
+import CardChart from './components/CardChart'
 
 export default {
   name: 'EchartsPie',
+  components: {
+    CardChart,
+  },
   setup() {
-    const PieCharts = ref()
-    const PieRoseTypeCharts = ref()
-    const width = '100%'
-    const height = window.innerHeight - 84 + 'px'
-
-    const { setOptions: PieChartSetOptions } = useEcharts(PieCharts)
-    const { setOptions: PieRoseTypeChartSetOptions } = useEcharts(
-      PieRoseTypeCharts
-    )
+    const PieChartOptions = ref()
+    const PieRoseTypeChartOptions = ref()
 
     function initPieChart(res) {
       const legend = [
@@ -45,8 +39,7 @@ export default {
           name: item,
         })
       })
-      const options = PieCommonOptions(data)
-      PieChartSetOptions(options)
+      PieChartOptions.value = PieCommonOptions(data)
     }
     function initPieRoseTypeCharts(res) {
       const legend = [
@@ -69,7 +62,7 @@ export default {
       })
       const options = PieCommonOptions(data)
       options.series.roseType = 'area'
-      PieRoseTypeChartSetOptions(options)
+      PieRoseTypeChartOptions.value = options
     }
 
     function getList() {
@@ -82,10 +75,8 @@ export default {
     getList()
 
     return {
-      width,
-      height,
-      PieCharts,
-      PieRoseTypeCharts,
+      PieChartOptions,
+      PieRoseTypeChartOptions,
     }
   },
 }

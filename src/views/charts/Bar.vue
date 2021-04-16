@@ -1,38 +1,32 @@
 <template>
   <div class="app-container">
-    <el-card>
-      <template #header> 坐标轴刻度与标签对齐 </template>
-      <div ref="BarCharts" :style="{ height, width }"></div>
-    </el-card>
-    <el-card style="margin-top: 20px">
-      <template #header> 堆叠柱状图 </template>
-      <div ref="BarStackDataCharts" :style="{ height, width }"></div>
-    </el-card>
+    <CardChart title="坐标轴刻度与标签对齐" :options="BarChartSetOptions" />
+    <CardChart
+      style="margin-top: 20px"
+      title="堆叠柱状图"
+      :options="BarStackDataChartSetOptions"
+    />
   </div>
 </template>
 
 <script>
 import { ref } from 'vue'
 import { getBarList, getBarStackList } from '@/api/charts'
-import { useEcharts } from '@/hooks/echarts'
 import { BarCommonOptions } from '@/utils/echarts'
+
+import CardChart from './components/CardChart'
 
 export default {
   name: 'EchartsBar',
+  components: { CardChart },
   setup() {
-    const BarCharts = ref()
-    const BarStackDataCharts = ref()
-    const width = '100%'
-    const height = window.innerHeight - 220 + 'px'
-
-    const { setOptions: BarChartSetOptions } = useEcharts(BarCharts)
-    const { setOptions: BarStackDataChartSetOptions } = useEcharts(
-      BarStackDataCharts
-    )
+    const BarChartSetOptions = ref()
+    const BarStackDataChartSetOptions = ref()
 
     function initBarChart(res) {
-      const options = BarCommonOptions(res.data.xData, [res.data.yData])
-      BarChartSetOptions(options)
+      BarChartSetOptions.value = BarCommonOptions(res.data.xData, [
+        res.data.yData,
+      ])
     }
     function initBarStackChart(res) {
       const legend = [
@@ -57,8 +51,12 @@ export default {
         res.data.yData.data8,
         res.data.yData.data9,
       ]
-      const options = BarCommonOptions(res.data.xData, data, legend)
-      options.series.forEach((item, index) => {
+      BarStackDataChartSetOptions.value = BarCommonOptions(
+        res.data.xData,
+        data,
+        legend
+      )
+      BarStackDataChartSetOptions.value.series.forEach((item, index) => {
         if ([1, 2, 3].includes(index)) {
           item.stack = '广告'
         }
@@ -66,7 +64,6 @@ export default {
           item.stack = '搜索引擎'
         }
       })
-      BarStackDataChartSetOptions(options)
     }
 
     function getList() {
@@ -81,10 +78,8 @@ export default {
     getList()
 
     return {
-      width,
-      height,
-      BarCharts,
-      BarStackDataCharts,
+      BarChartSetOptions,
+      BarStackDataChartSetOptions,
     }
   },
 }

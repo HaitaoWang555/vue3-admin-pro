@@ -6,50 +6,63 @@ import {
 } from '@/utils/index'
 
 const scrollBarWidth = getScrollBarWidth()
-let elFull, elWrap
+let elFull, scrollY
 
-function handleClick() {
-  if (hasClass(elWrap, 'content-screenfull')) {
-    removeClass(elWrap, 'content-screenfull')
+function handleClick(el) {
+  if (hasClass(el, 'content-screenfull')) {
+    removeClass(el, 'content-screenfull')
     document.documentElement.style.overflow = ''
     document.body.style.borderRight = ''
-    const callback = elWrap._v_fullscreen_normal
+    window.scrollTo(0, scrollY)
+    const callback = el._v_fullscreen_normal
     callback && callback() // eslint-disable-line
   } else {
-    addClass(elWrap, 'content-screenfull')
+    scrollY = window.scrollY
+    addClass(el, 'content-screenfull')
     document.documentElement.style.overflow = 'hidden'
     document.body.style.borderRight = scrollBarWidth + 'px solid transparent'
-    const callback = elWrap._v_fullscreen_big
+    const callback = el._v_fullscreen_big
     callback && callback() // eslint-disable-line
   }
 }
 
 export default {
   mounted(el, binding) {
-    elWrap = el
-    elFull = document.createElement('i')
-    elFull.className = 'el-icon-full-screen absolute-wrap'
     switch (binding.arg) {
       case 'top':
+        elFull = document.createElement('i')
+        elFull.className = 'el-icon-full-screen absolute-wrap'
         elFull.style.top = binding.value + 'px'
         addClass(el, 'relative-wrap')
         el.appendChild(elFull)
-        elFull.addEventListener('click', handleClick, false)
+        elFull.addEventListener(
+          'click',
+          () => {
+            handleClick(el)
+          },
+          false
+        )
         break
       case 'big':
-        elWrap._v_fullscreen_big = binding.value
+        el._v_fullscreen_big = binding.value
         break
       case 'normal':
-        elWrap._v_fullscreen_normal = binding.value
+        el._v_fullscreen_normal = binding.value
         break
 
       default:
         break
     }
   },
-  unmounted() {
+  unmounted(el) {
     if (!elFull) return
-    elFull.removeEventListener('click', handleClick, false)
+    elFull.removeEventListener(
+      'click',
+      () => {
+        handleClick(el)
+      },
+      false
+    )
     elFull = null
   },
 }
