@@ -91,3 +91,23 @@
     padding: 0;
   }
 }
+
+// ProDialog
+.ProDialog {
+  
+  border-radius: 4px;
+  box-shadow: 0 4px 12px rgb(0 0 0 / 15%);
+  
+  .el-dialog__header {
+    padding: 16px 24px;
+    color: rgba(0, 0, 0, 0.65);
+    background: #fff;
+    border-bottom: 1px solid #e8e8e8;
+    border-radius: 4px 4px 0 0;
+  }
+  .el-dialog__footer {
+    padding: 10px 16px;
+    border-top: 1px solid #e8e8e8;
+    border-radius: 0 0 4px 4px;
+  }
+}
