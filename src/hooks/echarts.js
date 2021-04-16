@@ -1,10 +1,13 @@
 import echarts from '@/core/echarts'
 import { unref, nextTick, onMounted, onUnmounted } from 'vue'
 import { debounce } from '@/utils'
+import { useStore } from 'vuex'
 
 export function useEcharts(elRef) {
   let mychart
   let voptions
+
+  const store = useStore()
 
   function init() {
     if (!elRef) return
@@ -21,10 +24,18 @@ export function useEcharts(elRef) {
   function resize(obj) {
     mychart && mychart.resize(obj)
     if (voptions.geo && voptions.geo.roam) {
-      voptions.geo.zoom = 1.2
-      voptions.geo.center = [104.114129, 35.950339]
+      const center = store.state.charts.center
+      if (center && center.length > 0) {
+        voptions.geo.center = center
+      } else {
+        voptions.geo.center = [104.114129, 35.950339]
+      }
       mychart.setOption(voptions)
     }
+  }
+
+  function getInstance() {
+    return mychart
   }
 
   // sidebar resize
@@ -71,5 +82,6 @@ export function useEcharts(elRef) {
     setOptions,
     resize,
     echarts,
+    getInstance,
   }
 }

@@ -193,13 +193,12 @@ function MapChinaCommonOptions(data) {
       },
     },
     geo: {
-      map: 'CN',
+      map: 'china',
       roam: true,
       center: [104.114129, 35.950339],
       label: {
         show: true,
       },
-      zoom: 1.2,
       itemStyle: {
         color: '#B1D0EC',
         shadowBlur: 5,

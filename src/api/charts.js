@@ -43,3 +43,10 @@ export function getPieRoseTypeList() {
     method: 'get',
   })
 }
+export function getMapJson(name) {
+  return request({
+    url: `/vue3-admin-pro/province/${name}.json`,
+    method: 'get',
+    baseURL: '',
+  })
+}

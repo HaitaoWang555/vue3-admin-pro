@@ -36,7 +36,9 @@ export default {
     const width = '100%'
     const height = ref(window.innerHeight - 180 + 'px')
 
-    const { setOptions: chartSetOptions, resize } = useEcharts(Charts)
+    const { setOptions: chartSetOptions, resize, getInstance } = useEcharts(
+      Charts
+    )
 
     watchEffect(() => {
       if (Object.keys(props.options).length > 0) {
@@ -55,6 +57,7 @@ export default {
 
     return {
       Charts,
+      getInstance,
       width,
       height,
       fullscreenBig,
