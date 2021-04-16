@@ -55,6 +55,11 @@ export default {
       back.value = !back.value
       const options = MapChinaCommonOptions()
       options.geo.map = map
+      if (map === 'china') {
+        options.geo.zoom = 1.2
+      } else {
+        options.geo.zoom = 1
+      }
       options.geo.center = position
       MapChinaChartOptions.value = options
     }

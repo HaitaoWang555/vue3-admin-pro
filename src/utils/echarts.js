@@ -195,6 +195,7 @@ function MapChinaCommonOptions(data) {
     geo: {
       map: 'china',
       roam: true,
+      zoom: 1.2,
       center: [104.114129, 35.950339],
       label: {
         show: true,
