@@ -7,8 +7,17 @@ const table = require('./table')
 const role = require('./role')
 const article = require('./article')
 const search = require('./remote-search')
+const charts = require('./charts')
 
-const mocks = [...publicApi, ...user, ...role, ...article, ...search, ...table]
+const mocks = [
+  ...publicApi,
+  ...user,
+  ...role,
+  ...article,
+  ...search,
+  ...table,
+  ...charts,
+]
 
 // for front mock
 // please use it cautiously, it will redefine XMLHttpRequest,

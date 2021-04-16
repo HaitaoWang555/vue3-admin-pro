@@ -1,5 +1,7 @@
 'use strict'
 const path = require('path')
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer')
+  .BundleAnalyzerPlugin
 const defaultSettings = require('./src/settings.js')
 
 function resolve(dir) {
@@ -15,6 +17,19 @@ const name = defaultSettings.title || 'vue Admin Pro' // page title
 // port = 9528 npm run dev OR npm run dev --port = 9528
 const port = process.env.port || process.env.npm_config_port || 9528 // dev port
 const isDev = process.env.NODE_ENV === 'development'
+
+const plugins = []
+if (!isDev) {
+  plugins.push(
+    new BundleAnalyzerPlugin({
+      analyzerMode: 'static',
+      generateStatsFile: true,
+      openAnalyzer: false,
+      statsOptions: { source: false },
+    })
+  )
+}
+
 // All configuration item explanations can be find in https://cli.vuejs.org/config/
 module.exports = {
   /**
@@ -24,7 +39,7 @@ module.exports = {
    * In most cases please use '/' !!!
    * Detail: https://cli.vuejs.org/config/#publicpath
    */
-  publicPath: isDev ? '/' : '/vue3-admin-pro/',
+  publicPath: '/vue3-admin-pro/',
   outputDir: 'dist',
   assetsDir: 'static',
   lintOnSave: isDev,
@@ -50,6 +65,7 @@ module.exports = {
         '@': resolve('src'),
       },
     },
+    plugins,
   },
   chainWebpack(config) {
     // it can improve the speed of the first screen, it is recommended to turn on preload
@@ -105,11 +121,15 @@ module.exports = {
             priority: 20, // the weight needs to be larger than libs and app or it will be packaged into libs or app
             test: /[\\/]node_modules[\\/]_?element-plus(.*)/, // in order to adapt to cnpm
           },
+          echarts: {
+            name: 'chunk-echarts',
+            priority: 20,
+            test: /[\\/]node_modules[\\/]_?echarts(.*)/,
+          },
           commons: {
             name: 'chunk-commons',
             test: resolve('src/components'), // can customize your rules
-            minChunks: 3, //  minimum common number
-            priority: 5,
+            priority: 20,
             reuseExistingChunk: true,
           },
         },

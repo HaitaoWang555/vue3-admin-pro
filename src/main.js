@@ -14,14 +14,15 @@ import loadComponents from '@/core/use'
 // globalProperties
 import globalProperties from '@/core/globalProperties'
 // icon
-import '@/icons'
-
+import(/* webpackChunkName: "icon" */ '@/icons')
 // vue router
 import router from '@/router'
 // vue vuex
 import store from '@/store'
 
 import '@/permission' // permission control
+
+import * as directive from '@/directive' // global directive
 
 /**
  * If you don't want to use mock-server
@@ -41,6 +42,11 @@ const app = createApp(App)
 loadElementPlus(app)
 loadComponents(app)
 globalProperties(app)
+
+// register global directive
+Object.keys(directive).forEach((key) => {
+  directive[key].install(app)
+})
 
 // element-plus config
 app.config.globalProperties.$ELEMENT = { size: 'small', zIndex: 3000 }

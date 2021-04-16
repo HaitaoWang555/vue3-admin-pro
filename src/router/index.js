@@ -5,6 +5,7 @@ import Layout from '@/layout'
 import nestedRouter from './modules/nested'
 import errorRouter from './modules/error-page'
 import tableRouter from './modules/table'
+import chartRouter from './modules/chart'
 
 export const constantRoutes = [
   {
@@ -14,7 +15,10 @@ export const constantRoutes = [
     children: [
       {
         path: '/redirect/:path(.*)',
-        component: import('@/views/redirect/index'),
+        component: () =>
+          import(
+            /* webpackChunkName: "redirect" */ '@/components/Redirect/index'
+          ),
       },
     ],
   },
@@ -35,6 +39,7 @@ export const constantRoutes = [
   },
 
   tableRouter,
+  chartRouter,
 
   {
     path: '/form',
@@ -108,6 +113,13 @@ export const asyncRoutes = []
 const history = createWebHashHistory()
 const router = createRouter({
   history,
+  scrollBehavior(to, from, savedPosition) {
+    if (savedPosition) {
+      return savedPosition
+    } else {
+      return { top: 0 }
+    }
+  },
   routes: constantRoutes,
 })
 
@@ -116,6 +128,13 @@ export default router
 export function resetRouter() {
   const newRouter = createRouter({
     history,
+    scrollBehavior(to, from, savedPosition) {
+      if (savedPosition) {
+        return savedPosition
+      } else {
+        return { top: 0 }
+      }
+    },
     routes: constantRoutes,
   })
   router.matcher = newRouter.matcher // reset router
