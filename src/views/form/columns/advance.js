@@ -5,6 +5,7 @@ const list = [
     isForm: true,
     row: 0,
     span: 8,
+    xl: 6,
     valueType: 'input',
   },
   {
@@ -13,6 +14,7 @@ const list = [
     isForm: true,
     row: 0,
     span: 8,
+    xl: 6,
     valueType: 'input',
   },
   {
@@ -21,6 +23,7 @@ const list = [
     isForm: true,
     row: 0,
     span: 8,
+    xl: 6,
     valueType: 'select',
     option: [
       {
@@ -39,6 +42,7 @@ const list = [
     isForm: true,
     row: 0,
     span: 8,
+    xl: 6,
     valueType: 'select',
     option: [
       {
@@ -60,6 +64,7 @@ const list = [
     isForm: true,
     row: 0,
     span: 8,
+    xl: 6,
   },
   {
     dataIndex: 'type',
@@ -67,6 +72,7 @@ const list = [
     isForm: true,
     row: 0,
     span: 8,
+    xl: 6,
     valueType: 'select',
     option: [
       {
@@ -85,6 +91,7 @@ const list = [
     isForm: true,
     row: 1,
     span: 8,
+    xl: 6,
     valueType: 'input',
   },
   {
@@ -93,6 +100,7 @@ const list = [
     isForm: true,
     row: 1,
     span: 8,
+    xl: 6,
     valueType: 'input',
   },
   {
@@ -101,6 +109,7 @@ const list = [
     isForm: true,
     row: 1,
     span: 8,
+    xl: 6,
     valueType: 'select',
     option: [
       {
@@ -119,6 +128,7 @@ const list = [
     isForm: true,
     row: 1,
     span: 8,
+    xl: 6,
     valueType: 'select',
     option: [
       {
@@ -140,6 +150,7 @@ const list = [
     isForm: true,
     row: 1,
     span: 8,
+    xl: 6,
   },
   {
     dataIndex: 'type2',
@@ -147,6 +158,7 @@ const list = [
     isForm: true,
     row: 1,
     span: 8,
+    xl: 6,
     valueType: 'select',
     option: [
       {

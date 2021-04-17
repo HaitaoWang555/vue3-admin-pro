@@ -188,6 +188,10 @@ export default {
       multipleSelection.value.forEach((i) => {
         i.status = status
       })
+      Message({
+        message: 'Success',
+        type: 'success',
+      })
     }
     function handleModifyStatus(row, status) {
       Message({

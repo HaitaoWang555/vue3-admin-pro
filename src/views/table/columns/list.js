@@ -17,6 +17,7 @@ const columnList = [
     pickerFormat: 'YYYY-MM-DD HH-mm-ss',
     isSearch: true,
     isForm: true,
+    xl: 6,
     prop: [
       {
         type: 'date',
@@ -35,6 +36,7 @@ const columnList = [
     scopedSlots: { customRender: 'title' },
     valueType: 'input',
     isSearch: true,
+    xl: 6,
     isForm: true,
     prop: [{ required: true, message: 'title is required', trigger: 'blur' }],
   },
@@ -69,6 +71,7 @@ const columnList = [
       },
     ],
     isSearch: true,
+    xl: 6,
   },
   {
     dataIndex: 'status',
@@ -109,6 +112,7 @@ const columnList = [
       value: 'key',
     },
     isSearch: true,
+    xl: 6,
     noTable: true,
     isForm: true,
     prop: [{ required: true, message: 'type is required', trigger: 'change' }],

@@ -206,25 +206,6 @@ export default {
     lazy: Boolean,
     load: Function,
   },
-  emits: [
-    'select',
-    'select-all',
-    'selection-change', // complete
-    'cell-mouse-enter',
-    'cell-mouse-leave',
-    'cell-click',
-    'cell-dblclick',
-    'row-click',
-    'row-contextmenu',
-    'row-dblclick',
-    'header-click',
-    'header-contextmenu',
-    'sort-change', // complete
-    'filter-change',
-    'current-change', // complete
-    'header-dragend',
-    'expand-change', // complete
-  ],
   setup(prop, { emit }) {
     const key = ref(0)
     const list = ref(null)
