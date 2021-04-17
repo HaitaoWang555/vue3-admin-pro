@@ -57,7 +57,7 @@
         </el-col>
         <slot name="footer"> </slot>
 
-        <el-col>
+        <el-col :span="8" :xl="6">
           <div class="table-page-search-submitButtons">
             <el-button
               type="primary"
