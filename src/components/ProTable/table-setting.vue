@@ -4,9 +4,10 @@
     <i class="el-icon-refresh" @click="refresh" />
     <i class="el-icon-setting" @click="dialogVisible = true" />
     <i class="el-icon-full-screen" @click="fullscreen" />
-    <el-dialog
-      v-model="dialogVisible"
+    <ProDialog
+      v-model:value="dialogVisible"
       title="表格列展示"
+      :no-footer="true"
       @close="dialogVisible = false"
     >
       <draggable
@@ -39,7 +40,7 @@
           </div>
         </template>
       </draggable>
-    </el-dialog>
+    </ProDialog>
   </div>
 </template>
 

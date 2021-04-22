@@ -2,20 +2,26 @@
   <div class="ProDialogWrap">
     <el-dialog
       v-model="value"
-      :title="title"
-      :width="width"
-      append-to-body
+      v-bind="$attrs"
+      :append-to-body="
+        $attrs['append-to-body'] === undefined ? true : $attrs['append-to-body']
+      "
       :close-on-click-modal="false"
       custom-class="ProDialog"
       @close="handleClose"
     >
       <template #title><slot name="title"></slot></template>
       <slot></slot>
-      <template #footer>
+      <template v-if="!$attrs['no-footer']" #footer>
         <slot v-if="$slots && $slots.footer" name="footer"></slot>
         <span v-else class="dialog-footer">
-          <el-button @click="handleClose">取 消</el-button>
-          <el-button type="primary" @click="handleClose">确 定</el-button>
+          <el-button @click="handleClose">关 闭</el-button>
+          <el-button
+            :loading="confirmLoading"
+            type="primary"
+            @click="handleOk"
+            >{{ confirmText }}</el-button
+          >
         </span>
       </template>
     </el-dialog>
@@ -30,22 +36,29 @@ export default {
       type: Boolean,
       default: false,
     },
-    title: {
-      type: String,
-      default: '提示',
+    confirmLoading: {
+      type: Boolean,
+      default: false,
     },
-    width: {
+    confirmText: {
       type: String,
-      default: '30%',
+      default: '确 定',
     },
   },
+  emits: ['cancle', 'ok', 'update:value'],
   setup(props, { emit }) {
     function handleClose() {
+      if (!props.value) return
+      emit('cancle')
       emit('update:value', false)
+    }
+    function handleOk() {
+      emit('ok')
     }
 
     return {
       handleClose,
+      handleOk,
     }
   },
 }

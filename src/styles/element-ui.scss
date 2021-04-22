@@ -110,4 +110,12 @@
     border-top: 1px solid #e8e8e8;
     border-radius: 0 0 4px 4px;
   }
+  &.is-fullscreen {
+    overflow: hidden;
+    .el-dialog__body {
+      height: calc(100vh - 112px);
+      overflow: auto;
+    }
+  }
+
 }

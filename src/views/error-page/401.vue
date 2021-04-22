@@ -31,9 +31,14 @@
         />
       </el-col>
     </el-row>
-    <el-dialog v-model="dialogVisible" title="随便看">
+    <ProDialog
+      v-model:value="dialogVisible"
+      :append-to-body="false"
+      title="随便看"
+      :no-footer="true"
+    >
       <img :src="ewizardClap" class="pan-img" />
-    </el-dialog>
+    </ProDialog>
   </div>
 </template>
 

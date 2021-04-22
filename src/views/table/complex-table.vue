@@ -75,10 +75,11 @@
         </span>
       </template>
     </ProTable>
-    <el-dialog
-      v-model="dialogVisible"
+    <ProDialog
+      v-model:value="dialogVisible"
       :title="dialogTitle"
-      :close-on-click-modal="false"
+      :no-footer="true"
+      width="50%"
     >
       <ProForm
         :dialog-val="dialogVisible"
@@ -100,7 +101,7 @@
           </el-form-item>
         </template>
       </ProForm>
-    </el-dialog>
+    </ProDialog>
   </div>
 </template>
 
