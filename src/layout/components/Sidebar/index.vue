@@ -25,8 +25,8 @@
 
 <script>
 import { useStore } from 'vuex'
-import Logo from './Logo'
-import SidebarItem from './SidebarItem'
+import Logo from './Logo.vue'
+import SidebarItem from './SidebarItem.vue'
 import variablesV from '@/styles/variables.scss'
 import { computed } from 'vue'
 import { useRoute, useRouter } from 'vue-router'

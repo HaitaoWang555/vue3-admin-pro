@@ -108,9 +108,9 @@
 
 <script>
 import { computed, reactive, ref } from 'vue'
-import Pagination from '@/components/Pagination' // secondary package based on el-pagination
-import SearchForm from '@/components/SearchForm' // SearchForm
-import TableSetting from '@/components/ProTable/table-setting' // TableSetting
+import Pagination from '@/components/Pagination/index.vue' // secondary package based on el-pagination
+import SearchForm from '@/components/SearchForm/index.vue' // SearchForm
+import TableSetting from '@/components/ProTable/table-setting.vue' // TableSetting
 import { useStore } from 'vuex'
 export default {
   name: 'ProTable',

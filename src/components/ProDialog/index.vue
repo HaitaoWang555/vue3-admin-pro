@@ -12,7 +12,7 @@
     >
       <template #title><slot name="title"></slot></template>
       <slot></slot>
-      <template v-if="!$attrs['no-footer']" #footer>
+      <template v-if="!noFooter" #footer>
         <slot v-if="$slots && $slots.footer" name="footer"></slot>
         <span v-else class="dialog-footer">
           <el-button @click="handleClose">关 闭</el-button>
@@ -37,6 +37,10 @@ export default {
       default: false,
     },
     confirmLoading: {
+      type: Boolean,
+      default: false,
+    },
+    noFooter: {
       type: Boolean,
       default: false,
     },

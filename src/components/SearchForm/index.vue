@@ -166,6 +166,9 @@ export default {
 </script>
 <style lang="scss" scoped>
 // 数据列表 搜索条件
+.table-page-search-wrapper {
+  overflow-x: hidden;
+}
 .table-page-search-submitButtons {
   margin-bottom: 18px;
 }

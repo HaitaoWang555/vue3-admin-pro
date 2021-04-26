@@ -1,6 +1,6 @@
 /** When your routing table is too long, you can split it into small modules **/
 
-import Layout from '@/layout'
+import Layout from '@/layout/index.vue'
 
 const errorRouter = {
   path: '/error',
@@ -15,14 +15,14 @@ const errorRouter = {
     {
       path: '401',
       component: () =>
-        import(/* webpackChunkName: "error" */ '@/views/error-page/401'),
+        import(/* webpackChunkName: "error" */ '@/views/error-page/401.vue'),
       name: 'Page401',
       meta: { title: '401', noCache: true },
     },
     {
       path: '404',
       component: () =>
-        import(/* webpackChunkName: "error" */ '@/views/error-page/404'),
+        import(/* webpackChunkName: "error" */ '@/views/error-page/404.vue'),
       name: 'Page404',
       meta: { title: '404', noCache: true },
     },

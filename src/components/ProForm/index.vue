@@ -126,7 +126,7 @@
 </template>
 
 <script>
-import SendCode from '@/components/sendCode'
+import SendCode from '@/components/sendCode/index.vue'
 import { nextTick, ref, watch } from 'vue'
 import Message from 'element-plus/lib/el-message'
 

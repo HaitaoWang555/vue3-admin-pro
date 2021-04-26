@@ -11,14 +11,14 @@
   </div>
 </template>
 <script>
-import ProTable from '@/components/ProTable'
+import ProTable from '@/components/ProTable/index.vue'
 import { fetchList } from '@/api/article'
 
 import { columnList } from './columns/inline'
 import { ref } from 'vue'
 import { useFilter } from '@/hooks/table'
-import Important from './components/editable-cell/Important'
-import EditStatus from './components/editable-cell/Status'
+import Important from './components/editable-cell/Important.vue'
+import EditStatus from './components/editable-cell/Status.vue'
 export default {
   name: 'InlineEditTable',
   components: {
