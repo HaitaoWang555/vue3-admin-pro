@@ -97,6 +97,7 @@
   
   border-radius: 4px;
   box-shadow: 0 4px 12px rgb(0 0 0 / 15%);
+  margin-bottom: 0!important;
   
   .el-dialog__header {
     padding: 16px 24px;
@@ -111,7 +112,7 @@
     border-radius: 0 0 4px 4px;
   }
   .el-dialog__body {
-    max-height: calc(100vh - 40vh);
+    max-height: calc(100vh - 15vh - 110px);
     overflow-y: auto;
   }
   &.is-fullscreen {
