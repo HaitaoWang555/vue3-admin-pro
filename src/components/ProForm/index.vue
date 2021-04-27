@@ -156,7 +156,9 @@ export default {
     },
     formList: {
       type: Array,
-      default: () => {},
+      default: () => {
+        return []
+      },
     },
     isEdit: {
       type: Boolean,

@@ -106,8 +106,6 @@
 </template>
 
 <script>
-import ProTable from '@/components/ProTable/index.vue'
-import ProForm from '@/components/ProForm/index.vue'
 import { reactive, ref, toRaw } from 'vue'
 import { fetchList, createArticle, updateArticle } from '@/api/article'
 import { columnList } from './columns/list'
@@ -117,10 +115,6 @@ import { parseTime, copyValue } from '@/utils'
 
 export default {
   name: 'ComplexTable',
-  components: {
-    ProTable,
-    ProForm,
-  },
   setup() {
     // Table
     const proTable = ref(null)
