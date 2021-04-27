@@ -48,6 +48,7 @@
 </template>
 
 <script>
+import path from 'path'
 import { isExternal } from '@/utils/validate'
 import Item from './Item.vue'
 import AppLink from './Link.vue'
@@ -109,8 +110,7 @@ export default {
       if (isExternal(props.basePath)) {
         return props.basePath
       }
-      const str = props.basePath === '/' ? '' : '/'
-      return props.basePath + str + routePath
+      return path.resolve(props.basePath, routePath)
     }
 
     return {
