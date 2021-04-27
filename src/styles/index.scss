@@ -118,6 +118,17 @@ div:focus {
   z-index: 1005;
   overflow-y: auto;
 }
+.ProDialogFullscreen {
+  width: 18px;
+  height: 18px;
+  display: block;
+  position: absolute;
+  top: 20px;
+  right: 42px;
+  font-size: 16px;
+  color: #909399;
+  cursor: pointer;
+}
 // pro table btn
 .table-operator {
   margin-bottom: 18px;

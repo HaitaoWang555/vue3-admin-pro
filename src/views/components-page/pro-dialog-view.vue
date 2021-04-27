@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="app-container">
     <ProDialog
       v-model:value="visible"
       title="title"
