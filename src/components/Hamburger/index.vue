@@ -24,6 +24,7 @@ export default {
       default: false,
     },
   },
+  emits: ['toggleClick'],
   setup(props, ctx) {
     const toggleClick = () => {
       ctx.emit('toggleClick')

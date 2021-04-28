@@ -56,6 +56,7 @@ export default {
       default: false,
     },
   },
+  emits: ['update:page', 'update:pageSize', 'pagination'],
   setup(prop, { emit }) {
     const currentPage = computed({
       get: () => prop.page,

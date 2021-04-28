@@ -66,7 +66,7 @@ export default {
       },
     },
   },
-  emits: ['reRender'],
+  emits: ['reRender', 'update:columns'],
   setup(prop, { emit }) {
     const dialogVisible = ref(false)
 

@@ -210,6 +210,7 @@ export default {
     lazy: Boolean,
     load: Function,
   },
+  emits: ['selection-change', 'sort-change', 'current-change', 'expand-change'],
   setup(prop, { emit }) {
     const key = ref(0)
     const list = ref(null)

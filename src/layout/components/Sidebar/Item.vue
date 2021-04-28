@@ -13,20 +13,18 @@ export default {
     },
   },
   setup(props) {
-    const { icon, title } = props
-
     const renderIcon = () => {
-      if (icon) {
-        if (icon.includes('el-icon')) {
-          return <i class={[icon, 'sub-el-icon']} />
+      if (props.icon) {
+        if (props.icon.includes('el-icon')) {
+          return <i class={[props.icon, 'sub-el-icon']} />
         } else {
-          return <svg-icon icon-class={icon} />
+          return <svg-icon icon-class={props.icon} />
         }
       }
     }
     const renderTitle = () => {
-      if (title) {
-        return <span slot="title">{title}</span>
+      if (props.title) {
+        return <span slot="title">{props.title}</span>
       }
     }
 

@@ -1,4 +1,3 @@
-<!-- eslint-disable vue/no-mutating-props -->
 <!-- 搜索条件 -->
 <template>
   <div id="search-form-wrap" class="table-page-search-wrapper">
