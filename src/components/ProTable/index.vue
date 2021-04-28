@@ -107,7 +107,7 @@
 </template>
 
 <script>
-import { computed, reactive, ref } from 'vue'
+import { computed, reactive, ref, watch } from 'vue'
 import Pagination from '@/components/Pagination/index.vue' // secondary package based on el-pagination
 import SearchForm from '@/components/SearchForm/index.vue' // SearchForm
 import TableSetting from '@/components/ProTable/table-setting.vue' // TableSetting
@@ -117,6 +117,10 @@ export default {
   components: { Pagination, SearchForm, TableSetting },
   props: {
     /* eslint-disable vue/require-default-prop */
+    lazyLoad: {
+      type: Boolean,
+      default: false,
+    },
     queryParam: {
       type: Object,
       default: () => {
@@ -215,18 +219,20 @@ export default {
       page: 1,
       pageSize: 20,
     })
-    const tableColumns = ref(
-      prop.columns
+    const tableColumns = ref([])
+
+    const store = useStore()
+
+    const device = computed(() => store.state.app.device)
+
+    function initColumns() {
+      tableColumns.value = prop.columns
         .filter((i) => !i.noTable)
         .map((i) => {
           i.fieldVisible = true
           return i
         })
-    )
-
-    const store = useStore()
-
-    const device = computed(() => store.state.app.device)
+    }
 
     function loadData() {
       listLoading.value = true
@@ -272,7 +278,20 @@ export default {
       key.value = key.value += 1
     }
 
-    loadData()
+    if (!prop.lazyLoad) {
+      initColumns()
+      loadData()
+    }
+
+    watch(
+      () => prop.lazyLoad,
+      () => {
+        if (!prop.lazyLoad) {
+          initColumns()
+          loadData()
+        }
+      }
+    )
 
     return {
       key,

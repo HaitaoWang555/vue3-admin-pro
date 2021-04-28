@@ -43,7 +43,24 @@ export const constantRoutes = [
 
   tableRouter,
   chartRouter,
-
+  {
+    path: '/online',
+    hidden: true,
+    component: Layout,
+    name: 'onlineRouter',
+    meta: { title: 'online', icon: 'el-icon-cloudy' },
+    children: [
+      {
+        path: ':id',
+        name: 'onlineRouter0',
+        meta: { title: 'onlineRouter' },
+        component: () =>
+          import(
+            /* webpackChunkName: "online" */ '@/components/OnlineList/index.vue'
+          ),
+      },
+    ],
+  },
   {
     path: '/form',
     component: Layout,
