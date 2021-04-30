@@ -52,11 +52,11 @@ export const constantRoutes = [
     children: [
       {
         path: ':id',
-        name: 'onlineRouter0',
+        name: 'onlineRouterTem',
         meta: { title: 'onlineRouter' },
         component: () =>
           import(
-            /* webpackChunkName: "online" */ '@/components/OnlineList/index.vue'
+            /* webpackChunkName: "online" */ '@/components/Online/list.vue'
           ),
       },
     ],

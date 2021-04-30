@@ -22,6 +22,7 @@
       />
     </div>
     <el-table
+      ref="ProElTable"
       :key="key"
       v-loading="listLoading"
       :data="list"
@@ -212,6 +213,7 @@ export default {
   },
   emits: ['selection-change', 'sort-change', 'current-change', 'expand-change'],
   setup(prop, { emit }) {
+    const ProElTable = ref()
     const key = ref(0)
     const list = ref(null)
     const listLoading = ref(false)
@@ -295,6 +297,7 @@ export default {
     )
 
     return {
+      ProElTable,
       key,
       tableColumns,
       list,

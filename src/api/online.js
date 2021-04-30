@@ -21,3 +21,10 @@ export function get(url, query) {
     params: query,
   })
 }
+export function post(url, data) {
+  return request({
+    url: url,
+    method: 'post',
+    data,
+  })
+}

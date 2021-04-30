@@ -14,6 +14,10 @@ const columnList = [
     minWidth: 450,
     align: 'left',
     title: '模板描述',
+    valueType: 'input',
+    isSearch: true,
+    isForm: true,
+    prop: [{ required: true, message: '请填写模板描述', trigger: 'blur' }],
   },
   {
     dataIndex: 'status',
@@ -23,6 +27,36 @@ const columnList = [
       customRender: 'status',
       dict: 'statusMap',
     },
+    isSearch: true,
+    valueType: 'select',
+    option: [
+      {
+        label: 'published',
+        value: 'published',
+      },
+      {
+        label: 'draft',
+        value: 'draft',
+      },
+      {
+        label: 'deleted',
+        value: 'deleted',
+      },
+    ],
+    isForm: true,
+    prop: [
+      {
+        required: true,
+        message: '请选择发布状态',
+        trigger: 'change',
+      },
+    ],
+  },
+  {
+    dataIndex: 'remark',
+    title: '备注',
+    width: null,
+    minWidth: 400,
   },
   {
     dataIndex: 'create_by',
@@ -37,6 +71,47 @@ const columnList = [
     valueType: 'date-picker',
     pickerType: 'date',
     pickerFormat: 'YYYY-MM-DD HH-mm-ss',
+    isSearch: true,
+    isForm: true,
+    prop: [
+      {
+        type: 'date',
+        required: true,
+        message: '请选择时间',
+        trigger: 'change',
+      },
+    ],
+  },
+]
+const actions = [
+  {
+    label: '添加',
+    type: 'primary',
+    icon: 'el-icon-plus',
+    value: 'add',
+    url: '/vue3-admin-pro/online/add',
+  },
+  {
+    label: '修改',
+    type: 'success',
+    icon: 'el-icon-edit',
+    value: 'edit',
+    otherParams: {
+      id: '',
+    },
+    url: '/vue3-admin-pro/online/edit',
+  },
+  {
+    label: '批量删除',
+    type: 'danger',
+    icon: 'el-icon-delete',
+    value: 'delete',
+    otherParams: {
+      ids: '',
+    },
+    needSelect: true,
+    twoStepVerification: '确定要删除么？',
+    url: '/vue3-admin-pro/online/delete',
   },
 ]
 module.exports = [
@@ -49,12 +124,10 @@ module.exports = [
         msg: 'success',
         data: {
           columns: columnList,
-          searchParams: {
-            title: '',
-            status: '',
-          },
           listUrl: '/vue3-admin-pro/online/list',
           showIndex: true,
+          showSelection: true,
+          actions,
         },
       }
     },
@@ -70,7 +143,7 @@ module.exports = [
       for (let i = 0; i < arr.length; i++) {
         const item = arr[i]
         if (item.scopedSlots && item.scopedSlots.customRender === 'date') {
-          MockObj[item.dataIndex] = +Mock.Random.date('T')
+          MockObj[item.dataIndex] = Mock.Random.date('yyyy-MM-dd HH:mm:ss')
         } else if (
           item.scopedSlots &&
           item.scopedSlots.customRender === 'status'
@@ -82,7 +155,6 @@ module.exports = [
           MockObj[item.dataIndex] = '@title(5, 10)'
         }
       }
-      console.log(MockObj)
       for (let i = 0; i < count; i++) {
         List.push(Mock.mock(MockObj))
       }
@@ -97,6 +169,36 @@ module.exports = [
           total: count,
           items: pageList,
         },
+      }
+    },
+  },
+  {
+    url: '/vue3-admin-pro/online/add',
+    type: 'post',
+    response: () => {
+      return {
+        code: 20000,
+        msg: 'add success',
+      }
+    },
+  },
+  {
+    url: '/vue3-admin-pro/online/edit',
+    type: 'post',
+    response: () => {
+      return {
+        code: 20000,
+        msg: 'edit success',
+      }
+    },
+  },
+  {
+    url: '/vue3-admin-pro/online/delete',
+    type: 'post',
+    response: () => {
+      return {
+        code: 20000,
+        msg: 'delete success',
       }
     },
   },

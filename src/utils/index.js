@@ -357,7 +357,7 @@ export function getScrollBarWidth() {
 
 export function copyValue(oldObj, newObj) {
   for (const key in oldObj) {
-    oldObj[key] = newObj[key]
+    oldObj[key] = newObj ? newObj[key] : null
   }
 
   return oldObj
