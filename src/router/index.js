@@ -59,6 +59,15 @@ export const constantRoutes = [
             /* webpackChunkName: "online" */ '@/components/Online/list.vue'
           ),
       },
+      {
+        path: 'add',
+        name: 'addOnlineRouterTem',
+        meta: { title: 'add online template' },
+        component: () =>
+          import(
+            /* webpackChunkName: "online" */ '@/views/online/createList.vue'
+          ),
+      },
     ],
   },
   {
