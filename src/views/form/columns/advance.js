@@ -6,6 +6,8 @@ const list = [
     row: 0,
     span: 8,
     xl: 6,
+    form_span: 8,
+    form_xl: 6,
     valueType: 'input',
   },
   {
@@ -15,6 +17,8 @@ const list = [
     row: 0,
     span: 8,
     xl: 6,
+    form_span: 8,
+    form_xl: 6,
     valueType: 'input',
   },
   {
@@ -24,6 +28,8 @@ const list = [
     row: 0,
     span: 8,
     xl: 6,
+    form_span: 8,
+    form_xl: 6,
     valueType: 'select',
     option: [
       {
@@ -43,6 +49,8 @@ const list = [
     row: 0,
     span: 8,
     xl: 6,
+    form_span: 8,
+    form_xl: 6,
     valueType: 'select',
     option: [
       {
@@ -65,6 +73,8 @@ const list = [
     row: 0,
     span: 8,
     xl: 6,
+    form_span: 8,
+    form_xl: 6,
   },
   {
     dataIndex: 'type',
@@ -73,6 +83,8 @@ const list = [
     row: 0,
     span: 8,
     xl: 6,
+    form_span: 8,
+    form_xl: 6,
     valueType: 'select',
     option: [
       {
@@ -92,6 +104,8 @@ const list = [
     row: 1,
     span: 8,
     xl: 6,
+    form_span: 8,
+    form_xl: 6,
     valueType: 'input',
   },
   {
@@ -101,6 +115,8 @@ const list = [
     row: 1,
     span: 8,
     xl: 6,
+    form_span: 8,
+    form_xl: 6,
     valueType: 'input',
   },
   {
@@ -110,6 +126,8 @@ const list = [
     row: 1,
     span: 8,
     xl: 6,
+    form_span: 8,
+    form_xl: 6,
     valueType: 'select',
     option: [
       {
@@ -129,6 +147,8 @@ const list = [
     row: 1,
     span: 8,
     xl: 6,
+    form_span: 8,
+    form_xl: 6,
     valueType: 'select',
     option: [
       {
@@ -151,6 +171,8 @@ const list = [
     row: 1,
     span: 8,
     xl: 6,
+    form_span: 8,
+    form_xl: 6,
   },
   {
     dataIndex: 'type2',
@@ -159,6 +181,8 @@ const list = [
     row: 1,
     span: 8,
     xl: 6,
+    form_span: 8,
+    form_xl: 6,
     valueType: 'select',
     option: [
       {

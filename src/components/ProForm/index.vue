@@ -25,12 +25,12 @@
         <el-col
           v-for="(item, index) in row"
           :key="index"
-          :span="item.span || 24"
-          :xs="item.xs || item.span"
-          :sm="item.sm || item.span"
-          :md="item.md || item.span"
-          :lg="item.lg || item.span"
-          :xl="item.xl || item.span"
+          :span="item.form_span || 24"
+          :xs="item.form_xs || item.form_span"
+          :sm="item.form_sm || item.form_span"
+          :md="item.form_md || item.form_span"
+          :lg="item.form_lg || item.form_span"
+          :xl="item.form_xl || item.form_span"
         >
           <el-form-item
             :prop="item.prop ? item.dataIndex : ''"
