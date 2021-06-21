@@ -1,21 +1,32 @@
 <template>
   <div class="ProDialogWrap">
     <el-dialog
+      ref="ProDialog"
       v-model="value"
-      :title="title"
-      :width="width"
-      append-to-body
+      v-bind="$attrs"
+      :fullscreen="isFullscreen"
+      :append-to-body="
+        $attrs['append-to-body'] === undefined ? true : $attrs['append-to-body']
+      "
       :close-on-click-modal="false"
       custom-class="ProDialog"
       @close="handleClose"
     >
+      <span class="ProDialogFullscreen" @click="changeFullscreen">
+        <svg-icon :icon-class="icon" />
+      </span>
       <template #title><slot name="title"></slot></template>
       <slot></slot>
-      <template #footer>
+      <template v-if="!noFooter" #footer>
         <slot v-if="$slots && $slots.footer" name="footer"></slot>
         <span v-else class="dialog-footer">
-          <el-button @click="handleClose">取 消</el-button>
-          <el-button type="primary" @click="handleClose">确 定</el-button>
+          <el-button @click="handleClose">关 闭</el-button>
+          <el-button
+            :loading="confirmLoading"
+            type="primary"
+            @click="handleOk"
+            >{{ confirmText }}</el-button
+          >
         </span>
       </template>
     </el-dialog>
@@ -23,6 +34,8 @@
 </template>
 
 <script>
+import { computed, nextTick, ref, watchEffect } from 'vue'
+import draggable from './draggable'
 export default {
   name: 'ProDialog',
   props: {
@@ -30,22 +43,60 @@ export default {
       type: Boolean,
       default: false,
     },
-    title: {
-      type: String,
-      default: '提示',
+    confirmLoading: {
+      type: Boolean,
+      default: false,
     },
-    width: {
+    noFooter: {
+      type: Boolean,
+      default: false,
+    },
+    confirmText: {
       type: String,
-      default: '30%',
+      default: '确 定',
     },
   },
-  setup(props, { emit }) {
+  emits: ['cancle', 'ok', 'update:value'],
+  setup(props, { emit, attrs }) {
+    const ProDialog = ref()
+    const isFullscreen = ref(false)
+    if (attrs.fullscreen || attrs.fullscreen === '') isFullscreen.value = true
+
+    const icon = computed(() => {
+      return isFullscreen.value ? 'fullscreen-exit' : 'fullscreen'
+    })
+
     function handleClose() {
+      if (!props.value) return
+      emit('cancle')
       emit('update:value', false)
     }
+    function handleOk() {
+      emit('ok')
+    }
+    function changeFullscreen() {
+      isFullscreen.value = !isFullscreen.value
+      if (isFullscreen.value) {
+        ProDialog.value.dialogRef.style.cssText += ';top:0px;left:0px;'
+      }
+    }
+
+    watchEffect(() => {
+      if (isFullscreen.value) return
+      if (props.value && ProDialog.value) {
+        nextTick(() => {
+          draggable(ProDialog.value.dialogRef)
+        })
+      }
+    })
 
     return {
+      isFullscreen,
+      ProDialog,
       handleClose,
+      handleOk,
+      changeFullscreen,
+      icon,
     }
   },
 }

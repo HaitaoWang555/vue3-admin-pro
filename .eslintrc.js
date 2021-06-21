@@ -1,7 +1,9 @@
 module.exports = {
   root: true,
+  parser: 'vue-eslint-parser',
   parserOptions: {
     parser: 'babel-eslint',
+    ecmaVersion: 2020,
     sourceType: 'module',
   },
   env: {
@@ -9,8 +11,9 @@ module.exports = {
     node: true,
     es6: true,
   },
+  // https://eslint.vuejs.org/user-guide/#usage
   extends: [
-    'plugin:vue/recommended',
+    'plugin:vue/vue3-recommended',
     'eslint:recommended',
     'prettier',
     'prettier/vue',

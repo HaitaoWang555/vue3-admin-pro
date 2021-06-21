@@ -1,4 +1,4 @@
-<script>
+<script lang="jsx">
 export default {
   name: 'MenuItem',
   functional: true,
@@ -12,22 +12,30 @@ export default {
       default: '',
     },
   },
-  render(props) {
-    const { icon, title } = props
-    const vnodes = []
-
-    if (icon) {
-      if (icon.includes('el-icon')) {
-        vnodes.push(<i class={[icon, 'sub-el-icon']} />)
-      } else {
-        vnodes.push(<svg-icon icon-class={icon} />)
+  setup(props) {
+    const renderIcon = () => {
+      if (props.icon) {
+        if (props.icon.includes('el-icon')) {
+          return <i class={[props.icon, 'sub-el-icon']} />
+        } else {
+          return <svg-icon icon-class={props.icon} />
+        }
+      }
+    }
+    const renderTitle = () => {
+      if (props.title) {
+        return <span slot="title">{props.title}</span>
       }
     }
 
-    if (title) {
-      vnodes.push(<span slot="title">{title}</span>)
+    return () => {
+      return (
+        <>
+          {renderIcon()}
+          {renderTitle()}
+        </>
+      )
     }
-    return vnodes
   },
 }
 </script>

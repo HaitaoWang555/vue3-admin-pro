@@ -34,13 +34,13 @@
         <span style="padding-right: 15px" class="link-type">{{
           slotProps.row.title
         }}</span>
-        <el-tag>{{ typeFilter(slotProps.row.type) }}</el-tag>
+        <el-tag>{{ dict('typeFilter', slotProps.row.type) }}</el-tag>
       </template>
       <template #importance="slotProps">
         <el-rate :model-value="slotProps.row.importance" disabled></el-rate>
       </template>
       <template #status="slotProps">
-        <el-tag :type="statusFilter(slotProps.row.status)">
+        <el-tag :type="dict('statusMap', slotProps.row.status)">
           {{ slotProps.row.status }}
         </el-tag>
       </template>
@@ -75,10 +75,11 @@
         </span>
       </template>
     </ProTable>
-    <el-dialog
-      v-model="dialogVisible"
+    <ProDialog
+      v-model:value="dialogVisible"
       :title="dialogTitle"
-      :close-on-click-modal="false"
+      :no-footer="true"
+      width="50%"
     >
       <ProForm
         :dialog-val="dialogVisible"
@@ -100,26 +101,20 @@
           </el-form-item>
         </template>
       </ProForm>
-    </el-dialog>
+    </ProDialog>
   </div>
 </template>
 
 <script>
-import ProTable from '@/components/ProTable'
-import ProForm from '@/components/ProForm'
 import { reactive, ref, toRaw } from 'vue'
 import { fetchList, createArticle, updateArticle } from '@/api/article'
 import { columnList } from './columns/list'
 import Message from 'element-plus/lib/el-message'
-import { useFilter } from '@/hooks/table'
+import useDict from '@/hooks/dict'
 import { parseTime, copyValue } from '@/utils'
 
 export default {
   name: 'ComplexTable',
-  components: {
-    ProTable,
-    ProForm,
-  },
   setup() {
     // Table
     const proTable = ref(null)
@@ -148,7 +143,7 @@ export default {
     const isEdit = ref(false)
     let formData = null
     // Filter
-    const { typeFilter, statusFilter } = useFilter()
+    const dict = useDict
     // loadData
     function loadData(parameter) {
       const requestParameters = Object.assign({}, parameter, queryParam)
@@ -256,9 +251,8 @@ export default {
       isEdit,
       form,
       multipleSelection,
-      typeFilter,
       loadData,
-      statusFilter,
+      dict,
       handleUpdate,
       handleModifyStatus,
       handleDelete,

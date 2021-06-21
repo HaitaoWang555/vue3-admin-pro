@@ -110,7 +110,11 @@
       <slot v-if="j === formRows.length - 1" name="footer"></slot>
     </el-row>
 
-    <el-form-item label-width="0" style="margin-top: 24px; text-align: center">
+    <el-form-item
+      v-if="!noFooter"
+      label-width="0"
+      style="margin-top: 24px; text-align: center"
+    >
       <el-button
         :key="isEdit"
         size="large"
@@ -126,7 +130,7 @@
 </template>
 
 <script>
-import SendCode from '@/components/sendCode'
+import SendCode from '@/components/sendCode/index.vue'
 import { nextTick, ref, watch } from 'vue'
 import Message from 'element-plus/lib/el-message'
 
@@ -134,6 +138,10 @@ export default {
   name: 'ProForm',
   components: { SendCode },
   props: {
+    noFooter: {
+      type: Boolean,
+      default: false,
+    },
     dialogVal: {
       type: Boolean,
       default: false,
@@ -156,7 +164,9 @@ export default {
     },
     formList: {
       type: Array,
-      default: () => {},
+      default: () => {
+        return []
+      },
     },
     isEdit: {
       type: Boolean,

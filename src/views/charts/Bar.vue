@@ -14,7 +14,7 @@ import { ref } from 'vue'
 import { getBarList, getBarStackList } from '@/api/charts'
 import { BarCommonOptions } from '@/utils/echarts'
 
-import CardChart from './components/CardChart'
+import CardChart from './components/CardChart.vue'
 
 export default {
   name: 'EchartsBar',

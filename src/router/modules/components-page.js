@@ -1,6 +1,6 @@
 /** When your routing table is too long, you can split it into small modules **/
 
-import Layout from '@/layout'
+import Layout from '@/layout/index.vue'
 
 const componentsRouter = {
   path: '/components',
@@ -16,7 +16,7 @@ const componentsRouter = {
       path: 'pro-dialog',
       component: () =>
         import(
-          /* webpackChunkName: "components" */ '@/views/components-page/pro-dialog-view'
+          /* webpackChunkName: "components" */ '@/views/components-page/pro-dialog-view.vue'
         ),
       name: 'pro-dialog',
       meta: { title: 'pro-dialog', icon: 'el-icon-files', noCache: true },

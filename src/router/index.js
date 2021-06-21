@@ -1,6 +1,6 @@
 import { createRouter, createWebHashHistory } from 'vue-router'
 
-import Layout from '@/layout'
+import Layout from '@/layout/index.vue'
 /* Router Modules */
 import nestedRouter from './modules/nested'
 import errorRouter from './modules/error-page'
@@ -18,7 +18,7 @@ export const constantRoutes = [
         path: '/redirect/:path(.*)',
         component: () =>
           import(
-            /* webpackChunkName: "redirect" */ '@/components/Redirect/index'
+            /* webpackChunkName: "redirect" */ '@/components/Redirect/index.vue'
           ),
       },
     ],
@@ -33,7 +33,9 @@ export const constantRoutes = [
         path: 'dashboard',
         name: 'Dashboard',
         component: () =>
-          import(/* webpackChunkName: "dashboard" */ '@/views/dashboard/index'),
+          import(
+            /* webpackChunkName: "dashboard" */ '@/views/dashboard/index.vue'
+          ),
         meta: { title: 'Dashboard', icon: 'dashboard' },
       },
     ],
@@ -41,7 +43,33 @@ export const constantRoutes = [
 
   tableRouter,
   chartRouter,
-
+  {
+    path: '/online',
+    hidden: true,
+    component: Layout,
+    name: 'onlineRouter',
+    meta: { title: 'online', icon: 'el-icon-cloudy' },
+    children: [
+      {
+        path: ':id',
+        name: 'onlineRouterTem',
+        meta: { title: 'onlineRouter' },
+        component: () =>
+          import(
+            /* webpackChunkName: "online" */ '@/components/Online/list.vue'
+          ),
+      },
+      {
+        path: 'add',
+        name: 'addOnlineRouterTem',
+        meta: { title: 'add online template' },
+        component: () =>
+          import(
+            /* webpackChunkName: "online" */ '@/views/online/createList.vue'
+          ),
+      },
+    ],
+  },
   {
     path: '/form',
     component: Layout,
@@ -56,14 +84,16 @@ export const constantRoutes = [
         path: 'index',
         name: 'BasicForm',
         component: () =>
-          import(/* webpackChunkName: "form" */ '@/views/form/index'),
+          import(/* webpackChunkName: "form" */ '@/views/form/index.vue'),
         meta: { title: 'Basic Form' },
       },
       {
         path: 'advanced-form',
         name: 'AdvancedForm',
         component: () =>
-          import(/* webpackChunkName: "form" */ '@/views/form/advanced-form'),
+          import(
+            /* webpackChunkName: "form" */ '@/views/form/advanced-form.vue'
+          ),
         meta: { title: 'Advanced Form' },
       },
     ],
@@ -80,7 +110,7 @@ export const constantRoutes = [
       {
         path: 'index',
         component: () =>
-          import(/* webpackChunkName: "icon" */ '@/views/icons/index'),
+          import(/* webpackChunkName: "icon" */ '@/views/icons/index.vue'),
         name: 'Icons',
         meta: { title: 'Icons', icon: 'icon', noCache: true },
       },
@@ -100,7 +130,7 @@ export const constantRoutes = [
   {
     path: '/login',
     component: () =>
-      import(/* webpackChunkName: "login" */ '@/views/login/index'),
+      import(/* webpackChunkName: "login" */ '@/views/login/index.vue'),
     hidden: true,
   },
   { path: '/:pathMatch(.*)*', redirect: '/error/404', hidden: true },

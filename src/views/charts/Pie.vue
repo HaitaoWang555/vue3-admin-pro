@@ -13,7 +13,7 @@
 import { ref } from 'vue'
 import { getPieList } from '@/api/charts'
 import { PieCommonOptions } from '@/utils/echarts'
-import CardChart from './components/CardChart'
+import CardChart from './components/CardChart.vue'
 
 export default {
   name: 'EchartsPie',

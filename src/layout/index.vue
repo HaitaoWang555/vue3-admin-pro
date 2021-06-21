@@ -22,7 +22,7 @@
 <script>
 import { computed } from 'vue'
 import { Navbar, Sidebar, AppMain, Settings, TagsView } from './components'
-import RightPanel from '@/components/RightPanel'
+import RightPanel from '@/components/RightPanel/index.vue'
 import { useResizeHandler } from './mixin/ResizeHandler'
 import { useStore } from 'vuex'
 
@@ -72,8 +72,8 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import '~@/styles/mixin.scss';
-@import '~@/styles/variables.scss';
+@import '@/styles/mixin.scss';
+@import '@/styles/variables.scss';
 
 .app-wrapper {
   @include clearfix;

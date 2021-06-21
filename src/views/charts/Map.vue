@@ -18,7 +18,7 @@
 import { nextTick, onMounted, ref } from 'vue'
 import { MapCommonOptions, MapChinaCommonOptions } from '@/utils/echarts'
 
-import CardChart from './components/CardChart'
+import CardChart from './components/CardChart.vue'
 import echarts from '@/core/echarts'
 
 import HK from '@/assets/mapJson/HK.json'
