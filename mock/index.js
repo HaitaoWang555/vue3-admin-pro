@@ -8,6 +8,7 @@ const role = require('./role')
 const article = require('./article')
 const search = require('./remote-search')
 const charts = require('./charts')
+const online = require('./online')
 
 const mocks = [
   ...publicApi,
@@ -17,6 +18,7 @@ const mocks = [
   ...search,
   ...table,
   ...charts,
+  ...online,
 ]
 
 // for front mock

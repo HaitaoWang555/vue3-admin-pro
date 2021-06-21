@@ -42,8 +42,8 @@
 
 <script>
 import { useStore } from 'vuex'
-import Breadcrumb from '@/components/Breadcrumb'
-import Hamburger from '@/components/Hamburger'
+import Breadcrumb from '@/components/Breadcrumb/index.vue'
+import Hamburger from '@/components/Hamburger/index.vue'
 import { computed } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 

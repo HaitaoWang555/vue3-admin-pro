@@ -1,6 +1,6 @@
 /** When your routing table is too long, you can split it into small modules **/
 
-import Layout from '@/layout'
+import Layout from '@/layout/index.vue'
 
 const tableRouter = {
   path: '/table',
@@ -16,7 +16,7 @@ const tableRouter = {
       path: 'inline-edit-table',
       component: () =>
         import(
-          /* webpackChunkName: "table" */ '@/views/table/inline-edit-table'
+          /* webpackChunkName: "table" */ '@/views/table/inline-edit-table.vue'
         ),
       name: 'InlineEditTable',
       meta: { title: 'Inline Edit' },
@@ -24,7 +24,9 @@ const tableRouter = {
     {
       path: 'complex-table',
       component: () =>
-        import(/* webpackChunkName: "table" */ '@/views/table/complex-table'),
+        import(
+          /* webpackChunkName: "table" */ '@/views/table/complex-table.vue'
+        ),
       name: 'ComplexTable',
       meta: { title: 'Complex Table' },
     },

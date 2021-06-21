@@ -14,7 +14,7 @@ import { ref } from 'vue'
 import { getLineList, getLineStackList } from '@/api/charts'
 import { lineCommonOptions } from '@/utils/echarts'
 
-import CardChart from './components/CardChart'
+import CardChart from './components/CardChart.vue'
 
 export default {
   name: 'EchartsLine',

@@ -16,6 +16,7 @@ import { computed, onBeforeUnmount, onMounted, ref } from 'vue'
 
 export default {
   name: 'ScrollPane',
+  emits: ['scroll'],
   setup(props, { emit }) {
     const left = ref(0)
     const scrollContainer = ref(null)

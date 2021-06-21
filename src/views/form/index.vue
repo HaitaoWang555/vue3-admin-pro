@@ -11,7 +11,7 @@
 
 <script>
 import { submit } from '@/api/public'
-import ProForm from '@/components/ProForm'
+import ProForm from '@/components/ProForm/index.vue'
 import { reactive, toRaw } from 'vue'
 import { list } from './columns/list'
 
