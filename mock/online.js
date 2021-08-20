@@ -69,8 +69,11 @@ const columnList = [
     title: '创建时间',
     scopedSlots: { customRender: 'date' },
     valueType: 'date-picker',
-    pickerType: 'date',
-    pickerFormat: 'YYYY-MM-DD HH-mm-ss',
+    attrs: {
+      type: 'date',
+      format: 'YYYY-MM-DD HH-mm-ss',
+      'start-placeholder': '请选择时间',
+    },
     isSearch: true,
     isForm: true,
     prop: [

@@ -22,6 +22,9 @@
           :lg="item.lg || item.span"
           :xl="item.xl || item.span"
         >
+          <template v-if="item.slot">
+            <slot :name="item.slot" :item="item"></slot>
+          </template>
           <el-form-item :label="item.title + ' : '">
             <el-input
               v-if="item.valueType === 'input'"

@@ -23,7 +23,6 @@ export default function useDict(type, key) {
       console.error('没有设置此字典 - ' + type)
     }
   } else {
-    console.error('字典必须传参')
     return ''
   }
 }

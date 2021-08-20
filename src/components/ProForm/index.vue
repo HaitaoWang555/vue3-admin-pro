@@ -32,7 +32,11 @@
           :lg="item.form_lg || item.form_span"
           :xl="item.form_xl || item.form_span"
         >
+          <template v-if="item.slot">
+            <slot :name="item.slot" :item="item"></slot>
+          </template>
           <el-form-item
+            v-else
             :prop="item.prop ? item.dataIndex : ''"
             :label="item.title + ' : '"
           >
@@ -40,12 +44,15 @@
               v-if="item.valueType === 'input'"
               v-model="formParam[item.dataIndex]"
               :type="item.inpuType || 'text'"
-              :placeholder="item.placeholder || item.title"
+              :placeholder="item.placeholder || '请输入' + item.title"
             />
             <template v-else-if="item.valueType === 'check_code'">
               <el-row :gutter="16">
                 <el-col class="gutter-row" :span="16">
-                  <el-input v-model="formParam[item.dataIndex]" />
+                  <el-input
+                    v-model="formParam[item.dataIndex]"
+                    :placeholder="item.placeholder || '请输入' + item.title"
+                  />
                 </el-col>
                 <el-col class="gutter-row" :span="8">
                   <SendCode :params="item.sendCode" />
@@ -59,15 +66,14 @@
             <el-date-picker
               v-else-if="item.valueType === 'date-picker'"
               v-model="formParam[item.dataIndex]"
-              :type="item.pickerType"
-              :format="item.pickerFormat"
+              v-bind="item.attrs"
               clearable
               style="width: 100%"
             />
             <el-select
               v-else-if="item.valueType === 'select'"
               v-model="formParam[item.dataIndex]"
-              :placeholder="item.placeholder || item.title"
+              :placeholder="item.placeholder || '请选择' + item.title"
               filterable
               :multiple="item.multiple ? true : false"
               clearable

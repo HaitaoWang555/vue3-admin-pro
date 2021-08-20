@@ -10,8 +10,11 @@ const columnList = [
     title: 'Date',
     scopedSlots: { customRender: 'date' },
     valueType: 'date-picker',
-    pickerType: 'date',
-    pickerFormat: 'YYYY-MM-DD HH-mm-ss',
+    attrs: {
+      type: 'date',
+      format: 'YYYY-MM-DD HH-mm-ss',
+      'start-placeholder': 'Please select Date',
+    },
   },
   {
     dataIndex: 'author',

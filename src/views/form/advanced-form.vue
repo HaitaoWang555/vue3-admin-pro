@@ -9,6 +9,13 @@
       :layout="{ formWidth: '100%', labelWidth: '150px' }"
     >
       <template #title0> 仓库管理 </template>
+      <template #roterText>
+        <router-link
+          to="/dashboard"
+          style="position: relative; top: 50px; color: #1890ff"
+          >添加仓库</router-link
+        >
+      </template>
       <template #title1> 任务管理 </template>
     </ProForm>
   </div>
