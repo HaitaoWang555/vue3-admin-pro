@@ -26,44 +26,7 @@
       :key="key"
       v-loading="listLoading"
       :data="list"
-      element-loading-text="Loading"
-      :border="border"
-      :fit="fit"
-      :size="size"
-      :width="width"
-      :height="height"
-      :max-height="maxHeight"
-      :stripe="stripe"
-      :row-key="rowKey"
-      :show-header="showHeader"
-      :show-summary="showSummary"
-      :sum-text="sumText"
-      :summary-method="summaryMethod"
-      :row-class-name="rowClassName"
-      :row-style="rowStyle"
-      :cell-class-name="cellClassName"
-      :cell-style="cellStyle"
-      :header-row-class-name="headerRowClassName"
-      :header-row-style="headerRowStyle"
-      :header-cell-class-name="headerCellClassName"
-      :header-cell-style="headerCellStyle"
-      :highlight-current-row="highlightCurrentRow"
-      :current-row-key="currentRowKey"
-      :empty-text="emptyText"
-      :expand-row-keys="expandRowKeys"
-      :default-expand-all="defaultExpandAll"
-      :default-sort="defaultSort"
-      :tooltip-effect="tooltipEffect"
-      :span-method="spanMethod"
-      :select-on-indeterminate="selectOnIndeterminate"
-      :indent="indent"
-      :tree-props="treeProps"
-      :lazy="lazy"
-      :load="load"
-      @selection-change="handleSelectionChange"
-      @sort-change="sortChange"
-      @current-change="handleCurrentChange"
-      @expand-change="handlExpandChange"
+      v-bind="$attrs"
     >
       <el-table-column
         v-if="showSelection"
@@ -154,65 +117,8 @@ export default {
         return []
       },
     },
-    size: String,
-    width: [String, Number],
-    height: [String, Number],
-    maxHeight: [String, Number],
-    fit: {
-      type: Boolean,
-      default: true,
-    },
-    stripe: Boolean,
-    border: {
-      type: Boolean,
-      default: true,
-    },
-    rowKey: [String, Function],
-    showHeader: {
-      type: Boolean,
-      default: true,
-    },
-    showSummary: Boolean,
-    sumText: String,
-    summaryMethod: Function,
-    rowClassName: [String, Function],
-    rowStyle: [Object, Function],
-    cellClassName: [String, Function],
-    cellStyle: [Object, Function],
-    headerRowClassName: [String, Function],
-    headerRowStyle: [Object, Function],
-    headerCellClassName: [String, Function],
-    headerCellStyle: [Object, Function],
-    highlightCurrentRow: Boolean,
-    currentRowKey: [String, Number],
-    emptyText: String,
-    expandRowKeys: Array,
-    defaultExpandAll: Boolean,
-    defaultSort: Object,
-    tooltipEffect: String,
-    spanMethod: Function,
-    selectOnIndeterminate: {
-      type: Boolean,
-      default: true,
-    },
-    indent: {
-      type: Number,
-      default: 16,
-    },
-    treeProps: {
-      type: Object,
-      default() {
-        return {
-          hasChildren: 'hasChildren',
-          children: 'children',
-        }
-      },
-    },
-    lazy: Boolean,
-    load: Function,
   },
-  emits: ['selection-change', 'sort-change', 'current-change', 'expand-change'],
-  setup(prop, { emit }) {
+  setup(prop) {
     const ProElTable = ref()
     const key = ref(0)
     const list = ref(null)
@@ -264,18 +170,6 @@ export default {
       }
       loadData()
     }
-    function handleSelectionChange(data) {
-      emit('selection-change', data)
-    }
-    function sortChange(data) {
-      emit('sort-change', data)
-    }
-    function handleCurrentChange(data) {
-      emit('current-change', data)
-    }
-    function handlExpandChange(data, expandedRows) {
-      emit('expand-change', data, expandedRows)
-    }
 
     function updateTable() {
       key.value = key.value += 1
@@ -306,10 +200,6 @@ export default {
       localPagination,
       refresh,
       device,
-      handleSelectionChange,
-      sortChange,
-      handleCurrentChange,
-      handlExpandChange,
       updateTable,
     }
   },
