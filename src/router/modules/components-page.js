@@ -8,7 +8,7 @@ const componentsRouter = {
   redirect: 'noRedirect',
   name: 'componentsPages',
   meta: {
-    title: 'Components Pages',
+    title: 'Components',
     icon: 'el-icon-files',
   },
   children: [
@@ -19,7 +19,16 @@ const componentsRouter = {
           /* webpackChunkName: "components" */ '@/views/components-page/pro-dialog-view.vue'
         ),
       name: 'pro-dialog',
-      meta: { title: 'pro-dialog', icon: 'el-icon-files', noCache: true },
+      meta: { title: 'pro-dialog', noCache: true },
+    },
+    {
+      path: 'tailwindcss',
+      name: 'Tailwindcss',
+      component: () =>
+        import(
+          /* webpackChunkName: "components" */ '@/views/tailwindcss/index'
+        ),
+      meta: { title: 'Tailwindcss' },
     },
   ],
 }

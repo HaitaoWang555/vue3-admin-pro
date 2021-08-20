@@ -2,6 +2,7 @@ import { createApp } from 'vue'
 
 import App from '@/App.vue'
 // style
+import 'tailwindcss/tailwind.css' // tailwind
 import 'normalize.css/normalize.css' // a modern alternative to CSS resets
 import '@/styles/index.scss' // global css
 
