@@ -1,7 +1,8 @@
 <template>
   <div style="padding: 30px">
-    <el-alert :closable="false" title="menu 1-2" type="success">
+    menu 1-2
+    <div>
       <router-view> </router-view>
-    </el-alert>
+    </div>
   </div>
 </template>

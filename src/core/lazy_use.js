@@ -1,3 +1,5 @@
+import 'element-plus/packages/theme-chalk/src/base.scss'
+
 import {
   ElAlert,
   ElAside,
@@ -82,13 +84,8 @@ import {
   ElMessage,
   ElMessageBox,
   ElNotification,
+  ElConfigProvider,
 } from 'element-plus'
-
-// zh-cn
-import lang from 'element-plus/lib/locale/lang/zh-cn'
-import 'dayjs/locale/zh-cn'
-import locale from 'element-plus/lib/locale'
-locale.use(lang)
 
 const components = [
   ElAlert,
@@ -169,6 +166,7 @@ const components = [
   ElTransfer,
   ElTree,
   ElUpload,
+  ElConfigProvider,
 ]
 
 const plugins = [

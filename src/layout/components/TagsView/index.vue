@@ -1,19 +1,19 @@
 <template>
   <div id="tags-view-container" ref="tagsView" class="tags-view-container">
-    <scroll-pane
+    <el-scrollbar
       ref="refScrollPane"
       class="tags-view-wrapper"
       @scroll="handleScroll"
     >
       <router-link
         v-for="tag in visitedViews"
-        :ref="setItemRef"
         :key="tag.path"
         :class="isActive(tag) ? 'active' : ''"
         :to="{ path: tag.path, query: tag.query, fullPath: tag.fullPath }"
         tag="span"
+        :data-path="tag.path"
+        :data-fullPath="tag.fullPath"
         class="tags-view-item"
-        @click.middle="!isAffix(tag) ? closeSelectedTag(tag) : ''"
         @contextmenu.prevent="openMenu(tag, $event)"
       >
         {{ tag.title }}
@@ -23,7 +23,7 @@
           @click.prevent.stop="closeSelectedTag(tag)"
         />
       </router-link>
-    </scroll-pane>
+    </el-scrollbar>
     <ul
       v-show="visible"
       :style="{ left: left + 'px', top: top + 'px' }"
@@ -40,12 +40,9 @@
 </template>
 
 <script>
-import ScrollPane from './ScrollPane.vue'
-import path from 'path'
 import {
   computed,
   nextTick,
-  onBeforeUpdate,
   onMounted,
   ref,
   toRaw,
@@ -53,24 +50,14 @@ import {
   watchEffect,
 } from 'vue'
 import { useStore } from 'vuex'
+import path from 'path'
 import { useRoute, useRouter } from 'vue-router'
-
+const tagAndTagSpacing = 4
 export default {
   name: 'TagsView',
-  components: { ScrollPane },
   setup() {
     const tagsView = ref(null)
     const refScrollPane = ref(null)
-    let itemRefs = []
-    const setItemRef = (el) => {
-      if (
-        el &&
-        el.to &&
-        itemRefs.findIndex((i) => i.to.path === el.to.path) === -1
-      ) {
-        itemRefs.push(el)
-      }
-    }
 
     const visible = ref(false)
     const top = ref(0)
@@ -159,7 +146,6 @@ export default {
     function handleScroll() {
       closeMenu()
     }
-
     function filterAffixTags(routes, basePath = '/') {
       let tags = []
       routes.forEach((route) => {
@@ -200,25 +186,51 @@ export default {
     }
     function moveToCurrentTag() {
       nextTick().then(() => {
-        for (const tag of itemRefs) {
-          if (tag.to.path === route.path) {
-            refScrollPane.value.moveToTarget(tag, itemRefs)
+        const itemRefs = document.querySelectorAll('#tags-view-container a')
+        const $containerWidth = refScrollPane.value.$el.offsetWidth
+        const $scrollWrapper = refScrollPane.value.wrap
+        Array.prototype.forEach.call(itemRefs, function (item, index) {
+          if (item.dataset.path === route.path) {
+            //  go to currentTag
+            if (index === 0) {
+              refScrollPane.value.setScrollLeft(0)
+            } else if (index === itemRefs.length - 1) {
+              refScrollPane.value.setScrollLeft(
+                $scrollWrapper.scrollWidth - $containerWidth
+              )
+            } else {
+              // find preTag and nextTag
+              const prevTag = itemRefs[index - 1]
+              const nextTag = itemRefs[index + 1]
+              // the tag's offsetLeft after of nextTag
+              const afterNextTagOffsetLeft =
+                nextTag.offsetLeft + nextTag.offsetWidth + tagAndTagSpacing
+
+              // the tag's offsetLeft before of prevTag
+              const beforePrevTagOffsetLeft =
+                prevTag.offsetLeft - tagAndTagSpacing
+              if (
+                afterNextTagOffsetLeft >
+                $scrollWrapper.scrollLeft + $containerWidth
+              ) {
+                $scrollWrapper.scrollLeft =
+                  afterNextTagOffsetLeft - $containerWidth
+              } else if (beforePrevTagOffsetLeft < $scrollWrapper.scrollLeft) {
+                $scrollWrapper.scrollLeft = beforePrevTagOffsetLeft
+              }
+            }
             // when query is different then update
-            if (tag.to.fullPath !== route.fullPath) {
+            if (item.dataset.fullPath !== route.fullPath) {
               store.dispatch('tagsView/updateVisitedView', route)
             }
-            break
+            return
           }
-        }
+        })
       })
     }
-
     onMounted(() => {
       initTags()
       addTags()
-    })
-    onBeforeUpdate(() => {
-      itemRefs = []
     })
     watch(
       () => route.path,
@@ -237,8 +249,6 @@ export default {
     return {
       tagsView,
       refScrollPane,
-      itemRefs,
-      setItemRef,
       visible,
       top,
       left,
@@ -330,6 +340,16 @@ export default {
 <style lang="scss">
 //reset element css of el-icon-close
 .tags-view-wrapper {
+  white-space: nowrap;
+  position: relative;
+  :v-deep {
+    .el-scrollbar__bar {
+      bottom: 0px;
+    }
+    .el-scrollbar__wrap {
+      height: 49px;
+    }
+  }
   .tags-view-item {
     .el-icon-close {
       width: 16px;
