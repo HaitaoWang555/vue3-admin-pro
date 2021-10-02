@@ -10,6 +10,7 @@
       "
       :close-on-click-modal="false"
       custom-class="ProDialog"
+      destroy-on-close
       @close="handleClose"
     >
       <span class="ProDialogFullscreen" @click="changeFullscreen">
@@ -34,7 +35,7 @@
 </template>
 
 <script>
-import { computed, nextTick, ref, watchEffect } from 'vue'
+import { computed, nextTick, onMounted, ref, watchEffect, watch } from 'vue'
 import draggable from './draggable'
 export default {
   name: 'ProDialog',
@@ -60,7 +61,6 @@ export default {
   setup(props, { emit, attrs }) {
     const ProDialog = ref()
     const isFullscreen = ref(false)
-    if (attrs.fullscreen || attrs.fullscreen === '') isFullscreen.value = true
 
     const icon = computed(() => {
       return isFullscreen.value ? 'fullscreen-exit' : 'fullscreen'
@@ -80,6 +80,18 @@ export default {
         ProDialog.value.dialogRef.style.cssText += ';top:0px;left:0px;'
       }
     }
+
+    onMounted(() => {
+      isFullscreen.value = false
+    })
+
+    watch(
+      () => attrs.fullscreen,
+      () => {
+        if (attrs.fullscreen || attrs.fullscreen === '')
+          isFullscreen.value = true
+      }
+    )
 
     watchEffect(() => {
       if (isFullscreen.value) return

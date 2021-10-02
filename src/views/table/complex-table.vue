@@ -78,19 +78,18 @@
     <ProDialog
       v-model:value="dialogVisible"
       :title="dialogTitle"
-      :no-footer="true"
       width="50%"
+      :confirm-loading="confirmLoading"
+      @ok="handleDialogOk"
     >
       <ProForm
-        :dialog-val="dialogVisible"
+        ref="ProForm"
         :form-param="form"
         :form-list="columns"
-        :is-edit="isEdit"
-        :sub-met="subMet"
-        :form-c-b="formCB"
         :layout="{ formWidth: '560px', labelWidth: '100px' }"
+        @proSubmit="proSubmit"
       >
-        <template #footer>
+        <template #importance>
           <el-form-item label="Imp : ">
             <el-rate
               v-model="form.importance"
@@ -130,6 +129,8 @@ export default {
     // Form
     const dialogTitle = ref('')
     const dialogVisible = ref(false)
+    const ProForm = ref()
+    const confirmLoading = ref(false)
     const defaultFormParams = {
       id: undefined,
       importance: 1,
@@ -234,9 +235,20 @@ export default {
       proTable.value.list.splice(index, 1, formData)
       dialogVisible.value = false
     }
-
-    function subMet() {
-      return isEdit.value ? update() : create()
+    function handleDialogOk() {
+      ProForm.value.handleSubmit()
+    }
+    function proSubmit() {
+      confirmLoading.value = true
+      let method = isEdit.value ? update : create
+      method(form)
+        .then((res) => {
+          Message({ message: res.msg, type: 'success' })
+          formCB()
+        })
+        .finally(() => {
+          confirmLoading.value = false
+        })
     }
     function formCB() {
       return isEdit.value ? updateSuccess() : createSuccess()
@@ -248,6 +260,8 @@ export default {
       columns,
       dialogVisible,
       dialogTitle,
+      ProForm,
+      confirmLoading,
       isEdit,
       form,
       multipleSelection,
@@ -260,8 +274,8 @@ export default {
       handleCreate,
       handleSelectionChange,
       handleBatchModifyStatus,
-      subMet,
-      formCB,
+      handleDialogOk,
+      proSubmit,
     }
   },
 }

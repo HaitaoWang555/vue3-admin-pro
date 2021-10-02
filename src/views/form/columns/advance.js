@@ -104,7 +104,7 @@ const list = [
   {
     dataIndex: 'roterText',
     isForm: true,
-    slot: 'roterText',
+    form_slot: 'roterText',
     row: 0,
     span: 8,
     xl: 6,

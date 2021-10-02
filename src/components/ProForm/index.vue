@@ -19,8 +19,6 @@
         <slot :name="'title' + j"></slot>
       </el-col>
 
-      <slot v-if="j === 0" name="header"></slot>
-
       <el-row class="card-body" :gutter="layout.gutter || 20">
         <el-col
           v-for="(item, index) in row"
@@ -32,8 +30,8 @@
           :lg="item.form_lg || item.form_span"
           :xl="item.form_xl || item.form_span"
         >
-          <template v-if="item.slot">
-            <slot :name="item.slot" :item="item"></slot>
+          <template v-if="item.form_slot">
+            <slot :name="item.form_slot" :item="item"></slot>
           </template>
           <el-form-item
             v-else
@@ -112,46 +110,26 @@
           </el-form-item>
         </el-col>
       </el-row>
-
-      <slot v-if="j === formRows.length - 1" name="footer"></slot>
     </el-row>
 
     <el-form-item
-      v-if="!noFooter"
+      v-if="$slots && $slots.footerBtn"
       label-width="0"
       style="margin-top: 24px; text-align: center"
     >
-      <el-button
-        :key="isEdit"
-        size="large"
-        type="primary"
-        :disabled="btnDisabled"
-        :loading="loading"
-        @click="handleSubmit"
-        >{{ isEdit ? '修改' : '确定' }}</el-button
-      >
-      <slot name="btn"></slot>
+      <slot name="footerBtn"></slot>
     </el-form-item>
   </el-form>
 </template>
 
 <script>
 import SendCode from '@/components/sendCode/index.vue'
-import { nextTick, ref, watch } from 'vue'
-import Message from 'element-plus/lib/el-message'
+import { onBeforeUnmount, ref } from 'vue'
 
 export default {
   name: 'ProForm',
   components: { SendCode },
   props: {
-    noFooter: {
-      type: Boolean,
-      default: false,
-    },
-    dialogVal: {
-      type: Boolean,
-      default: false,
-    },
     formParam: {
       type: Object,
       default: () => {
@@ -174,24 +152,9 @@ export default {
         return []
       },
     },
-    isEdit: {
-      type: Boolean,
-      default: false,
-    },
-    btnDisabled: {
-      type: Boolean,
-      default: false,
-    },
-    subMet: {
-      type: Function,
-      default: () => {},
-    },
-    formCB: {
-      type: Function,
-      default: () => {},
-    },
   },
-  setup(prop) {
+  emits: ['proSubmit'],
+  setup(prop, { emit }) {
     const loading = ref(false)
     const showForm = ref(false)
     const rules = {}
@@ -256,31 +219,16 @@ export default {
     function handleSubmit() {
       ProForm.value.validate((valid) => {
         if (valid) {
-          loading.value = true
-          prop
-            .subMet()
-            .then((res) => {
-              Message({ message: res.msg, type: 'success' })
-              prop.formCB()
-              resetFormParam()
-            })
-            .finally(() => {
-              loading.value = false
-            })
+          emit('proSubmit', (states) => {
+            if (states === 'fulfilled') resetFormParam()
+          })
         }
       })
     }
-
-    watch(
-      () => prop.dialogVal,
-      (val) => {
-        if (val) {
-          nextTick().then(() => {
-            ProForm.value.clearValidate()
-          })
-        }
-      }
-    )
+    onBeforeUnmount(() => {
+      ProForm.value.clearValidate()
+      resetFormParam()
+    })
 
     return {
       ProForm,
@@ -288,6 +236,7 @@ export default {
       formRows,
       showForm,
       rules,
+      resetFormParam,
       handleSubmit,
     }
   },
