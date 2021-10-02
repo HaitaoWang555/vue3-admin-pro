@@ -15,11 +15,15 @@
       :key="j"
       :class="{ 'card-row': formRows.length > 1 }"
     >
-      <el-col :span="24" class="card-title">
+      <el-col v-if="formRows.length > 1" :span="24" class="card-title">
         <slot :name="'title' + j"></slot>
       </el-col>
 
-      <el-row class="card-body" :gutter="layout.gutter || 20">
+      <el-row
+        class="card-body"
+        :gutter="layout.gutter || 20"
+        style="width: 100%"
+      >
         <el-col
           v-for="(item, index) in row.filter((i) => i.isForm)"
           :key="index"
@@ -41,10 +45,25 @@
             <el-input
               v-if="item.valueType === 'input'"
               v-model="formParam[item.dataIndex]"
+              v-bind="item.attrs"
               :type="item.inpuType || 'text'"
               :placeholder="item.placeholder || '请输入' + item.title"
+            >
+              <template v-if="item.attrs && item.attrs.prepend" #prepend>{{
+                item.attrs.prepend
+              }}</template>
+              <template v-if="item.attrs && item.attrs.append" #append>{{
+                item.attrs.append
+              }}</template>
+            </el-input>
+            <el-input-number
+              v-if="item.valueType === 'input-number'"
+              v-model="formParam[item.dataIndex]"
+              v-bind="item.attrs"
+              :placeholder="item.placeholder || '请输入' + item.title"
+              style="width: 100%"
             />
-            <template v-else-if="item.valueType === 'check_code'">
+            <template v-else-if="item.valueType === 'check-code'">
               <el-row :gutter="16">
                 <el-col class="gutter-row" :span="16">
                   <el-input
@@ -231,12 +250,17 @@ export default {
       ProForm.value.resetFields()
     }
     function handleSubmit() {
-      ProForm.value.validate((valid) => {
-        if (valid) {
-          emit('proSubmit', (states) => {
-            if (states === 'fulfilled') resetFormParam()
-          })
-        }
+      return new Promise((resolve, reject) => {
+        ProForm.value.validate((valid) => {
+          if (valid) {
+            resolve()
+            emit('proSubmit', (states) => {
+              if (states === 'fulfilled') resetFormParam()
+            })
+          } else {
+            reject()
+          }
+        })
       })
     }
     onBeforeUnmount(() => {
@@ -250,6 +274,13 @@ export default {
         linkageForm()
       },
       { deep: true }
+    )
+    watch(
+      () => prop.formList.length,
+      () => {
+        formRows.value = []
+        init()
+      }
     )
 
     return {

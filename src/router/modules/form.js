@@ -40,6 +40,13 @@ const formRouter = {
         import(/* webpackChunkName: "form" */ '@/views/form/linkage-form.vue'),
       meta: { title: 'Linkage Form' },
     },
+    {
+      path: 'step-form',
+      name: 'StepForm',
+      component: () =>
+        import(/* webpackChunkName: "form" */ '@/views/form/step-form.vue'),
+      meta: { title: 'Step Form' },
+    },
   ],
 }
 

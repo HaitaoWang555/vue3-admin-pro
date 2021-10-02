@@ -100,10 +100,10 @@ const list = [
     isForm: true,
   },
   {
-    dataIndex: 'check_code',
+    dataIndex: 'check-code',
     title: 'Verification Code',
     isForm: true,
-    valueType: 'check_code',
+    valueType: 'check-code',
     sendCode: {
       smsType: 'pay',
       code: 'pay',

@@ -20,6 +20,10 @@ const list = [
     form_span: 8,
     form_xl: 6,
     valueType: 'input',
+    attrs: {
+      append: '.com',
+      prepend: 'http://',
+    },
   },
   {
     dataIndex: 'owner',

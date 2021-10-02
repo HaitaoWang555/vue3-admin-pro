@@ -38,7 +38,7 @@
       >
         <el-select v-model="formParam.valueType" style="width: 100%">
           <el-option label="input" value="input"></el-option>
-          <el-option label="check_code" value="check_code"></el-option>
+          <el-option label="check-code" value="check-code"></el-option>
           <el-option label="switch" value="switch"></el-option>
           <el-option label="select" value="select"></el-option>
           <el-option label="checkbox" value="checkbox"></el-option>

@@ -1,5 +1,3 @@
-import 'element-plus/packages/theme-chalk/src/base.scss'
-
 import {
   ElAlert,
   ElAside,
@@ -25,8 +23,11 @@ import {
   ElCollapseItem,
   ElCollapseTransition,
   ElColorPicker,
+  ElConfigProvider,
   ElContainer,
   ElDatePicker,
+  ElDescriptions,
+  ElDescriptionsItem,
   ElDialog,
   ElDivider,
   ElDrawer,
@@ -39,13 +40,18 @@ import {
   ElHeader,
   ElIcon,
   ElImage,
+  ElInfiniteScroll,
   ElInput,
   ElInputNumber,
   ElLink,
+  ElLoading,
   ElMain,
   ElMenu,
   ElMenuItem,
   ElMenuItemGroup,
+  ElMessage,
+  ElMessageBox,
+  ElNotification,
   ElOption,
   ElOptionGroup,
   ElPageHeader,
@@ -66,26 +72,21 @@ import {
   ElSteps,
   ElSubmenu,
   ElSwitch,
-  ElTabPane,
   ElTable,
   ElTableColumn,
+  ElTabPane,
   ElTabs,
   ElTag,
-  ElTimePicker,
-  ElTimeSelect,
   ElTimeline,
   ElTimelineItem,
+  ElTimePicker,
+  ElTimeSelect,
   ElTooltip,
   ElTransfer,
   ElTree,
   ElUpload,
-  ElInfiniteScroll,
-  ElLoading,
-  ElMessage,
-  ElMessageBox,
-  ElNotification,
-  ElConfigProvider,
 } from 'element-plus'
+import 'element-plus/packages/theme-chalk/src/base.scss'
 
 const components = [
   ElAlert,
@@ -167,6 +168,8 @@ const components = [
   ElTree,
   ElUpload,
   ElConfigProvider,
+  ElDescriptions,
+  ElDescriptionsItem,
 ]
 
 const plugins = [
