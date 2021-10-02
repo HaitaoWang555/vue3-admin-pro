@@ -21,7 +21,7 @@
 
       <el-row class="card-body" :gutter="layout.gutter || 20">
         <el-col
-          v-for="(item, index) in row"
+          v-for="(item, index) in row.filter((i) => i.isForm)"
           :key="index"
           :span="item.form_span || 24"
           :xs="item.form_xs || item.form_span"
@@ -124,7 +124,7 @@
 
 <script>
 import SendCode from '@/components/sendCode/index.vue'
-import { onBeforeUnmount, ref } from 'vue'
+import { onBeforeUnmount, ref, watch } from 'vue'
 
 export default {
   name: 'ProForm',
@@ -166,6 +166,10 @@ export default {
     function init() {
       for (let index = 0; index < prop.formList.length; index++) {
         const element = prop.formList[index]
+        if (element.isShowFormItem) {
+          element.isForm = element.isShowFormItem(prop.formParam)
+        }
+        if (!element.isForm) continue
         if (element.row || element.row === 0) {
           if (formRows.value[element.row]) {
             formRows.value[element.row].push(element)
@@ -183,8 +187,7 @@ export default {
           initOption(element)
         }
       }
-      if (formRows.value.length === 0)
-        formRows.value = [prop.formList.filter((i) => i.isForm)]
+      if (formRows.value.length === 0) formRows.value = [prop.formList]
       initRules()
       showForm.value = true
     }
@@ -212,6 +215,17 @@ export default {
     }
     init()
 
+    function linkageForm() {
+      if (prop.formList.filter((i) => i.isShowFormItem).length === 0) return
+      formRows.value.forEach((list) => {
+        list.forEach((item) => {
+          if (item.isShowFormItem) {
+            item.isForm = item.isShowFormItem(prop.formParam)
+          }
+        })
+      })
+    }
+
     function resetFormParam() {
       Object.assign(prop.formParam, originalFormParams)
       ProForm.value.resetFields()
@@ -229,6 +243,14 @@ export default {
       ProForm.value.clearValidate()
       resetFormParam()
     })
+
+    watch(
+      () => prop.formParam,
+      () => {
+        linkageForm()
+      },
+      { deep: true }
+    )
 
     return {
       ProForm,

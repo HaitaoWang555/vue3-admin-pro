@@ -33,6 +33,13 @@ const formRouter = {
         import(/* webpackChunkName: "form" */ '@/views/form/modal-form.vue'),
       meta: { title: 'Modal Form' },
     },
+    {
+      path: 'linkage-form',
+      name: 'LinkageForm',
+      component: () =>
+        import(/* webpackChunkName: "form" */ '@/views/form/linkage-form.vue'),
+      meta: { title: 'Linkage Form' },
+    },
   ],
 }
 
