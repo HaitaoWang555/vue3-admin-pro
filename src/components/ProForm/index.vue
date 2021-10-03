@@ -15,15 +15,17 @@
       :key="j"
       :class="{ 'card-row': formRows.length > 1 }"
     >
-      <el-col :span="24" class="card-title">
+      <el-col v-if="formRows.length > 1" :span="24" class="card-title">
         <slot :name="'title' + j"></slot>
       </el-col>
 
-      <slot v-if="j === 0" name="header"></slot>
-
-      <el-row class="card-body" :gutter="layout.gutter || 20">
+      <el-row
+        class="card-body"
+        :gutter="layout.gutter || 20"
+        style="width: 100%"
+      >
         <el-col
-          v-for="(item, index) in row"
+          v-for="(item, index) in row.filter((i) => i.isForm)"
           :key="index"
           :span="item.form_span || 24"
           :xs="item.form_xs || item.form_span"
@@ -32,8 +34,8 @@
           :lg="item.form_lg || item.form_span"
           :xl="item.form_xl || item.form_span"
         >
-          <template v-if="item.slot">
-            <slot :name="item.slot" :item="item"></slot>
+          <template v-if="item.form_slot">
+            <slot :name="item.form_slot" :item="item"></slot>
           </template>
           <el-form-item
             v-else
@@ -43,10 +45,25 @@
             <el-input
               v-if="item.valueType === 'input'"
               v-model="formParam[item.dataIndex]"
+              v-bind="item.attrs"
               :type="item.inpuType || 'text'"
               :placeholder="item.placeholder || '请输入' + item.title"
+            >
+              <template v-if="item.attrs && item.attrs.prepend" #prepend>{{
+                item.attrs.prepend
+              }}</template>
+              <template v-if="item.attrs && item.attrs.append" #append>{{
+                item.attrs.append
+              }}</template>
+            </el-input>
+            <el-input-number
+              v-if="item.valueType === 'input-number'"
+              v-model="formParam[item.dataIndex]"
+              v-bind="item.attrs"
+              :placeholder="item.placeholder || '请输入' + item.title"
+              style="width: 100%"
             />
-            <template v-else-if="item.valueType === 'check_code'">
+            <template v-else-if="item.valueType === 'check-code'">
               <el-row :gutter="16">
                 <el-col class="gutter-row" :span="16">
                   <el-input
@@ -112,46 +129,26 @@
           </el-form-item>
         </el-col>
       </el-row>
-
-      <slot v-if="j === formRows.length - 1" name="footer"></slot>
     </el-row>
 
     <el-form-item
-      v-if="!noFooter"
+      v-if="$slots && $slots.footerBtn"
       label-width="0"
       style="margin-top: 24px; text-align: center"
     >
-      <el-button
-        :key="isEdit"
-        size="large"
-        type="primary"
-        :disabled="btnDisabled"
-        :loading="loading"
-        @click="handleSubmit"
-        >{{ isEdit ? '修改' : '确定' }}</el-button
-      >
-      <slot name="btn"></slot>
+      <slot name="footerBtn"></slot>
     </el-form-item>
   </el-form>
 </template>
 
 <script>
 import SendCode from '@/components/sendCode/index.vue'
-import { nextTick, ref, watch } from 'vue'
-import Message from 'element-plus/lib/el-message'
+import { onBeforeUnmount, ref, watch } from 'vue'
 
 export default {
   name: 'ProForm',
   components: { SendCode },
   props: {
-    noFooter: {
-      type: Boolean,
-      default: false,
-    },
-    dialogVal: {
-      type: Boolean,
-      default: false,
-    },
     formParam: {
       type: Object,
       default: () => {
@@ -174,24 +171,9 @@ export default {
         return []
       },
     },
-    isEdit: {
-      type: Boolean,
-      default: false,
-    },
-    btnDisabled: {
-      type: Boolean,
-      default: false,
-    },
-    subMet: {
-      type: Function,
-      default: () => {},
-    },
-    formCB: {
-      type: Function,
-      default: () => {},
-    },
   },
-  setup(prop) {
+  emits: ['proSubmit'],
+  setup(prop, { emit }) {
     const loading = ref(false)
     const showForm = ref(false)
     const rules = {}
@@ -203,6 +185,10 @@ export default {
     function init() {
       for (let index = 0; index < prop.formList.length; index++) {
         const element = prop.formList[index]
+        if (element.isShowFormItem) {
+          element.isForm = element.isShowFormItem(prop.formParam)
+        }
+        if (!element.isForm) continue
         if (element.row || element.row === 0) {
           if (formRows.value[element.row]) {
             formRows.value[element.row].push(element)
@@ -220,8 +206,7 @@ export default {
           initOption(element)
         }
       }
-      if (formRows.value.length === 0)
-        formRows.value = [prop.formList.filter((i) => i.isForm)]
+      if (formRows.value.length === 0) formRows.value = [prop.formList]
       initRules()
       showForm.value = true
     }
@@ -249,36 +234,52 @@ export default {
     }
     init()
 
+    function linkageForm() {
+      if (prop.formList.filter((i) => i.isShowFormItem).length === 0) return
+      formRows.value.forEach((list) => {
+        list.forEach((item) => {
+          if (item.isShowFormItem) {
+            item.isForm = item.isShowFormItem(prop.formParam)
+          }
+        })
+      })
+    }
+
     function resetFormParam() {
       Object.assign(prop.formParam, originalFormParams)
       ProForm.value.resetFields()
     }
     function handleSubmit() {
-      ProForm.value.validate((valid) => {
-        if (valid) {
-          loading.value = true
-          prop
-            .subMet()
-            .then((res) => {
-              Message({ message: res.msg, type: 'success' })
-              prop.formCB()
-              resetFormParam()
+      return new Promise((resolve, reject) => {
+        ProForm.value.validate((valid) => {
+          if (valid) {
+            resolve()
+            emit('proSubmit', (states) => {
+              if (states === 'fulfilled') resetFormParam()
             })
-            .finally(() => {
-              loading.value = false
-            })
-        }
+          } else {
+            reject()
+          }
+        })
       })
     }
+    onBeforeUnmount(() => {
+      ProForm.value.clearValidate()
+      resetFormParam()
+    })
 
     watch(
-      () => prop.dialogVal,
-      (val) => {
-        if (val) {
-          nextTick().then(() => {
-            ProForm.value.clearValidate()
-          })
-        }
+      () => prop.formParam,
+      () => {
+        linkageForm()
+      },
+      { deep: true }
+    )
+    watch(
+      () => prop.formList.length,
+      () => {
+        formRows.value = []
+        init()
       }
     )
 
@@ -288,6 +289,7 @@ export default {
       formRows,
       showForm,
       rules,
+      resetFormParam,
       handleSubmit,
     }
   },

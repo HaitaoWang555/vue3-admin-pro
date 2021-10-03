@@ -75,6 +75,9 @@ const list = [
       },
     ],
     isForm: true,
+    isShowFormItem: (formParam) => {
+      return formParam && formParam.delivery
+    },
   },
   {
     dataIndex: 'resource',
@@ -91,6 +94,9 @@ const list = [
       },
     ],
     isForm: true,
+    isShowFormItem: (formParam) => {
+      return formParam && formParam.delivery
+    },
   },
   {
     dataIndex: 'desc',
@@ -98,6 +104,9 @@ const list = [
     valueType: 'input',
     inpuType: 'textarea',
     isForm: true,
+    isShowFormItem: (formParam) => {
+      return formParam && formParam.delivery
+    },
   },
   {
     dataIndex: 'check-code',
@@ -115,6 +124,9 @@ const list = [
         trigger: 'blur',
       },
     ],
+    isShowFormItem: (formParam) => {
+      return formParam && formParam.delivery
+    },
   },
 ]
 

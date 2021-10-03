@@ -21,11 +21,11 @@
 import { submit } from '@/api/public'
 import ProForm from '@/components/ProForm/index.vue'
 import { reactive, ref, toRaw } from 'vue'
-import { list } from './columns/list'
+import { list } from './columns/linkage'
 import Message from 'element-plus/lib/el-message'
 
 export default {
-  name: 'Form',
+  name: 'LinkageForm',
   components: { ProForm },
   setup() {
     const loading = ref(false)

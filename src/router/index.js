@@ -1,12 +1,12 @@
-import { createRouter, createWebHashHistory } from 'vue-router'
-
 import Layout from '@/layout/index.vue'
-/* Router Modules */
-import nestedRouter from './modules/nested'
-import errorRouter from './modules/error-page'
-import tableRouter from './modules/table'
+import { createRouter, createWebHashHistory } from 'vue-router'
 import chartRouter from './modules/chart'
 import componentsPage from './modules/components-page'
+import errorRouter from './modules/error-page'
+import formRouter from './modules/form'
+/* Router Modules */
+import nestedRouter from './modules/nested'
+import tableRouter from './modules/table'
 
 export const constantRoutes = [
   {
@@ -70,34 +70,7 @@ export const constantRoutes = [
       },
     ],
   },
-  {
-    path: '/form',
-    component: Layout,
-    name: 'Form',
-    redirect: '/form/index',
-    meta: {
-      title: 'Form',
-      icon: 'form',
-    },
-    children: [
-      {
-        path: 'index',
-        name: 'BasicForm',
-        component: () =>
-          import(/* webpackChunkName: "form" */ '@/views/form/index.vue'),
-        meta: { title: 'Basic Form' },
-      },
-      {
-        path: 'advanced-form',
-        name: 'AdvancedForm',
-        component: () =>
-          import(
-            /* webpackChunkName: "form" */ '@/views/form/advanced-form.vue'
-          ),
-        meta: { title: 'Advanced Form' },
-      },
-    ],
-  },
+  formRouter,
 
   componentsPage,
   nestedRouter,

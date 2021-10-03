@@ -75,6 +75,8 @@ const columnList = [
     ],
     isSearch: true,
     xl: 6,
+    isForm: true,
+    form_slot: 'importance',
   },
   {
     dataIndex: 'status',

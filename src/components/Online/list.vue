@@ -42,7 +42,6 @@
     >
       <ProForm
         ref="OnlineProForm"
-        :dialog-val="dialogVisible"
         :form-param="form"
         :form-list="columns"
         :no-footer="true"

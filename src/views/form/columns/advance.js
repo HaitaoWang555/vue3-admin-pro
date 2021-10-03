@@ -20,6 +20,10 @@ const list = [
     form_span: 8,
     form_xl: 6,
     valueType: 'input',
+    attrs: {
+      append: '.com',
+      prepend: 'http://',
+    },
   },
   {
     dataIndex: 'owner',
@@ -104,7 +108,7 @@ const list = [
   {
     dataIndex: 'roterText',
     isForm: true,
-    slot: 'roterText',
+    form_slot: 'roterText',
     row: 0,
     span: 8,
     xl: 6,
