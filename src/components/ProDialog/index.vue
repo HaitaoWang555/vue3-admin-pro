@@ -35,7 +35,7 @@
 </template>
 
 <script>
-import { computed, nextTick, onMounted, ref, watchEffect, watch } from 'vue'
+import { computed, nextTick, ref, watchEffect, watch } from 'vue'
 import draggable from './draggable'
 export default {
   name: 'ProDialog',
@@ -81,16 +81,13 @@ export default {
       }
     }
 
-    onMounted(() => {
-      isFullscreen.value = false
-    })
-
     watch(
       () => attrs.fullscreen,
       () => {
         if (attrs.fullscreen || attrs.fullscreen === '')
           isFullscreen.value = true
-      }
+      },
+      { immediate: true }
     )
 
     watchEffect(() => {
