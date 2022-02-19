@@ -10,18 +10,19 @@
         :key="tag.path"
         :class="isActive(tag) ? 'active' : ''"
         :to="{ path: tag.path, query: tag.query, fullPath: tag.fullPath }"
-        tag="span"
         :data-path="tag.path"
         :data-fullPath="tag.fullPath"
         class="tags-view-item"
         @contextmenu.prevent="openMenu(tag, $event)"
       >
         {{ tag.title }}
-        <span
+
+        <el-icon
           v-if="!isAffix(tag)"
-          class="el-icon-close"
+          class="close"
           @click.prevent.stop="closeSelectedTag(tag)"
-        />
+          ><close
+        /></el-icon>
       </router-link>
     </el-scrollbar>
     <ul
@@ -351,10 +352,10 @@ export default {
     }
   }
   .tags-view-item {
-    .el-icon-close {
+    .close {
       width: 16px;
       height: 16px;
-      vertical-align: 2px;
+      font-size: 12px;
       border-radius: 50%;
       text-align: center;
       transition: all 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);

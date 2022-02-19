@@ -16,7 +16,7 @@ const columnList = [
     attrs: {
       type: 'date',
       format: 'YYYY-MM-DD HH-mm-ss',
-      'start-placeholder': '请选择时间',
+      placeholder: '请选择时间',
     },
     isSearch: true,
     isForm: true,

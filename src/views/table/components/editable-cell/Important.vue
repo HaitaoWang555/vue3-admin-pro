@@ -25,7 +25,7 @@
 </template>
 
 <script>
-import Message from 'element-plus/lib/el-message'
+import { ElMessage as Message } from 'element-plus'
 import { ref } from 'vue'
 import { submit } from '@/api/public'
 export default {

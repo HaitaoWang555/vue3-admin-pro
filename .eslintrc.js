@@ -2,7 +2,7 @@ module.exports = {
   root: true,
   parser: 'vue-eslint-parser',
   parserOptions: {
-    parser: 'babel-eslint',
+    parser: '@babel/eslint-parser',
     ecmaVersion: 2020,
     sourceType: 'module',
   },
@@ -28,5 +28,6 @@ module.exports = {
     'no-console': 'off',
     'vue/no-mutating-props': 'off',
     'no-var': 2,
+    'vue/multi-word-component-names': 'off',
   },
 }

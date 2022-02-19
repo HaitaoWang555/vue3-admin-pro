@@ -2,14 +2,14 @@ import { createApp } from 'vue'
 
 import App from '@/App.vue'
 // style
-import 'tailwindcss/tailwind.css' // tailwind
+// import 'tailwindcss/tailwind.css' // tailwind
 import 'normalize.css/normalize.css' // a modern alternative to CSS resets
 import '@/styles/index.scss' // global css
 
 // import bootstrap from './core/bootstrap'
 
 // use lazy load element-plus
-import loadElementPlus from '@/core/lazy_use'
+import { loadPlugins } from '@/core/lazy_use'
 // use components
 import loadComponents from '@/core/use'
 // globalProperties
@@ -40,7 +40,7 @@ if (process.env.NODE_ENV === 'production') {
 
 const app = createApp(App)
 
-loadElementPlus(app)
+loadPlugins(app)
 loadComponents(app)
 globalProperties(app)
 

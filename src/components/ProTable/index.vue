@@ -18,7 +18,7 @@
       <TableSetting
         v-model:columns="tableColumns"
         :refresh="refresh"
-        @reRender="updateTable"
+        @re-render="updateTable"
       />
     </div>
     <el-table

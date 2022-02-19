@@ -13,7 +13,7 @@
 <script>
 import { sendSms } from '@/api/public'
 import { reactive } from 'vue'
-import Message from 'element-plus/lib/el-message'
+import { ElMessage as Message } from 'element-plus'
 
 export default {
   name: 'SendCode',

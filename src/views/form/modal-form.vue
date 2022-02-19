@@ -27,7 +27,7 @@
         :form-list="formList"
         :no-footer="true"
         :layout="{ formWidth: '560px', labelWidth: '150px' }"
-        @proSubmit="onSubmit"
+        @pro-submit="onSubmit"
       />
     </ProDialog>
   </div>
@@ -37,7 +37,7 @@
 import { submit } from '@/api/public'
 import { reactive, ref } from 'vue'
 import { list } from './columns/list'
-import Message from 'element-plus/lib/el-message'
+import { ElMessage as Message } from 'element-plus'
 
 export default {
   name: 'ModalForm',

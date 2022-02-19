@@ -45,7 +45,8 @@ const responseFake = (url, type, respond) => {
   }
 }
 
-module.exports = (app) => {
+module.exports = (devServer) => {
+  const { app } = devServer
   // parse app.body
   // https://expressjs.com/en/4x/api.html#req.body
   app.use(bodyParser.json())

@@ -7,7 +7,7 @@
       :form-list="formList"
       label-position="top"
       :layout="{ formWidth: '100%', labelWidth: '150px' }"
-      @proSubmit="onSubmit"
+      @pro-submit="onSubmit"
     >
       <template #title0> 仓库管理 </template>
       <template #roterText>
@@ -35,7 +35,7 @@ import { submit } from '@/api/public'
 import ProForm from '@/components/ProForm/index.vue'
 import { ref, reactive, toRaw } from 'vue'
 import { list } from './columns/advance'
-import Message from 'element-plus/lib/el-message'
+import { ElMessage as Message } from 'element-plus'
 
 export default {
   name: 'AdvancedForm',

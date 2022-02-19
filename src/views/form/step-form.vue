@@ -18,7 +18,7 @@
         :no-footer="true"
         :layout="{ formWidth: '560px', labelWidth: '150px' }"
         style="margin-top: 24px"
-        @proSubmit="onSubmit"
+        @pro-submit="onSubmit"
       >
         <template #receiver>
           <el-form-item label="收款账户 ：">
@@ -109,7 +109,7 @@
 import { submit } from '@/api/public'
 import { ref, reactive } from 'vue'
 import { list } from './columns/step-list'
-import Message from 'element-plus/lib/el-message'
+import { ElMessage as Message } from 'element-plus'
 
 export default {
   name: 'StepForm',

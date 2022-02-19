@@ -87,7 +87,7 @@
         :form-param="form"
         :form-list="columns"
         :layout="{ formWidth: '560px', labelWidth: '100px' }"
-        @proSubmit="proSubmit"
+        @pro-submit="proSubmit"
       >
         <template #importance>
           <el-form-item label="Imp : ">
@@ -108,7 +108,7 @@
 import { reactive, ref, toRaw } from 'vue'
 import { fetchList, createArticle, updateArticle } from '@/api/article'
 import { columnList } from './columns/list'
-import Message from 'element-plus/lib/el-message'
+import { ElMessage as Message } from 'element-plus'
 import useDict from '@/hooks/dict'
 import { parseTime, copyValue } from '@/utils'
 

@@ -143,7 +143,7 @@
 
 <script>
 import SendCode from '@/components/sendCode/index.vue'
-import { onBeforeUnmount, ref, watch } from 'vue'
+import { onBeforeUnmount, ref, watch, nextTick } from 'vue'
 
 export default {
   name: 'ProForm',
@@ -180,7 +180,13 @@ export default {
     const formRows = ref([])
 
     const ProForm = ref()
-    const originalFormParams = JSON.parse(JSON.stringify(prop.formParam))
+    const tempForm = {}
+    prop.formList.forEach((i) => {
+      tempForm[i.dataIndex] = i.defaultValue || ''
+    })
+    const originalFormParams = JSON.parse(
+      JSON.stringify(Object.assign(tempForm, prop.formParam))
+    )
 
     function init() {
       for (let index = 0; index < prop.formList.length; index++) {
@@ -247,7 +253,9 @@ export default {
 
     function resetFormParam() {
       Object.assign(prop.formParam, originalFormParams)
-      ProForm.value.resetFields()
+      nextTick().then(() => {
+        ProForm.value.clearValidate()
+      })
     }
     function handleSubmit() {
       return new Promise((resolve, reject) => {

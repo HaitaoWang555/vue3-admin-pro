@@ -5,7 +5,7 @@
       :form-param="form"
       :form-list="formList"
       :layout="{ formWidth: '560px', labelWidth: '150px' }"
-      @proSubmit="onSubmit"
+      @pro-submit="onSubmit"
     >
       <template #footerBtn>
         <el-button :loading="loading" type="primary" @click="handleOk"
@@ -22,7 +22,7 @@ import { submit } from '@/api/public'
 import ProForm from '@/components/ProForm/index.vue'
 import { reactive, ref, toRaw } from 'vue'
 import { list } from './columns/linkage'
-import Message from 'element-plus/lib/el-message'
+import { ElMessage as Message } from 'element-plus'
 
 export default {
   name: 'LinkageForm',

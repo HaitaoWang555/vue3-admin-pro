@@ -1,8 +1,10 @@
 'use strict'
 const path = require('path')
-const BundleAnalyzerPlugin = require('webpack-bundle-analyzer')
-  .BundleAnalyzerPlugin
+const BundleAnalyzerPlugin =
+  require('webpack-bundle-analyzer').BundleAnalyzerPlugin
 const defaultSettings = require('./src/settings.js')
+const Components = require('unplugin-vue-components/webpack')
+const { ElementPlusResolver } = require('unplugin-vue-components/resolvers')
 
 function resolve(dir) {
   return path.join(__dirname, dir)
@@ -18,7 +20,11 @@ const name = defaultSettings.title || 'vue Admin Pro' // page title
 const port = process.env.port || process.env.npm_config_port || 9528 // dev port
 const isDev = process.env.NODE_ENV === 'development'
 
-const plugins = []
+const plugins = [
+  Components({
+    resolvers: [ElementPlusResolver()],
+  }),
+]
 if (!isDev) {
   plugins.push(
     new BundleAnalyzerPlugin({
@@ -50,11 +56,7 @@ module.exports = {
   devServer: {
     port: port,
     open: false,
-    overlay: {
-      warnings: false,
-      errors: true,
-    },
-    before: require('./mock/mock-server.js'),
+    onBeforeSetupMiddleware: require('./mock/mock-server.js'),
   },
   configureWebpack: {
     // provide the app's title in webpack's name field, so that
@@ -64,21 +66,13 @@ module.exports = {
       alias: {
         '@': resolve('src'),
       },
+      fallback: {
+        path: require.resolve('path-browserify'),
+      },
     },
     plugins,
   },
   chainWebpack(config) {
-    // it can improve the speed of the first screen, it is recommended to turn on preload
-    config.plugin('preload').tap(() => [
-      {
-        rel: 'preload',
-        // to ignore runtime.js
-        // https://github.com/vuejs/vue-cli/blob/dev/packages/@vue/cli-service/lib/config/app.js#L171
-        fileBlacklist: [/\.map$/, /hot-update\.js$/, /runtime\..*\.js$/],
-        include: 'initial',
-      },
-    ])
-
     // when there are many pages, it will cause too many meaningless requests
     config.plugins.delete('prefetch')
 
